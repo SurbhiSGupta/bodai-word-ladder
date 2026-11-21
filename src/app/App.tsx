@@ -51,7 +51,6 @@ function nextPuzzle(): Puzzle {
 const blank = (length: number) => ' '.repeat(length);
 
 export default function App() {
-  const [showNear, setShowNear] = useState(true);
   const [puzzle, setPuzzle] = useState(firstPuzzle);
   const [ladder, setLadder] = useState<Ladder>(() => newLadder(puzzle.start, puzzle.end));
   const [draft, setDraft] = useState(() => blank(puzzle.start.length));
@@ -151,15 +150,6 @@ export default function App() {
 
       <div className="flex flex-wrap items-center gap-2 text-small">
         <span className="text-label text-muted">Prototype</span>
-        <label className="flex items-center gap-1.5">
-          <input
-            type="checkbox"
-            checked={showNear}
-            onChange={(e) => setShowNear(e.target.checked)}
-            className="size-4 accent-ink"
-          />
-          Yellow
-        </label>
       </div>
 
       <section aria-label="Ladder" className="flex min-h-0 flex-1 flex-col items-center gap-1">
@@ -170,7 +160,7 @@ export default function App() {
         >
           {steps.map((word, i) => (
             <li key={`${word}-${i}`}>
-              <Rung word={word} endWord={puzzle.end} showNear={showNear} size="md" />
+              <Rung word={word} endWord={puzzle.end} size="md" />
             </li>
           ))}
           {!solved && (
@@ -178,7 +168,7 @@ export default function App() {
               <Rung
                 word={draft}
                 endWord={puzzle.end}
-                showNear={showNear}
+
                 role="current"
                 size="md"
                 selectedIndex={typed < length ? typed : undefined}
