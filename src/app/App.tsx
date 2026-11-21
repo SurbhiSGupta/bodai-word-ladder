@@ -167,10 +167,9 @@ export default function App() {
           ))}
           {!solved && (
             <li key={`current-${shake}`}>
+              {/* No colors while typing: letters are only judged after Enter. */}
               <Rung
                 word={draft}
-                endWord={puzzle.end}
-
                 role="current"
                 size="md"
                 selectedIndex={typed < length ? typed : undefined}
