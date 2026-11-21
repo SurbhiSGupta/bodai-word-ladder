@@ -30,7 +30,11 @@ Every component, with a toolbar to switch Light/Dark and the five palettes. It's
 npm run check
 ```
 
-This runs the type check, lint, formatting check and tests. The same checks run on GitHub and on Netlify, and nothing ships if they fail.
+This runs the type check, lint, formatting check and tests. The same checks run on GitHub (every push) and on Netlify (deploys only), and nothing ships if they fail.
+
+## Deploying
+
+Pushing doesn't deploy. To put the latest work live, include `[deploy]` in the last commit message of the push. This keeps Netlify's free plan, which counts every deploy, comfortably within its limits.
 
 ## Where things live
 
