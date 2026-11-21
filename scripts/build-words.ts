@@ -108,8 +108,8 @@ function loadWordNet() {
   function baseForms(word: string): string[] {
     const forms: string[] = [];
     if (word.endsWith('ies')) forms.push(word.slice(0, -3) + 'y');
-    if (word.endsWith('es')) forms.push(word.slice(0, -2));
-    if (word.endsWith('s') && !word.endsWith('ss')) forms.push(word.slice(0, -1));
+    if (word.endsWith('s') && !word.endsWith('ss')) forms.push(word.slice(0, -1)); // ANTES -> ANTE
+    if (word.endsWith('es')) forms.push(word.slice(0, -2)); // BOXES -> BOX
     if (word.endsWith('ed')) forms.push(word.slice(0, -2), word.slice(0, -1));
     if (word.endsWith('ing')) forms.push(word.slice(0, -3), word.slice(0, -3) + 'e');
     for (const form of [...forms]) {
