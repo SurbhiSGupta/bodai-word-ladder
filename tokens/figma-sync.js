@@ -22,6 +22,12 @@ const T = {
       toast: '#10303b',
       'toast-ink': '#ffffff',
       scrim: '#f6f4ecb8',
+      glasses: '#2c3f8f',
+      blush: '#f4a6b4',
+      fur: '#eeff41',
+      'fur-shade': '#c9da1e',
+      tongue: '#f08a8d',
+      collar: '#e5484d',
     },
     dark: {
       bg: '#0a1e25',
@@ -41,6 +47,12 @@ const T = {
       toast: '#eaf2f0',
       'toast-ink': '#0a1e25',
       scrim: '#0a1e25bd',
+      glasses: '#8ea2ff',
+      blush: '#f4a6b4',
+      fur: '#eeff41',
+      'fur-shade': '#c9da1e',
+      tongue: '#f08a8d',
+      collar: '#e5484d',
     },
   },
   palettes: {
@@ -127,11 +139,142 @@ const T = {
     },
   },
   shape: {
-    $description: 'Corner radius and spacing, in px.',
+    $description: 'Corner radius in px.',
     'corner-sm': 8,
     'corner-md': 12,
     'corner-lg': 16,
     'corner-pill': 999,
+  },
+  space: {
+    $description:
+      "Spacing in px, as CSS variables (--space-md). They match Tailwind's 4px scale: xs = 1, sm = 2, md = 3, lg = 4, xl = 6, 2xl = 8, 3xl = 12.",
+    '2xs': 2,
+    xs: 4,
+    sm: 8,
+    md: 12,
+    lg: 16,
+    xl: 24,
+    '2xl': 32,
+    '3xl': 48,
+    gutter: 16,
+    column: 448,
+  },
+  type: {
+    $description:
+      'Outfit everywhere, like Boduku. Each style: size and line height in px, weight, letter spacing in em.',
+    family: 'Outfit',
+    styles: {
+      display: {
+        size: 40,
+        line: 44,
+        weight: 800,
+        tracking: -0.01,
+        use: 'Game title and big win moments',
+      },
+      title: {
+        size: 28,
+        line: 32,
+        weight: 800,
+        tracking: -0.01,
+        use: "Screen titles, today's date on the daily card",
+      },
+      heading: { size: 20, line: 26, weight: 700, tracking: 0, use: 'Card and sheet headings' },
+      body: { size: 16, line: 24, weight: 400, tracking: 0, use: 'Everything you read' },
+      'body-strong': { size: 16, line: 24, weight: 600, tracking: 0, use: 'Buttons and emphasis' },
+      small: { size: 14, line: 20, weight: 400, tracking: 0, use: 'Help text and meanings' },
+      label: {
+        size: 12,
+        line: 16,
+        weight: 700,
+        tracking: 0.08,
+        case: 'upper',
+        use: "Section labels like TODAY'S PUZZLE and LEVELS",
+      },
+      tile: {
+        size: 24,
+        line: 24,
+        weight: 800,
+        tracking: 0,
+        case: 'upper',
+        use: 'Letters on the ladder',
+      },
+      key: { size: 18, line: 20, weight: 700, tracking: 0, case: 'upper', use: 'Keyboard letters' },
+    },
+  },
+  elevation: {
+    $description: "Shadows. Soft, like Boduku's cards.",
+    'shadow-card': '0 1px 0 #10303b14, 0 8px 20px -12px #10303b40',
+    'shadow-raised': '0 2px 0 #10303b14, 0 16px 32px -16px #10303b59',
+    'shadow-pressed': 'inset 0 2px 0 #10303b1f',
+  },
+  motion: {
+    $description:
+      'Durations in ms and easing curves. Everything respects reduced motion: movement stops, color changes stay.',
+    'duration-instant': 80,
+    'duration-fast': 140,
+    'duration-base': 220,
+    'duration-slow': 360,
+    'duration-celebrate': 900,
+    'ease-standard': 'cubic-bezier(0.2, 0.8, 0.2, 1)',
+    'ease-bounce': 'cubic-bezier(0.34, 1.56, 0.64, 1)',
+    'ease-exit': 'cubic-bezier(0.4, 0, 1, 1)',
+  },
+  feedback: {
+    $description:
+      'What the player hears and feels for each moment. Sounds are soft synthesized tones (like Boduku) or recordings; haptics only run in the phone app. Every sound respects the Sound setting, every buzz the Vibration setting.',
+    events: {
+      'key-tap': {
+        sound: null,
+        haptic: 'tap',
+        note: 'Silent on purpose: typing should feel light.',
+      },
+      'letter-picked': {
+        sound: { tone: [520], length: 0.06, volume: 0.03 },
+        haptic: 'tap',
+        note: 'Choosing which letter to change.',
+      },
+      'rung-added': {
+        sound: { tone: [587, 784], length: 0.09, volume: 0.05 },
+        haptic: 'tap',
+        note: 'A real word, one rung up. Two rising notes.',
+      },
+      'not-a-word': {
+        sound: { tone: [220], length: 0.14, volume: 0.05, wave: 'triangle' },
+        haptic: 'error',
+        note: 'Rung shakes, one bone eaten. Low and short, never harsh.',
+      },
+      'keep-it-friendly': {
+        sound: null,
+        haptic: null,
+        note: 'A blocked word: gentle toast, no sound, no buzz, no bone lost.',
+      },
+      hint: {
+        sound: { tone: [880], length: 0.08, volume: 0.04 },
+        haptic: 'tap',
+        note: 'A hint appears.',
+      },
+      undo: {
+        sound: { tone: [440], length: 0.05, volume: 0.03 },
+        haptic: null,
+        note: 'Stepping back down.',
+      },
+      solved: {
+        sound: { sample: 'laugh' },
+        haptic: 'win',
+        note: "One family laugh, shuffled so the same one doesn't repeat soon, like Boduku.",
+      },
+      'under-par': {
+        sound: { sample: 'frisky-bark' },
+        haptic: 'win',
+        note: 'Frisky barks after the laugh.',
+      },
+      'sound-on': {
+        sound: { tone: [520], length: 0.09, volume: 0.04 },
+        haptic: null,
+        note: 'The tick when Sound is switched on, so you know it works.',
+      },
+    },
+    haptics: { tap: 'Light impact', error: 'Error notification', win: 'Success notification' },
   },
 };
 const skip = (k) => k.startsWith('$');
@@ -221,8 +364,63 @@ for (const [key, value] of Object.entries(T.shape).filter(([k]) => !skip(k))) {
   v.setValueForMode(shape.ids.Value, Number(value));
 }
 
+// Space: spacing, for gaps, padding and sizes.
+const space = collection('Space', ['Value']);
+for (const [key, value] of Object.entries(T.space).filter(([k]) => !skip(k))) {
+  const v = variable(space.c, 'space/' + key, 'FLOAT', ['GAP', 'WIDTH_HEIGHT'], 'space-' + key);
+  v.setValueForMode(space.ids.Value, Number(value));
+}
+
+// Text styles, in Outfit.
+const WEIGHT = { 400: 'Regular', 500: 'Medium', 600: 'SemiBold', 700: 'Bold', 800: 'ExtraBold' };
+const textStyles = await figma.getLocalTextStylesAsync();
+const styleIds = {};
+for (const [name, t] of Object.entries(T.type.styles)) {
+  const fontName = { family: T.type.family, style: WEIGHT[t.weight] };
+  await figma.loadFontAsync(fontName);
+  let style = textStyles.find((x) => x.name === 'Bodai/' + name);
+  if (!style) style = figma.createTextStyle();
+  style.name = 'Bodai/' + name;
+  style.fontName = fontName;
+  style.fontSize = t.size;
+  style.lineHeight = { unit: 'PIXELS', value: t.line };
+  style.letterSpacing = { unit: 'PERCENT', value: t.tracking * 100 };
+  style.textCase = t.case === 'upper' ? 'UPPER' : 'ORIGINAL';
+  style.description = t.use + ' · CSS: text-' + name;
+  styleIds[name] = style.id;
+}
+
+// Effect styles from the CSS shadows ("x y blur spread #color, ...", "inset" for inner). Colors are hex, so commas only separate shadows.
+function shadows(css) {
+  return css.split(', ').map((part) => {
+    const bits = part.trim().split(' ');
+    const inset = bits[0] === 'inset';
+    if (inset) bits.shift();
+    const [x, y, blur = 0, spread = 0] = bits.slice(0, -1).map((b) => parseFloat(b));
+    const c = rgba(bits[bits.length - 1]);
+    return {
+      type: inset ? 'INNER_SHADOW' : 'DROP_SHADOW',
+      color: c,
+      offset: { x, y },
+      radius: blur,
+      spread,
+      visible: true,
+      blendMode: 'NORMAL',
+    };
+  });
+}
+const effectStyles = await figma.getLocalEffectStylesAsync();
+for (const [name, value] of Object.entries(T.elevation).filter(([k]) => !skip(k))) {
+  let style = effectStyles.find((x) => x.name === 'Bodai/' + name);
+  if (!style) style = figma.createEffectStyle();
+  style.name = 'Bodai/' + name;
+  style.effects = shadows(value);
+  style.description = 'CSS: var(--' + name + ')';
+}
+
 return {
-  collections: { Palette: palette.c.id, Theme: theme.c.id, Shape: shape.c.id },
+  textStyles: styleIds,
+  collections: { Palette: palette.c.id, Theme: theme.c.id, Shape: shape.c.id, Space: space.c.id },
   modes: { Palette: palette.ids, Theme: theme.ids },
   variableCount: touched.length,
 };

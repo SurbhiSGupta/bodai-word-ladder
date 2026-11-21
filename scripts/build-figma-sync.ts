@@ -13,6 +13,8 @@
  *   colors (accent, highlight…) are aliases into Palette, so switching Theme and Palette
  *   modes independently works just like the app.
  * - "Shape" collection, one mode. Corner radii.
+ * - "Space" collection, one mode. Spacing.
+ * - Text styles "Bodai/<name>" in Outfit, and effect styles "Bodai/<shadow>".
  */
 
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -95,8 +97,63 @@ for (const [key, value] of Object.entries(T.shape).filter(([k]) => !skip(k))) {
   v.setValueForMode(shape.ids.Value, Number(value));
 }
 
+// Space: spacing, for gaps, padding and sizes.
+const space = collection('Space', ['Value']);
+for (const [key, value] of Object.entries(T.space).filter(([k]) => !skip(k))) {
+  const v = variable(space.c, 'space/' + key, 'FLOAT', ['GAP', 'WIDTH_HEIGHT'], 'space-' + key);
+  v.setValueForMode(space.ids.Value, Number(value));
+}
+
+// Text styles, in Outfit.
+const WEIGHT = { 400: 'Regular', 500: 'Medium', 600: 'SemiBold', 700: 'Bold', 800: 'ExtraBold' };
+const textStyles = await figma.getLocalTextStylesAsync();
+const styleIds = {};
+for (const [name, t] of Object.entries(T.type.styles)) {
+  const fontName = { family: T.type.family, style: WEIGHT[t.weight] };
+  await figma.loadFontAsync(fontName);
+  let style = textStyles.find((x) => x.name === 'Bodai/' + name);
+  if (!style) style = figma.createTextStyle();
+  style.name = 'Bodai/' + name;
+  style.fontName = fontName;
+  style.fontSize = t.size;
+  style.lineHeight = { unit: 'PIXELS', value: t.line };
+  style.letterSpacing = { unit: 'PERCENT', value: t.tracking * 100 };
+  style.textCase = t.case === 'upper' ? 'UPPER' : 'ORIGINAL';
+  style.description = t.use + ' · CSS: text-' + name;
+  styleIds[name] = style.id;
+}
+
+// Effect styles from the CSS shadows ("x y blur spread #color, ...", "inset" for inner). Colors are hex, so commas only separate shadows.
+function shadows(css) {
+  return css.split(', ').map((part) => {
+    const bits = part.trim().split(' ');
+    const inset = bits[0] === 'inset';
+    if (inset) bits.shift();
+    const [x, y, blur = 0, spread = 0] = bits.slice(0, -1).map((b) => parseFloat(b));
+    const c = rgba(bits[bits.length - 1]);
+    return {
+      type: inset ? 'INNER_SHADOW' : 'DROP_SHADOW',
+      color: c,
+      offset: { x, y },
+      radius: blur,
+      spread,
+      visible: true,
+      blendMode: 'NORMAL',
+    };
+  });
+}
+const effectStyles = await figma.getLocalEffectStylesAsync();
+for (const [name, value] of Object.entries(T.elevation).filter(([k]) => !skip(k))) {
+  let style = effectStyles.find((x) => x.name === 'Bodai/' + name);
+  if (!style) style = figma.createEffectStyle();
+  style.name = 'Bodai/' + name;
+  style.effects = shadows(value);
+  style.description = 'CSS: var(--' + name + ')';
+}
+
 return {
-  collections: { Palette: palette.c.id, Theme: theme.c.id, Shape: shape.c.id },
+  textStyles: styleIds,
+  collections: { Palette: palette.c.id, Theme: theme.c.id, Shape: shape.c.id, Space: space.c.id },
   modes: { Palette: palette.ids, Theme: theme.ids },
   variableCount: touched.length,
 };
