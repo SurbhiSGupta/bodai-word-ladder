@@ -11,6 +11,19 @@ npm install
 npm run dev
 ```
 
+## Design system
+
+```bash
+npm run storybook
+```
+
+Every component, with a toolbar to switch Light/Dark and the five palettes. It's also published at [/storybook](https://bodai-word-ladder.netlify.app/storybook/).
+
+**Colors have one master copy: `tokens/tokens.json`.**
+
+- `npm run tokens` rebuilds `src/styles/tokens.css` and `src/styles/palettes.ts` from it.
+- `npm run figma-sync` writes `tokens/figma-sync.js`, which creates or updates the Figma variables (Theme: Light/Dark, Palette: Bodai, Berry, Lavender, Mango, Ocean, and Shape) in the [design system file](https://www.figma.com/design/EaPQrTk1Co6Ls1nvAusEQ2).
+
 ## Before you push
 
 ```bash

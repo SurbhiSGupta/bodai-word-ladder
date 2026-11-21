@@ -14,7 +14,11 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "check": "npm run typecheck && npm run lint && npm run format:check && npm run test",
-    "words": "node scripts/build-words.ts"
+    "words": "node scripts/build-words.ts",
+    "tokens": "node scripts/build-tokens.ts",
+    "figma-sync": "node scripts/build-figma-sync.ts",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@fontsource-variable/outfit": "^5.3.0",
@@ -35,7 +39,10 @@
     "vite": "^8.3.6",
     "vitest": "^5.1.1",
     "wordlist-english": "^1.2.1",
-    "wordnet-db": "^3.1.14"
+    "wordnet-db": "^3.1.14",
+    "storybook": "^10.6.8",
+    "@storybook/react-vite": "^10.6.8",
+    "@storybook/addon-docs": "^10.6.8"
   },
   "engines": {
     "node": ">=22"

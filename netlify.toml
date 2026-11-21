@@ -1,7 +1,7 @@
 # Netlify reads this file, so there is nothing to fill in on the Netlify site.
 # The checks run first; if they fail, Netlify does not publish.
 [build]
-  command = "npm run check && npm run build"
+  command = "npm run check && npm run build && npm run build-storybook -- --output-dir dist/storybook --quiet"
   publish = "dist"
 
 [build.environment]
