@@ -4,12 +4,12 @@
 
 :root {
   color-scheme: light;
-  --bg: #f6f4ec;
+  --bg: #f1ecdf;
   --surface: #ffffff;
   --ink: #10303b;
   --muted: #55666d;
-  --edge: #10303b24;
-  --tile: #e2e8e6;
+  --edge: #10303b2e;
+  --tile: #d9e0dd;
   --tile-ink: #10303b;
   --accent-ink: #10303b;
   --match: #3ecf8e;
@@ -20,7 +20,7 @@
   --bad-ink: #b3261e;
   --toast: #10303b;
   --toast-ink: #ffffff;
-  --scrim: #f6f4ecb8;
+  --scrim: #f1ecdfb8;
   --glasses: #2c3f8f;
   --blush: #f4a6b4;
   --fur: #eeff41;
