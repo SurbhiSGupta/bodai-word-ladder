@@ -2,6 +2,18 @@
 @import '@fontsource-variable/outfit';
 @import './tokens.css';
 
+/* dark: follows the game's theme setting, like the tokens do. */
+@custom-variant dark {
+  &:where([data-theme='dark'], [data-theme='dark'] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme='light']) *) {
+      @slot;
+    }
+  }
+}
+
 @theme inline {
   --font-sans: 'Outfit Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --animate-shake: shake 0.32s ease-in-out;

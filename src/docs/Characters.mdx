@@ -1,0 +1,46 @@
+import { Meta, Canvas } from '@storybook/addon-docs/blocks';
+import * as BuddyStories from '../components/Buddies.stories';
+
+<Meta title="Brand/Character rules" />
+
+# Her and Frisky
+
+The stick figure is Surbhi, and Frisky is the dog. They're the heart of every Bodai game, so they look the same everywhere.
+
+<Canvas of={BuddyStories.Together} />
+
+## How they're drawn
+
+- **One pen.** Every line is the same ink color (`--ink`) at 2.6 units, with round ends and round joins. Eyebrows are thinner (1.8), the glasses thinner still (1.7).
+- **She has no fill.** Just lines on the background, so she works on any surface and in both themes.
+- **Glasses are the one color on her:** navy in light mode (`--glasses`), a soft periwinkle in dark mode so they still show.
+- **Frisky is neon.** His fur is Bodai neon (`--fur`), his ear one shade deeper (`--fur-shade`), with a pink tongue (`--tongue`) and a red collar (`--collar`). He stays neon in every palette: he's a character, not a theme color.
+- **Blush is optional,** for the cute, joy and kiss faces only (`--blush`, 75% opacity).
+
+## Where they go
+
+- Frisky sits at her feet, on the **left**, facing right.
+- They stand on the same baseline. Never float them, crop their feet or put them inside a card.
+- Keep them at least 120px tall on the home screen, so the faces read. Smaller than 64px, show Frisky alone.
+- Nothing overlaps them except hearts, a ball or a leash from the story scenes.
+
+## Faces and when to use them
+
+<Canvas of={BuddyStories.AllFaces} />
+
+| Face    | Use it for                                                             |
+| ------- | ---------------------------------------------------------------------- |
+| default | Resting on the home screen                                             |
+| happy   | Waving hello, a new puzzle                                             |
+| cute    | Tapping her, the tour                                                  |
+| curious | A hint, "what's that word?"                                            |
+| joy     | Puzzle solved                                                          |
+| kiss    | Under par, a new best                                                  |
+| sad     | Running out of bones. Use sparingly, and never for a single wrong word |
+
+## Don'ts
+
+- Don't recolor her lines with the palette accent.
+- Don't stretch, skew or outline them.
+- Don't give her a speech bubble with long text. A short toast nearby works better.
+- Don't use the sad face to make anyone feel bad.

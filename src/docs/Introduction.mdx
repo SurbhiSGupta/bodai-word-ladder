@@ -1,0 +1,24 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Introduction" />
+
+# Bodai Word Ladder design system
+
+Change one letter at a time to climb from one word to another. This is the system behind it: the same look as Bodai Sudoku, rebuilt on purpose so every decision has a name.
+
+## How it fits together
+
+- **One master copy.** Every color, type style, corner, shadow, motion curve, and sound and haptic rule lives in `tokens/tokens.json`.
+- **Code follows it.** `npm run tokens` turns it into CSS variables and Tailwind classes (`bg-surface`, `text-heading`, `rounded-md`).
+- **Figma follows it.** `npm run figma-sync` turns it into Figma variables (Theme: Light/Dark, Palette: Bodai, Berry, Lavender, Mango, Ocean, and Shape) in the [design system file](https://www.figma.com/design/EaPQrTk1Co6Ls1nvAusEQ2).
+- **Components use only tokens.** No hard-coded colors or sizes, so a new palette or a dark-mode fix lands everywhere at once.
+
+## Principles
+
+1. **Fun, not serious.** Bodai games are warm and a little silly. Copy is plain and kind: "Not in our word list", never "Invalid input".
+2. **Kind when you're wrong.** A wrong word shakes and costs a bone; it never scolds. A blocked word costs nothing at all.
+3. **Everyone can play.** Full keyboard play, screen readers hear every change, and reduced motion stops movement but keeps meaning.
+4. **The goal is always in view.** The start word is pinned to the top and the end word to the bottom.
+5. **One family.** If it's in Boduku, it looks and feels the same here.
+
+Use the toolbar to switch **Theme** and **Palette** on any page.

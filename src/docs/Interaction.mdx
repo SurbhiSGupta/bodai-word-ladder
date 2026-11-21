@@ -1,0 +1,59 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Guidelines/Interaction" />
+
+# Interaction rules
+
+How the game responds to hands, keys and screen readers. These are design decisions, so they live here with the rest of the system.
+
+## Keyboard
+
+| Key                | What it does                              |
+| ------------------ | ----------------------------------------- |
+| A to Z             | Types into the current rung               |
+| ← →                | Moves between letters in the current rung |
+| Backspace          | Clears the letter to the left             |
+| Delete             | Clears the selected letter                |
+| Enter              | Adds the word as a rung                   |
+| ⌘/Ctrl + Z         | Undo (steps one rung down)                |
+| ⌘/Ctrl + Shift + Z | Redo                                      |
+| H                  | Hint                                      |
+| Space              | Pause, when a timer is running (Ninja)    |
+| Escape             | Closes the open sheet or menu             |
+
+Shortcuts never fire while a text field has focus, except Enter and Escape.
+
+## Touch
+
+- Every tap target is at least **44 × 44px**.
+- The on-screen keyboard sits at the bottom, in the thumb zone.
+- No long-press-only actions: anything a long press does has a visible button too.
+- No swipes for core moves. Swipes are shortcuts only.
+
+## Feedback
+
+Every moment has one sound and one buzz, or deliberately none. See **Foundations → Sound and haptics** for the full list.
+
+- **Real word:** the rung slides into place and two rising notes play.
+- **Not a word:** the rung shakes (320ms) and one bone fades. Low, short tone.
+- **Blocked word:** gentle toast ("Let's keep it friendly 🐾"). No shake, no sound, no bone.
+- **Solved:** her joy face, a family laugh, a success buzz.
+
+## Screen readers
+
+- Each rung is announced as a whole word ("Step: CORD"), never letter by letter.
+- New rungs, errors and toasts are announced as they happen (`role="status"`).
+- Bones are read as a sentence: "7 of 10 bones left".
+- Green and yellow are never the only signal. The Rung's label and the end word say the same thing in words.
+
+## Motion
+
+- Default movement uses `--ease-standard` at `--duration-base` (220ms).
+- Celebrations may use `--ease-bounce` and `--duration-celebrate`.
+- With **reduced motion** on, nothing moves or shakes. Color changes and sounds stay, so no meaning is lost.
+
+## Writing
+
+- Plain, warm and short: "Not in our word list", "Under par! 🎉", "Frisky ate a bone".
+- Name what the player sees, not how the game works.
+- Never blame the player.
