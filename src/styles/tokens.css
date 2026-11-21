@@ -1,0 +1,47 @@
+/*
+ * Design tokens: the master copy of every color in the game.
+ * Values are taken from Bodai Sudoku so both games feel like one family.
+ * Phase 1 adds the Figma variables and the five palettes on top of these.
+ *
+ * Theme is chosen by <html data-theme="light|dark">. With no attribute,
+ * the player's system setting decides.
+ */
+
+:root {
+  color-scheme: light;
+  --bg: #f6f4ec;
+  --surface: #ffffff;
+  --ink: #10303b;
+  --muted: #55666d;
+  --edge: rgb(16 48 59 / 0.14);
+  --accent: #eeff41;
+  --accent-ink: #10303b;
+  --green: #3ecf8e;
+  --green-ink: #0b2a33;
+  --bad: #ffdcd5;
+  --bad-ink: #b3261e;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+    --bg: #0a1e25;
+    --surface: #123039;
+    --ink: #eaf2f0;
+    --muted: #9db2b5;
+    --edge: rgb(0 0 0 / 0.35);
+    --bad: #5c2420;
+    --bad-ink: #ffb4a8;
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: #0a1e25;
+  --surface: #123039;
+  --ink: #eaf2f0;
+  --muted: #9db2b5;
+  --edge: rgb(0 0 0 / 0.35);
+  --bad: #5c2420;
+  --bad-ink: #ffb4a8;
+}
