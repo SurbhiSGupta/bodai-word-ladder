@@ -19,7 +19,7 @@ export function Key({ label, spokenLabel, wide = false, className = '', ...rest 
         'transition active:scale-95 hover:brightness-95',
         'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink',
         'disabled:opacity-40',
-        wide ? 'min-w-16 px-3 text-xs' : 'min-w-9 flex-1 text-lg',
+        wide ? 'w-14 shrink-0 px-1 text-xs' : 'min-w-0 flex-1 text-lg',
         className,
       ].join(' ')}
       {...rest}

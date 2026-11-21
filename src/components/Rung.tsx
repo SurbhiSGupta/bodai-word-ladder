@@ -14,6 +14,8 @@ export type RungProps = {
   /** Shakes the rung, for a word that isn't in the list. */
   invalid?: boolean;
   size?: 'md' | 'lg';
+  /** Makes each letter a button, for choosing which letter to change. */
+  onLetterClick?: (index: number) => void;
 };
 
 const ROLE_LABEL = {
@@ -32,6 +34,7 @@ export function Rung({
   selectedIndex,
   invalid = false,
   size = 'lg',
+  onLetterClick,
 }: RungProps) {
   const hints = endWord ? letterHints(word, endWord) : [];
   const pinned = role === 'start' || role === 'end';
@@ -39,7 +42,7 @@ export function Rung({
   return (
     <div
       role="group"
-      aria-label={`${ROLE_LABEL[role]}: ${word.toUpperCase()}`}
+      aria-label={`${ROLE_LABEL[role]}: ${word.toUpperCase().replaceAll(' ', '_')}`}
       className={[
         'inline-flex gap-1.5 rounded-lg p-2',
         pinned ? 'bg-highlight' : 'bg-transparent',
@@ -49,14 +52,27 @@ export function Rung({
     >
       {Array.from(word).map((letter, i) => {
         const hint = hints[i] ?? 'none';
-        return (
+        const tile = (
           <LetterTile
             key={i}
-            letter={letter}
+            letter={letter.trim()}
             hint={!showNear && hint === 'near' ? 'none' : hint}
             selected={i === selectedIndex}
             size={size}
           />
+        );
+        if (!onLetterClick) return tile;
+        return (
+          <button
+            key={i}
+            type="button"
+            aria-label={`Change letter ${i + 1}, ${letter.toUpperCase()}`}
+            aria-pressed={i === selectedIndex}
+            onClick={() => onLetterClick(i)}
+            className="rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
+          >
+            {tile}
+          </button>
         );
       })}
     </div>

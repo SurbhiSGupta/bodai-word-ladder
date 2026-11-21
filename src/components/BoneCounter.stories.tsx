@@ -12,6 +12,7 @@ type Story = StoryObj<typeof meta>;
 
 export const TenBones: Story = {};
 export const FiveBones: Story = { args: { used: 1, total: 5 } };
+export const Small: Story = { name: 'Small (phone header)', args: { size: 'sm' } };
 export const AllGone: Story = { args: { used: 10, total: 10 } };
 export const CountUp: Story = {
   name: 'Unlimited (counts up)',

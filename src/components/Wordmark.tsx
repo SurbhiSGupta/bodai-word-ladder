@@ -15,7 +15,11 @@ const SIZE = { display: 'text-display', title: 'text-title', heading: 'text-head
 
 export function Wordmark({ children = 'Bodai Word Ladder', size = 'display' }: WordmarkProps) {
   return (
-    <span className={['relative isolate inline-block px-[0.12em]', SIZE[size]].join(' ')}>
+    <span
+      className={['relative isolate inline-block px-[0.12em] whitespace-nowrap', SIZE[size]].join(
+        ' ',
+      )}
+    >
       <svg
         viewBox="0 0 300 60"
         preserveAspectRatio="none"
