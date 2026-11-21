@@ -14,6 +14,8 @@ export type Ladder = {
   rungs: string[];
   /** Words tried that weren't in the list. Each one eats a bone. */
   bonesUsed: number;
+  /** Rungs taken back with Undo, most recent last, so Redo can put them back. */
+  undone: string[];
 };
 
 /** What happened when the player tried a word. */
@@ -28,7 +30,7 @@ export type MoveResult =
   | 'not-a-word';
 
 export function newLadder(start: string, end: string): Ladder {
-  return { start, end, rungs: [], bonesUsed: 0 };
+  return { start, end, rungs: [], bonesUsed: 0, undone: [] };
 }
 
 /** The word the next rung changes: the last rung, or the start word. */
@@ -38,6 +40,11 @@ export function currentWord(ladder: Ladder): string {
 
 export function isSolved(ladder: Ladder): boolean {
   return currentWord(ladder) === ladder.end;
+}
+
+/** True when every bone is gone. Without a limit (unlimited bones), never. */
+export function isOutOfBones(ladder: Ladder, bones?: number): boolean {
+  return bones !== undefined && ladder.bonesUsed >= bones;
 }
 
 /**
@@ -64,7 +71,7 @@ export function tryWord(
   if (isSolved(ladder)) return { ladder, result: 'solved' };
   const result = checkWord(ladder, word, dictionary);
   if (result === 'added' || result === 'solved') {
-    return { ladder: { ...ladder, rungs: [...ladder.rungs, word] }, result };
+    return { ladder: { ...ladder, rungs: [...ladder.rungs, word], undone: [] }, result };
   }
   if (result === 'not-a-word') {
     return { ladder: { ...ladder, bonesUsed: ladder.bonesUsed + 1 }, result };
@@ -74,7 +81,21 @@ export function tryWord(
 
 /** Steps one rung back down. Bones stay eaten. */
 export function undo(ladder: Ladder): Ladder {
-  return { ...ladder, rungs: ladder.rungs.slice(0, -1) };
+  const last = ladder.rungs.at(-1);
+  if (last === undefined) return ladder;
+  return { ...ladder, rungs: ladder.rungs.slice(0, -1), undone: [...ladder.undone, last] };
+}
+
+/** Puts back the rung most recently taken away with Undo. */
+export function redo(ladder: Ladder): Ladder {
+  const word = ladder.undone.at(-1);
+  if (word === undefined) return ladder;
+  return { ...ladder, rungs: [...ladder.rungs, word], undone: ladder.undone.slice(0, -1) };
+}
+
+/** Same puzzle, fresh ladder and a full set of bones. */
+export function restart(ladder: Ladder): Ladder {
+  return newLadder(ladder.start, ladder.end);
 }
 
 /** Plain, kind words for each result, shown in a toast. */

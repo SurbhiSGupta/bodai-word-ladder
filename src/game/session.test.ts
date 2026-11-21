@@ -1,6 +1,15 @@
 import { describe, expect, it } from 'vitest';
 import { makeDictionary } from './dictionary.ts';
-import { checkWord, currentWord, newLadder, tryWord, undo } from './session.ts';
+import {
+  checkWord,
+  currentWord,
+  isOutOfBones,
+  newLadder,
+  redo,
+  restart,
+  tryWord,
+  undo,
+} from './session.ts';
 
 const dictionary = makeDictionary(
   { common: ['fire', 'fore', 'core', 'cord', 'cold', 'hire'], rare: ['fere'] },
@@ -65,6 +74,43 @@ describe('undo', () => {
     ladder = undo(ladder);
     expect(currentWord(ladder)).toBe('fire');
     expect(ladder.bonesUsed).toBe(1);
+  });
+});
+
+describe('redo', () => {
+  it('puts back what undo took away, in order', () => {
+    let ladder = newLadder('fire', 'cold');
+    for (const word of ['fore', 'core']) ladder = tryWord(ladder, word, dictionary).ladder;
+    ladder = undo(undo(ladder));
+    expect(currentWord(ladder)).toBe('fire');
+    ladder = redo(ladder);
+    expect(currentWord(ladder)).toBe('fore');
+    ladder = redo(ladder);
+    expect(currentWord(ladder)).toBe('core');
+    expect(redo(ladder)).toBe(ladder);
+  });
+
+  it('forgets undone rungs once a new word is added', () => {
+    let ladder = tryWord(newLadder('fire', 'cold'), 'fore', dictionary).ladder;
+    ladder = undo(ladder);
+    ladder = tryWord(ladder, 'hire', dictionary).ladder;
+    expect(ladder.undone).toEqual([]);
+  });
+});
+
+describe('bones', () => {
+  it('runs out at the limit, and never when unlimited', () => {
+    let ladder = newLadder('fire', 'cold');
+    for (let i = 0; i < 3; i++) ladder = tryWord(ladder, 'fize', dictionary).ladder;
+    expect(isOutOfBones(ladder, 3)).toBe(true);
+    expect(isOutOfBones(ladder, 5)).toBe(false);
+    expect(isOutOfBones(ladder)).toBe(false);
+  });
+
+  it('restart gives the same puzzle with every bone back', () => {
+    let ladder = tryWord(newLadder('fire', 'cold'), 'fize', dictionary).ladder;
+    ladder = restart(ladder);
+    expect(ladder).toEqual(newLadder('fire', 'cold'));
   });
 });
 

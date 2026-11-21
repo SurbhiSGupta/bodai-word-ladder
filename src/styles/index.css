@@ -19,6 +19,14 @@
   --animate-shake: shake 0.32s ease-in-out;
 }
 
+/* The bottom sheet rising into place. */
+@keyframes sheet-up {
+  from {
+    transform: translateY(24px);
+    opacity: 0;
+  }
+}
+
 /* A quick side-to-side wobble for a word that isn't in the list. */
 @keyframes shake {
   0%,
