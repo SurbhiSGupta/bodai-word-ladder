@@ -9,13 +9,11 @@ export type RungProps = {
   showNear?: boolean;
   /** start and end are pinned and highlighted; current is the rung being typed. */
   role?: 'start' | 'step' | 'current' | 'end';
-  /** Index of the letter being changed, if any. */
+  /** Index of the slot being typed next, if any. */
   selectedIndex?: number;
   /** Shakes the rung, for a word that isn't in the list. */
   invalid?: boolean;
   size?: 'md' | 'lg';
-  /** Makes each letter a button, for choosing which letter to change. */
-  onLetterClick?: (index: number) => void;
 };
 
 const ROLE_LABEL = {
@@ -34,7 +32,6 @@ export function Rung({
   selectedIndex,
   invalid = false,
   size = 'lg',
-  onLetterClick,
 }: RungProps) {
   const hints = endWord ? letterHints(word, endWord) : [];
   const pinned = role === 'start' || role === 'end';
@@ -52,7 +49,7 @@ export function Rung({
     >
       {Array.from(word).map((letter, i) => {
         const hint = hints[i] ?? 'none';
-        const tile = (
+        return (
           <LetterTile
             key={i}
             letter={letter.trim()}
@@ -60,19 +57,6 @@ export function Rung({
             selected={i === selectedIndex}
             size={size}
           />
-        );
-        if (!onLetterClick) return tile;
-        return (
-          <button
-            key={i}
-            type="button"
-            aria-label={`Change letter ${i + 1}, ${letter.toUpperCase()}`}
-            aria-pressed={i === selectedIndex}
-            onClick={() => onLetterClick(i)}
-            className="rounded-md focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink"
-          >
-            {tile}
-          </button>
         );
       })}
     </div>

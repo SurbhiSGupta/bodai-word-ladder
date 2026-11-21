@@ -1,8 +1,7 @@
 /**
- * Phase 2 prototype: two ways to change a letter, to try on a phone.
- * A: tap the letter to change, then pick the new letter.
- * B: type the whole new word.
- * Start word pinned at the top, end word at the bottom, rungs scroll in between.
+ * Phase 2 prototype, to try on a phone. Each rung is typed as a whole word (her pick over
+ * tapping a single letter). Start word pinned at the top, end word at the bottom, rungs
+ * scroll in between, and the next empty slot is highlighted.
  */
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
@@ -21,15 +20,12 @@ import { buildNeighborIndex, randomPuzzle, shortestPath, type Puzzle } from '../
 import { seededRandom } from '../game/random.ts';
 import {
   RESULT_MESSAGES,
-  currentWord,
   isSolved,
   newLadder,
   tryWord,
   undo,
   type Ladder,
 } from '../game/session.ts';
-
-type Mode = 'tap' | 'type';
 
 const BONES = 10;
 const dictionary = makeDictionary(words4, blocked);
@@ -55,27 +51,18 @@ function nextPuzzle(): Puzzle {
 const blank = (length: number) => ' '.repeat(length);
 
 export default function App() {
-  const [mode, setMode] = useState<Mode>('tap');
   const [showNear, setShowNear] = useState(true);
   const [puzzle, setPuzzle] = useState(firstPuzzle);
   const [ladder, setLadder] = useState<Ladder>(() => newLadder(puzzle.start, puzzle.end));
-  const [draft, setDraft] = useState(() => (mode === 'tap' ? puzzle.start : blank(4)));
-  const [selected, setSelected] = useState<number | undefined>(undefined);
+  const [draft, setDraft] = useState(() => blank(puzzle.start.length));
   const [toast, setToast] = useState<(ToastProps & { id: number }) | null>(null);
   const [shake, setShake] = useState(0);
   const scroller = useRef<HTMLOListElement>(null);
 
   const solved = isSolved(ladder);
-  const previous = currentWord(ladder);
   const length = puzzle.start.length;
 
-  const resetDraft = useCallback(
-    (from: string, nextMode: Mode = mode) => {
-      setDraft(nextMode === 'tap' ? from : blank(length));
-      setSelected(undefined);
-    },
-    [mode, length],
-  );
+  const clearDraft = useCallback(() => setDraft(blank(length)), [length]);
 
   const say = useCallback((message: string, tone: ToastProps['tone']) => {
     setToast({ message, tone, id: Date.now() });
@@ -96,7 +83,7 @@ export default function App() {
     setLadder(next);
     if (result === 'added' || result === 'solved') {
       playTone('rung-added');
-      resetDraft(draft);
+      clearDraft();
       if (result === 'solved') say(RESULT_MESSAGES.solved, 'info');
       return;
     }
@@ -104,23 +91,16 @@ export default function App() {
       playTone('not-a-word');
       setShake((n) => n + 1);
       say(RESULT_MESSAGES['not-a-word'], 'problem');
-      resetDraft(previous);
+      clearDraft();
       return;
     }
     say(RESULT_MESSAGES[result], result === 'blocked' ? 'gentle' : 'info');
-  }, [ladder, draft, previous, resetDraft, say]);
+  }, [ladder, draft, clearDraft, say]);
 
   const press = useCallback(
     (key: string) => {
       if (solved) return;
       if (key === 'enter') return submit();
-      if (mode === 'tap') {
-        if (key === 'backspace') return resetDraft(previous);
-        if (selected === undefined) return say('Tap the letter you want to change', 'info');
-        playTone('key-tap');
-        setDraft((d) => d.slice(0, selected) + key + d.slice(selected + 1));
-        return;
-      }
       if (key === 'backspace') {
         const filled = draft.trimEnd();
         setDraft((filled.slice(0, -1) + blank(length)).slice(0, length));
@@ -129,48 +109,37 @@ export default function App() {
       const filled = draft.trimEnd();
       if (filled.length < length) setDraft((filled + key + blank(length)).slice(0, length));
     },
-    [solved, submit, mode, previous, selected, draft, length, resetDraft, say],
+    [solved, submit, draft, length],
   );
 
-  // Physical keyboard: letters, Enter, Backspace, arrows to move the selected letter.
+  // Physical keyboard: letters, Enter, Backspace.
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
       if (event.metaKey || event.ctrlKey || event.altKey) return;
       if (event.key === 'Enter') press('enter');
       else if (event.key === 'Backspace') press('backspace');
       else if (/^[a-zA-Z]$/.test(event.key)) press(event.key.toLowerCase());
-      else if (mode === 'tap' && (event.key === 'ArrowLeft' || event.key === 'ArrowRight')) {
-        const step = event.key === 'ArrowLeft' ? -1 : 1;
-        setSelected((i) =>
-          Math.min(length - 1, Math.max(0, (i ?? (step > 0 ? -1 : length)) + step)),
-        );
-      } else return;
+      else return;
       event.preventDefault();
     }
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [press, mode, length]);
-
-  function switchMode(next: Mode) {
-    setMode(next);
-    resetDraft(previous, next);
-  }
+  }, [press]);
 
   function newGame() {
     const next = nextPuzzle();
     setPuzzle(next);
     setLadder(newLadder(next.start, next.end));
-    setDraft(mode === 'tap' ? next.start : blank(next.start.length));
-    setSelected(undefined);
+    setDraft(blank(next.start.length));
   }
 
   function stepBack() {
-    const next = undo(ladder);
-    setLadder(next);
-    resetDraft(currentWord(next));
+    setLadder(undo(ladder));
+    clearDraft();
   }
 
-  const draftReady = mode === 'tap' ? draft !== previous : !draft.includes(' ');
+  const typed = draft.trimEnd().length;
+  const draftReady = typed === length;
   const steps = useMemo(() => ladder.rungs.filter((w) => w !== puzzle.end), [ladder, puzzle]);
 
   return (
@@ -182,26 +151,6 @@ export default function App() {
 
       <div className="flex flex-wrap items-center gap-2 text-small">
         <span className="text-label text-muted">Prototype</span>
-        <div
-          role="group"
-          aria-label="How to change a letter"
-          className="flex rounded-pill bg-tile p-0.5"
-        >
-          {(['tap', 'type'] as const).map((m) => (
-            <button
-              key={m}
-              type="button"
-              aria-pressed={mode === m}
-              onClick={() => switchMode(m)}
-              className={[
-                'rounded-pill px-3 py-1 font-semibold',
-                mode === m ? 'bg-ink text-bg' : 'text-tile-ink',
-              ].join(' ')}
-            >
-              {m === 'tap' ? 'A · Tap a letter' : 'B · Type the word'}
-            </button>
-          ))}
-        </div>
         <label className="flex items-center gap-1.5">
           <input
             type="checkbox"
@@ -232,9 +181,8 @@ export default function App() {
                 showNear={showNear}
                 role="current"
                 size="md"
-                selectedIndex={mode === 'tap' ? selected : undefined}
+                selectedIndex={typed < length ? typed : undefined}
                 invalid={shake > 0}
-                onLetterClick={mode === 'tap' ? setSelected : undefined}
               />
             </li>
           )}
@@ -266,11 +214,6 @@ export default function App() {
         <Button variant="quiet" onClick={newGame}>
           New puzzle
         </Button>
-        {mode === 'tap' && !solved && (
-          <p className="ml-auto self-center text-small text-muted">
-            {selected === undefined ? 'Tap a letter' : `Letter ${selected + 1}`}
-          </p>
-        )}
       </div>
 
       {!solved ? (
