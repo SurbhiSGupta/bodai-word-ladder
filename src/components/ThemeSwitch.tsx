@@ -19,7 +19,7 @@ function savedChoice(): ThemeChoice {
 }
 
 /** Applies a theme the way the tokens expect: data-theme on <html>, or nothing for Auto. */
-export function applyTheme(choice: ThemeChoice) {
+function applyTheme(choice: ThemeChoice) {
   const root = document.documentElement;
   if (choice === 'auto') delete root.dataset.theme;
   else root.dataset.theme = choice;
