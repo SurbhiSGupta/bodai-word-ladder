@@ -10,6 +10,7 @@ import { Buddies } from '../components/Buddies.tsx';
 import { Button } from '../components/Button.tsx';
 import { Keyboard } from '../components/Keyboard.tsx';
 import { Rung } from '../components/Rung.tsx';
+import { ThemeSwitch } from '../components/ThemeSwitch.tsx';
 import { Toast, type ToastProps } from '../components/Toast.tsx';
 import { Wordmark } from '../components/Wordmark.tsx';
 import blocked from '../data/blocked.json';
@@ -150,6 +151,7 @@ export default function App() {
 
       <div className="flex flex-wrap items-center gap-2 text-small">
         <span className="text-label text-muted">Prototype</span>
+        <ThemeSwitch />
       </div>
 
       <section aria-label="Ladder" className="flex min-h-0 flex-1 flex-col items-center gap-1">

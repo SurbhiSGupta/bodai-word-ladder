@@ -4,7 +4,7 @@ export type LetterTileProps = {
   letter: string;
   /** Green for right letter and place, yellow for right letter elsewhere. */
   hint?: LetterHint;
-  /** The letter the player is about to change. */
+  /** The slot the next letter goes in. A soft highlight with an accent ring. */
   selected?: boolean;
   size?: 'md' | 'lg';
 };
@@ -33,7 +33,7 @@ export function LetterTile({
       className={[
         'inline-flex items-center justify-center font-extrabold uppercase select-none',
         SIZE_STYLES[size],
-        selected ? 'bg-accent text-accent-ink ring-2 ring-ink' : HINT_STYLES[hint],
+        selected ? 'bg-highlight-strong text-highlight-ink ring-2 ring-accent' : HINT_STYLES[hint],
       ].join(' ')}
     >
       {letter}
