@@ -1,0 +1,37 @@
+# Slurs and hateful words the public blocklist (LDNOOBW) misses. Always blocked.
+# One word per line. Some also have harmless meanings (chink = a small crack, coon = raccoon);
+# they are blocked anyway, since a player could meet them as a puzzle word.
+fag
+fags
+faggot
+dyke
+dykes
+gyp
+gyps
+gypped
+gypping
+spic
+spics
+kike
+kikes
+chink
+chinks
+coon
+coons
+wop
+wops
+dago
+dagos
+gook
+gooks
+jap
+japs
+homo
+homos
+tranny
+retard
+retards
+paki
+pakis
+honky
+wetback

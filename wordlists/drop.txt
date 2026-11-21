@@ -1,0 +1,2 @@
+# Words to remove from the common list. They are still accepted when typed.
+# One word per line. Filled in from the Keep and Drop review.

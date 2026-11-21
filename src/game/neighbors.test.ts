@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { hasDoubledLetter, isOneLetterApart } from './neighbors';
+import { hasDoubledLetter, isOneLetterApart } from './neighbors.ts';
 
 describe('isOneLetterApart', () => {
   it('accepts a single changed letter', () => {

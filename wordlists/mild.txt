@@ -1,0 +1,7 @@
+# Words that are blocked while "Family-friendly" is on, and allowed when it is off.
+# One word per line. Lines starting with # are notes.
+# Everything else on the blocklist stays blocked always.
+damn
+crap
+hell
+piss

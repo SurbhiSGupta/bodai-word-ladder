@@ -29,3 +29,21 @@ This runs the type check, lint, formatting check and tests. The same checks run 
 | `src/styles`     | `tokens.css` holds every color; `index.css` connects them to Tailwind |
 | `scripts`        | Offline tools: word-list builder, puzzle generator                    |
 | `data`           | Generated word lists and puzzles                                      |
+
+## Word lists
+
+```bash
+npm run words
+```
+
+This rebuilds everything in `src/data` from the sources below plus the hand-edited files in `wordlists/`, and writes `wordlists/report.md` with counts, dead ends and sample puzzles.
+
+- **Common words** (puzzles, hints, suggestions): SCOWL size 35 and below.
+- **Accepted words** (anything you can type): SCOWL size 70 and below.
+- **Start and end words:** common words that aren't plurals or -ed/-ing forms, and aren't dead ends.
+
+## Credits
+
+- Words: [SCOWL](http://wordlist.aspell.net/) by Kevin Atkinson, via `wordlist-english` (MIT-style license; see its Copyright file).
+- Meanings: [WordNet 3.1](https://wordnet.princeton.edu/), Princeton University, via `wordnet-db` (WordNet License).
+- Blocklist: [List of Dirty, Naughty, Obscene, and Otherwise Bad Words](https://github.com/LDNOOBW/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words) (CC BY 4.0), via `naughty-words`, plus our own additions in `wordlists/never.txt`.

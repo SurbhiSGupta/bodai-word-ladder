@@ -1,0 +1,2 @@
+# Words to add to the common list (used for puzzles, hints and suggestions).
+# One word per line. Filled in from the Keep and Drop review.
