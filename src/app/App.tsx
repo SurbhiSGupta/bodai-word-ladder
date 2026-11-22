@@ -10,7 +10,9 @@ import type { Puzzle } from '../game/ladder.ts';
 import { CalendarScreen } from './CalendarScreen.tsx';
 import { GameScreen } from './GameScreen.tsx';
 import { HomeScreen } from './HomeScreen.tsx';
+import { HelpScreen } from './HelpScreen.tsx';
 import { SettingsScreen } from './SettingsScreen.tsx';
+import { Tour } from './Tour.tsx';
 import { StatsScreen } from './StatsScreen.tsx';
 import { useSettings } from './settings.ts';
 import { isInProgress, loadDailies, loadResults } from './dailyStore.ts';
@@ -22,9 +24,19 @@ type Screen =
   | { name: 'game'; source: GameSource }
   | { name: 'calendar' }
   | { name: 'stats' }
-  | { name: 'settings' };
+  | { name: 'settings' }
+  | { name: 'help' };
 
 const LENGTH_KEY = 'bodai-ladder-length';
+const TOUR_KEY = 'bodai-ladder-tour-seen';
+
+function tourSeen(): boolean {
+  try {
+    return localStorage.getItem(TOUR_KEY) === 'yes';
+  } catch {
+    return false;
+  }
+}
 const DAILY_LENGTH: WordLength = 4;
 
 function savedLength(): WordLength {
@@ -61,6 +73,17 @@ export default function App() {
     screen.name === 'game' && screen.source.kind === 'practice' ? practiceLength : DAILY_LENGTH;
 
   const settings = useSettings();
+  const [tourOpen, setTourOpen] = useState(false);
+  const [showTourBanner, setShowTourBanner] = useState(() => !tourSeen());
+
+  function markTourSeen() {
+    setShowTourBanner(false);
+    try {
+      localStorage.setItem(TOUR_KEY, 'yes');
+    } catch {
+      // Private browsing: the banner may come back next time, which is fine.
+    }
+  }
 
   // Theme and palette live on <html>, where the color tokens look for them.
   useEffect(() => {
@@ -134,6 +157,13 @@ export default function App() {
           onCalendar={() => go({ name: 'calendar' })}
           onStats={() => go({ name: 'stats' })}
           onSettings={() => go({ name: 'settings' })}
+          onHelp={() => go({ name: 'help' })}
+          onTour={() => {
+            markTourSeen();
+            setTourOpen(true);
+          }}
+          showTourBanner={showTourBanner}
+          onDismissTour={markTourSeen}
           showPar={settings.showPar}
         />
       )}
@@ -148,6 +178,8 @@ export default function App() {
       )}
       {screen.name === 'stats' && <StatsScreen today={today} results={results} onBack={home} />}
       {screen.name === 'settings' && <SettingsScreen onBack={home} />}
+      {screen.name === 'help' && <HelpScreen onBack={home} onTour={() => setTourOpen(true)} />}
+      <Tour open={tourOpen} onClose={() => setTourOpen(false)} />
     </main>
   );
 }

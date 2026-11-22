@@ -3,7 +3,8 @@
  * practice below it, and Calendar and Stats as tiles.
  */
 
-import { Buddies } from '../components/Buddies.tsx';
+import { useState } from 'react';
+import { Buddies, type Face } from '../components/Buddies.tsx';
 import { Button } from '../components/Button.tsx';
 import { LengthPicker } from '../components/LengthPicker.tsx';
 import { Wordmark } from '../components/Wordmark.tsx';
@@ -24,6 +25,11 @@ type Props = {
   onCalendar: () => void;
   onStats: () => void;
   onSettings: () => void;
+  onHelp: () => void;
+  onTour: () => void;
+  /** Shows the "take the tour" banner until it's taken or dismissed. */
+  showTourBanner: boolean;
+  onDismissTour: () => void;
   showPar: boolean;
 };
 
@@ -69,7 +75,35 @@ function StatsIcon() {
   );
 }
 
+/** Little things she says when tapped. Game banter only; her own story is hers to tell. */
+const LINES: { face: Face; text: string }[] = [
+  { face: 'cute', text: 'One letter at a time. That’s the whole trick.' },
+  { face: 'joy', text: 'Frisky’s been hiding bones again.' },
+  { face: 'curious', text: 'Stuck? The 💡 knows a way up from anywhere.' },
+  { face: 'happy', text: 'Frisky thinks every word is BONE.' },
+  { face: 'kiss', text: 'Under par? You’re showing off now.' },
+];
+
+function HelpIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      className="size-6"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="9" />
+      <path d="M9.5 9.5a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .9-1 1.6v.3M12 17h.01" />
+    </svg>
+  );
+}
+
 export function HomeScreen(props: Props) {
+  const [taps, setTaps] = useState(0);
+  const line = taps > 0 ? LINES[(taps - 1) % LINES.length]! : null;
   const { today, todayPuzzle, results, todayInProgress } = props;
   const todayResult = results[today];
   const streak = currentStreak(results, today);
@@ -112,9 +146,44 @@ export function HomeScreen(props: Props) {
         </button>
       </header>
 
-      <div className="flex justify-center pt-2">
-        <Buddies face={todayResult?.solved ? 'joy' : 'happy'} height={150} />
+      <div className="relative flex flex-col items-center gap-2 pt-2">
+        <button
+          type="button"
+          onClick={() => setTaps((t) => t + 1)}
+          aria-label="Say hi to her and Frisky"
+          className="rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ink"
+        >
+          <Buddies
+            face={line?.face ?? (todayResult?.solved ? 'joy' : 'happy')}
+            height={150}
+            hop={taps}
+          />
+        </button>
+        <p className="min-h-6 text-center text-small text-muted" aria-live="polite">
+          {line ? line.text : taps === 0 ? 'Psst… tap me!' : ''}
+        </p>
       </div>
+
+      {props.showTourBanner && (
+        <div className="flex items-center gap-2 rounded-md bg-surface py-2 pr-2 pl-4 shadow-card">
+          <p className="flex-1 text-small font-semibold">New here? Take the one-minute tour.</p>
+          <button
+            type="button"
+            onClick={props.onTour}
+            className="rounded-pill bg-tile px-3 py-1.5 text-small font-semibold focus-visible:outline-2 focus-visible:outline-ink"
+          >
+            Show me
+          </button>
+          <button
+            type="button"
+            onClick={props.onDismissTour}
+            aria-label="No thanks, hide the tour"
+            className="grid size-9 place-items-center rounded-pill text-muted hover:bg-tile focus-visible:outline-2 focus-visible:outline-ink"
+          >
+            ✕
+          </button>
+        </div>
+      )}
 
       <section
         aria-label="Today's puzzle"
@@ -160,7 +229,7 @@ export function HomeScreen(props: Props) {
         </div>
       </section>
 
-      <nav aria-label="More" className="grid grid-cols-2 gap-2">
+      <nav aria-label="More" className="grid grid-cols-3 gap-2">
         <button
           type="button"
           onClick={props.onCalendar}
@@ -176,6 +245,14 @@ export function HomeScreen(props: Props) {
         >
           <StatsIcon />
           Stats
+        </button>
+        <button
+          type="button"
+          onClick={props.onHelp}
+          className="flex flex-col items-center gap-1 rounded-md bg-surface py-3 text-small font-semibold shadow-card focus-visible:outline-2 focus-visible:outline-ink"
+        >
+          <HelpIcon />
+          Help
         </button>
       </nav>
     </div>

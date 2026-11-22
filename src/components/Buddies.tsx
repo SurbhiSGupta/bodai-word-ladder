@@ -143,9 +143,13 @@ function Her({ face }: { face: Face }) {
   );
 }
 
-function Frisky() {
+function Frisky({ hop = 0 }: { hop?: number }) {
   return (
-    <g style={PEN}>
+    <g
+      key={hop}
+      style={PEN}
+      className={hop ? 'animate-hop [transform-box:fill-box] [transform-origin:bottom]' : undefined}
+    >
       <path d="M11 117c-7-3-10-10-7-17" />
       <path d="M16 125v16M23 125v16M31 125v16M38 125v16" />
       <ellipse style={{ fill: 'var(--fur)' }} cx="26" cy="119" rx="17" ry="9" />
@@ -171,11 +175,19 @@ export type BuddiesProps = {
   height?: number;
   /** Spoken description. Leave empty when the picture is decoration. */
   label?: string;
+  /** Change this number to make Frisky do a little hop. */
+  hop?: number;
 };
 
 const VIEW_BOXES = { both: '-6 4 100 142', her: '28 4 64 142', frisky: '-6 96 66 50' };
 
-export function Buddies({ face = 'default', show = 'both', height = 160, label }: BuddiesProps) {
+export function Buddies({
+  face = 'default',
+  show = 'both',
+  height = 160,
+  label,
+  hop = 0,
+}: BuddiesProps) {
   const [, , w, h] = VIEW_BOXES[show].split(' ').map(Number);
   return (
     <svg
@@ -186,7 +198,7 @@ export function Buddies({ face = 'default', show = 'both', height = 160, label }
       aria-label={label}
       aria-hidden={label ? undefined : true}
     >
-      {show !== 'her' && <Frisky />}
+      {show !== 'her' && <Frisky hop={hop} />}
       {show !== 'frisky' && <Her face={face} />}
     </svg>
   );
