@@ -17,7 +17,7 @@ npm run dev
 npm run storybook
 ```
 
-Every component, with a toolbar to switch Light/Dark and the five palettes. It's also published at [/storybook](https://surbhisgupta.github.io/bodai-word-ladder/storybook/).
+Every component, with a toolbar to switch Light/Dark and the five palettes. It's also published at [/storybook](https://wordladder.bodaijewels.com/storybook/).
 
 **Colors have one master copy: `tokens/tokens.json`.**
 
@@ -36,10 +36,10 @@ This runs the type check, lint, formatting check and tests. The same checks run 
 
 Every push to `main` that passes the checks goes live on GitHub Pages, for free and with no deploy limits:
 
-- Game: https://surbhisgupta.github.io/bodai-word-ladder/
-- Storybook: https://surbhisgupta.github.io/bodai-word-ladder/storybook/
+- Game: https://wordladder.bodaijewels.com
+- Storybook: https://wordladder.bodaijewels.com/storybook/
 
-It's set up in `.github/workflows/ship.yml`. Netlify is switched off (`netlify.toml` skips every build).
+It's set up in `.github/workflows/ship.yml`. The domain's DNS (a CNAME for `wordladder` pointing to `surbhisgupta.github.io`) is at Squarespace Domains. Netlify is switched off (`netlify.toml` skips every build).
 
 ## Where things live
 

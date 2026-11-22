@@ -1,7 +1,7 @@
 name: Check and ship
 
 # Every push and pull request is checked. Pushes to main that pass are published to
-# GitHub Pages: the game at /bodai-word-ladder/ and Storybook at /bodai-word-ladder/storybook/.
+# GitHub Pages at wordladder.bodaijewels.com, with Storybook at /storybook/.
 # GitHub Actions and Pages are free for public repos, with no deploy limits.
 on:
   push:
@@ -25,7 +25,7 @@ jobs:
       - run: npm run check
       - run: npm run build
         env:
-          BASE_PATH: /bodai-word-ladder/
+          BASE_PATH: /
       - run: npm run build-storybook -- --output-dir dist/storybook --quiet
       - if: github.event_name == 'push'
         uses: actions/upload-pages-artifact@v3
