@@ -8,9 +8,9 @@ Endpoints = common words that can start or end a puzzle (no plurals or -ed/-ing 
 
 | Letters | Common | Also accepted | Endpoints | Dead ends (common) | Dead ends (accepted) | Pairs with a path | With meanings |
 |---|---|---|---|---|---|---|---|
-| 3 | 492 | 292 | 462 | 10 | 9 | 100% | 82% |
-| 4 | 1952 | 1176 | 1486 | 58 | 75 | 95% | 85% |
-| 5 | 3592 | 2772 | 1704 | 468 | 744 | 59% | 85% |
+| 3 | 492 | 292 | 454 | 10 | 9 | 100% | 82% |
+| 4 | 1944 | 1184 | 1463 | 59 | 75 | 94% | 85% |
+| 5 | 3579 | 2785 | 1693 | 468 | 744 | 57% | 85% |
 | 6 | 5268 | 5423 | 1696 | 1535 | 2930 | 16% | 83% |
 | 7 | 6700 | 8617 | 1256 | 2799 | 6363 | 4% | 80% |
 
@@ -18,34 +18,34 @@ Endpoints = common words that can start or end a puzzle (no plurals or -ed/-ing 
 
 ### 3 letters (par 3 to 4)
 
-- **FIN → WAY**, par 3: fin → win → wan → way
-- **RYE → FAR**, par 4: rye → roe → foe → for → far
-- **WAD → SIT**, par 3: wad → sad → sat → sit
-- **FUN → DIE**, par 3: fun → fin → din → die
-- **EKE → ORE**, par 3: eke → ewe → owe → ore
-- **YAM → HOE**, par 4: yam → ham → hum → hue → hoe
+- **FIR → WET**, par 3: fir → fit → wit → wet
+- **SAC → FIR**, par 3: sac → sic → sir → fir
+- **WAD → SIX**, par 3: wad → sad → sax → six
+- **FUR → DIM**, par 4: fur → fir → air → aim → dim
+- **ELF → IRE**, par 4: elf → elk → ilk → irk → ire
+- **YAM → HOP**, par 4: yam → cam → cap → cop → hop
 
 Dead ends among common words: chi, ebb, gnu, ova, qua, ugh, ups, urn, use, you
 
 ### 4 letters (par 3 to 6)
 
-- **YOUR → WEAK**, par 5: your → sour → soar → sear → wear → weak
-- **FUEL → FEUD**, par 3: fuel → feel → feed → feud
-- **JADE → HAZE**, par 3: jade → fade → faze → haze
-- **HAIR → TYKE**, par 6: hair → hail → tail → tall → tale → take → tyke
+- **YOUR → WARY**, par 6: your → pour → pout → port → part → wart → wary
+- **OVER → AXIS**, par 5: over → ever → eves → exes → axes → axis
+- **JAMB → HERD**, par 5: jamb → jams → hams → hems → hers → herd
+- **HALO → VEIN**, par 6: halo → hall → mall → mail → main → vain → vein
 - **WHOM → SUIT**, par 6: whom → wham → sham → slam → slim → slit → suit
-- **BURN → HERO**, par 5: burn → barn → bard → hard → herd → hero
+- **BURY → HEAL**, par 6: bury → fury → furl → fuel → feel → heel → heal
 
-Dead ends among common words: abet, ahoy, alga, amok, anon, atom, aura, avow, daub, deli, dodo, ebbs, echo, ends, envy, epic, ergo, evil, exam, fern, guru, hobo, hymn, idea, idol, ills, iota, jinx, judo, kiwi
+Dead ends among common words: abet, ahoy, alga, amok, anon, atom, aura, avow, daub, deli, dodo, drum, ebbs, echo, ends, envy, epic, ergo, evil, exam, fern, guru, hobo, hymn, idea, idol, ills, iota, jinx, judo
 
 ### 5 letters (par 3 to 7)
 
 - **CHAFE → RETCH**, par 7: chafe → chase → cease → lease → leash → leach → reach → retch
 - **HEDGE → DODGE**, par 3: hedge → ledge → lodge → dodge
-- **PROSE → SHARK**, par 6: prose → prone → phone → shone → shore → share → shark
+- **PROVE → SCOUT**, par 7: prove → prone → phone → shone → shore → short → shout → scout
 - **TOWER → FORTE**, par 7: tower → cower → cover → coves → cores → fores → forts → forte
 - **AWOKE → AWARD**, par 3: awoke → awake → aware → award
-- **CHUCK → BREAK**, par 5: chuck → check → cheek → creek → creak → break
+- **CHOSE → BLAST**, par 6: chose → chase → cease → lease → least → beast → blast
 
 Dead ends among common words: aback, abate, abbey, abbot, abets, abhor, abler, abyss, acids, acrid, actor, acute, adage, admit, adult, affix, afoot, again, agent, agile, agony, agree, ahead, aisle, alarm, album, algae, alibi, aloft, aloof
 

@@ -8,7 +8,7 @@
  * - SCOWL word lists, via `wordlist-english`. Each word has a commonness tier (10 = very common, 70 = rare).
  * - WordNet 3.1, via `wordnet-db`, for meanings.
  * - LDNOOBW, via `naughty-words`, for blocked words.
- * Hand-edited inputs live in /wordlists (never.txt, mild.txt, keep.txt, drop.txt).
+ * Hand-edited inputs live in /wordlists (never.txt, mild.txt, keep.txt, drop.txt, no-puzzle.txt).
  */
 
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -168,6 +168,7 @@ const tierOf = new Map([...allTiers].filter(([word]) => LENGTHS.includes(word.le
 const mild = readList('mild.txt');
 const keep = readList('keep.txt');
 const drop = readList('drop.txt');
+const noPuzzle = readList('no-puzzle.txt');
 const naughty: string[] = [...require('naughty-words/en.json'), ...readList('never.txt')];
 const never = new Set(
   naughty
@@ -225,7 +226,8 @@ for (const length of LENGTHS) {
   const commonIndex = buildNeighborIndex(common);
   const acceptedIndex = buildNeighborIndex(accepted);
   const endpoints = common.filter(
-    (word) => !isInflection(word, knownWords) && !isDeadEnd(word, commonIndex),
+    (word) =>
+      !isInflection(word, knownWords) && !noPuzzle.has(word) && !isDeadEnd(word, commonIndex),
   );
 
   const deadCommon = common.filter((word) => isDeadEnd(word, commonIndex));

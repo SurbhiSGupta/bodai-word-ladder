@@ -1,0 +1,37 @@
+# Real words that can be typed but never start or end a puzzle.
+# One word per line. From the Nov 21, 2026 family-friendly review (Surbhi).
+babe
+barf
+beer
+beers
+bomb
+bra
+bras
+bum
+dead
+death
+die
+dies
+fart
+gin
+gore
+gory
+groin
+gun
+guns
+kill
+kills
+loins
+naked
+nip
+nips
+pee
+poop
+puke
+rum
+slay
+snot
+teat
+teats
+vodka
+wine
