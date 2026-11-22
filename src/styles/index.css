@@ -54,3 +54,12 @@ body {
   color: var(--ink);
   font-family: var(--font-sans);
 }
+
+/* Animations switched off in Settings: nothing moves, but colors and sounds stay. */
+:root[data-motion='off'] *,
+:root[data-motion='off'] *::before,
+:root[data-motion='off'] *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}

@@ -140,14 +140,6 @@ export function useLadderGame(data: WordData, source: GameSource = { kind: 'prac
 
   const setLadder = (next: Ladder) => setGame((g) => ({ ...g, ladder: next }));
 
-  const type = useCallback(
-    (letter: string) => {
-      if (over) return;
-      setDraft((d) => (d.length < length ? d + letter : d));
-    },
-    [over, length, setDraft],
-  );
-
   const backspace = useCallback(() => setDraft((d) => d.slice(0, -1)), [setDraft]);
 
   const submit = useCallback(() => {
@@ -183,6 +175,16 @@ export function useLadderGame(data: WordData, source: GameSource = { kind: 'prac
       setAnnouncement(RESULT_MESSAGES[result]);
     }
   }, [over, ladder, length, dictionary, bones, puzzle.par, say, setDraft]);
+
+  const type = useCallback(
+    (letter: string) => {
+      if (over) return;
+      setDraft((d) => (d.length < length ? d + letter : d));
+      // Auto-enter: the last letter sends the word, no Enter needed.
+      if (settings.autoEnter && draftRef.current.length === length) submit();
+    },
+    [over, length, setDraft, settings.autoEnter, submit],
+  );
 
   const undo = useCallback(() => {
     if (over || ladder.rungs.length === 0) return;
@@ -230,6 +232,7 @@ export function useLadderGame(data: WordData, source: GameSource = { kind: 'prac
       moveCap === undefined || over ? undefined : Math.max(moveCap - ladder.rungs.length, 0),
     showPar: settings.showPar,
     focus: settings.focus,
+    showBones: settings.showBones,
     canUndo: !over && ladder.rungs.length > 0,
     canRedo: !over && ladder.undone.length > 0,
     type,

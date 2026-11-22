@@ -24,6 +24,12 @@ export type Settings = {
   vibration: boolean;
   /** Hides everything but the ladder, bones and keyboard while playing. */
   focus: boolean;
+  /** Motion on or off: shakes, slides and the sheet rising. Colors and sounds stay. */
+  animations: boolean;
+  /** Show the bones while playing. Off still counts them, just quietly. */
+  showBones: boolean;
+  /** Submit the word as soon as its last letter is typed, no Enter needed. */
+  autoEnter: boolean;
 };
 
 export const DEFAULTS: Settings = {
@@ -39,6 +45,9 @@ export const DEFAULTS: Settings = {
   sound: true,
   vibration: true,
   focus: false,
+  animations: true,
+  showBones: true,
+  autoEnter: false,
 };
 
 /** One tap to a whole feel. Only game rules change; look and sound stay as they are. */

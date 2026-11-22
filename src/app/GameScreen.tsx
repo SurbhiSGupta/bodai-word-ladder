@@ -12,6 +12,7 @@ import { Keyboard } from '../components/Keyboard.tsx';
 import { Rung } from '../components/Rung.tsx';
 import { Sheet } from '../components/Sheet.tsx';
 import { Toast } from '../components/Toast.tsx';
+import { getSettings } from './settings.ts';
 import { useLadderGame, type GameSource } from './useLadderGame.ts';
 import { loadMeanings, type Meaning, type WordData } from './wordData.ts';
 
@@ -33,7 +34,10 @@ export function GameScreen({ data, source, onHome }: Props) {
 
   // Keep the newest rung in view.
   useEffect(() => {
-    scroller.current?.scrollTo({ top: scroller.current.scrollHeight, behavior: 'smooth' });
+    scroller.current?.scrollTo({
+      top: scroller.current.scrollHeight,
+      behavior: getSettings().animations ? 'smooth' : 'auto',
+    });
   }, [ladder.rungs.length, over]);
 
   // Meanings load the first time a word is tapped.
@@ -102,7 +106,7 @@ export function GameScreen({ data, source, onHome }: Props) {
             </span>
           )}
         </span>
-        <BoneCounter used={ladder.bonesUsed} total={game.bones} size="sm" />
+        {game.showBones && <BoneCounter used={ladder.bonesUsed} total={game.bones} size="sm" />}
       </div>
 
       <section aria-label="Ladder" className="flex min-h-0 flex-1 flex-col items-center gap-1">

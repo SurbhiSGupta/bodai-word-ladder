@@ -68,7 +68,9 @@ export default function App() {
     if (settings.theme === 'auto') delete root.dataset.theme;
     else root.dataset.theme = settings.theme;
     root.dataset.palette = settings.palette;
-  }, [settings.theme, settings.palette]);
+    if (settings.animations) delete root.dataset.motion;
+    else root.dataset.motion = 'off';
+  }, [settings.theme, settings.palette, settings.animations]);
 
   useEffect(() => {
     void loadDailies().then(setDailies);

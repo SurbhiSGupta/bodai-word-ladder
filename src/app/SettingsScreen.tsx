@@ -166,6 +166,12 @@ export function SettingsScreen({ onBack }: { onBack: () => void }) {
         checked={settings.showPar}
         onChange={(showPar) => set({ showPar })}
       />
+      <Toggle
+        label="Show bones"
+        description="Off keeps them counting quietly, out of sight."
+        checked={settings.showBones}
+        onChange={(showBones) => set({ showBones })}
+      />
     </>
   );
 
@@ -239,6 +245,18 @@ export function SettingsScreen({ onBack }: { onBack: () => void }) {
           description="While playing, hides everything but the ladder, bones and keyboard."
           checked={settings.focus}
           onChange={(focus) => set({ focus })}
+        />
+        <Toggle
+          label="Animations"
+          description="Off stops shakes and slides. Colors and sounds stay."
+          checked={settings.animations}
+          onChange={(animations) => set({ animations })}
+        />
+        <Toggle
+          label="Auto-enter"
+          description="The word goes in as soon as its last letter is typed."
+          checked={settings.autoEnter}
+          onChange={(autoEnter) => set({ autoEnter })}
         />
       </Group>
     </div>
