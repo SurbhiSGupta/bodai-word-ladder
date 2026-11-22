@@ -17,7 +17,7 @@ npm run dev
 npm run storybook
 ```
 
-Every component, with a toolbar to switch Light/Dark and the five palettes. It's also published at [/storybook](https://bodai-word-ladder.netlify.app/storybook/).
+Every component, with a toolbar to switch Light/Dark and the five palettes. It's also published at [/storybook](https://surbhisgupta.github.io/bodai-word-ladder/storybook/).
 
 **Colors have one master copy: `tokens/tokens.json`.**
 
@@ -30,11 +30,16 @@ Every component, with a toolbar to switch Light/Dark and the five palettes. It's
 npm run check
 ```
 
-This runs the type check, lint, formatting check and tests. The same checks run on GitHub (every push) and on Netlify (deploys only), and nothing ships if they fail.
+This runs the type check, lint, formatting check and tests. The same checks run on GitHub for every push and pull request, and nothing ships if they fail.
 
 ## Deploying
 
-Pushing doesn't deploy. To put the latest work live, include `[deploy]` in the last commit message of the push. This keeps Netlify's free plan, which counts every deploy, comfortably within its limits.
+Every push to `main` that passes the checks goes live on GitHub Pages, for free and with no deploy limits:
+
+- Game: https://surbhisgupta.github.io/bodai-word-ladder/
+- Storybook: https://surbhisgupta.github.io/bodai-word-ladder/storybook/
+
+It's set up in `.github/workflows/ship.yml`. Netlify is switched off (`netlify.toml` skips every build).
 
 ## Where things live
 

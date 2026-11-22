@@ -11,7 +11,7 @@ Read README.md first. This file holds the rules that keep the code clean and rea
 - **Imports inside `src/game` use the `.ts` extension**, so the Node scripts can import game logic directly.
 - **Small, named pieces.** One component per file in `src/components`, named for what it is (`Rung`, `LetterTile`), with a `.stories.tsx` beside it covering every state, checked in Light and Dark.
 - **Run `npm run check` before calling anything done.**
-- **Push in batches, deploy rarely.** Netlify's free plan counts every deploy. Commit as often as you like, but push only at milestones, and only a push whose latest commit message contains `[deploy]` goes live (see `netlify.toml`). Preview day to day with `npm run dev` and Storybook instead. GitHub's checks still run on every push, and they're free.
+- **Every push to main ships** to GitHub Pages once the checks pass (`.github/workflows/ship.yml`). Pages is free with no deploy limits, but still bundle related changes into one push. Netlify is off; don't turn it back on.
 
 ## Product decisions
 

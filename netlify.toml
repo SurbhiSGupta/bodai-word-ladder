@@ -1,12 +1,5 @@
-# Netlify reads this file, so there is nothing to fill in on the Netlify site.
-# The checks run first; if they fail, Netlify does not publish.
+# The game moved to GitHub Pages (free, no deploy limits). See .github/workflows/ship.yml.
+# This file tells Netlify to skip every build, so pushes never use Netlify's free plan.
+# Exit 0 means "skip".
 [build]
-  command = "npm run check && npm run build && npm run build-storybook -- --output-dir dist/storybook --quiet"
-  publish = "dist"
-  # Netlify's free plan counts every deploy, so pushes don't deploy by default.
-  # Only a push whose latest commit message contains [deploy] goes live.
-  # (Exit 0 tells Netlify to skip the build; exit 1 lets it run.)
-  ignore = "git log -1 --pretty=%B | grep -qF '[deploy]' && exit 1 || exit 0"
-
-[build.environment]
-  NODE_VERSION = "22"
+  ignore = "exit 0"
