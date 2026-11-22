@@ -6,12 +6,15 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { feel } from '../feedback/feel.ts';
+import { nextStep, type NextStep } from '../game/hint.ts';
 import type { Puzzle } from '../game/ladder.ts';
 import {
   RESULT_MESSAGES,
   isOutOfBones,
+  currentWord,
   isSolved,
   newLadder,
+  noteHint,
   redo as redoLadder,
   restart as restartLadder,
   tryWord,
@@ -45,7 +48,16 @@ function load(length: number, source: GameSource): Saved | null {
       saved?.puzzle?.start?.length === length &&
       Array.isArray(saved.ladder?.rungs) &&
       Array.isArray(saved.puzzle.bestPath);
-    return ok ? { ...saved, ladder: { ...saved.ladder, undone: saved.ladder.undone ?? [] } } : null;
+    return ok
+      ? {
+          ...saved,
+          ladder: {
+            ...saved.ladder,
+            undone: saved.ladder.undone ?? [],
+            hints: saved.ladder.hints ?? 0,
+          },
+        }
+      : null;
   } catch {
     return null;
   }
@@ -176,6 +188,30 @@ export function useLadderGame(data: WordData, source: GameSource = { kind: 'prac
     }
   }, [over, ladder, length, dictionary, bones, puzzle.par, say, setDraft]);
 
+  // Hints count once per rung, however many times the player opens them.
+  const hintedFor = useRef<string | null>(null);
+  const hint = useCallback((): NextStep | null => {
+    if (over) return null;
+    const from = currentWord(ladder);
+    const step = nextStep(from, puzzle.end, data.index);
+    if (step && hintedFor.current !== from) {
+      hintedFor.current = from;
+      setLadder(noteHint(ladder));
+      feel('hint');
+    }
+    return step;
+  }, [over, ladder, puzzle.end, data.index]);
+
+  /** Puts a word in the rung being typed, ready for Enter. */
+  const fillIn = useCallback((word: string) => setDraft(word), [setDraft]);
+
+  /** Whether a word would be accepted, refused kindly, or isn't in the list. */
+  const wordStatus = useCallback(
+    (word: string): 'ok' | 'blocked' | 'not-a-word' =>
+      dictionary.isBlocked(word) ? 'blocked' : dictionary.accepts(word) ? 'ok' : 'not-a-word',
+    [dictionary],
+  );
+
   const type = useCallback(
     (letter: string) => {
       if (over) return;
@@ -233,6 +269,11 @@ export function useLadderGame(data: WordData, source: GameSource = { kind: 'prac
     showPar: settings.showPar,
     focus: settings.focus,
     showBones: settings.showBones,
+    hintStyle: settings.hintStyle,
+    hint,
+    fillIn,
+    say,
+    wordStatus,
     canUndo: !over && ladder.rungs.length > 0,
     canRedo: !over && ladder.undone.length > 0,
     type,

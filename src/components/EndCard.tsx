@@ -8,6 +8,8 @@ export type EndCardProps = {
   yourPath: string[];
   bestPath: string[];
   par: number;
+  /** Hints used along the way, mentioned kindly if any. */
+  hints?: number;
   onWord: (word: string) => void;
   onNext: () => void;
   /** Label for the main button. */
@@ -25,6 +27,7 @@ export function EndCard({
   yourPath,
   bestPath,
   par,
+  hints = 0,
   onWord,
   onNext,
   nextLabel,
@@ -82,7 +85,10 @@ export function EndCard({
         </div>
       </div>
 
-      <p className="text-small text-muted">Tap any word to see what it means.</p>
+      <p className="text-small text-muted">
+        {hints > 0 ? `With ${hints} ${hints === 1 ? 'hint' : 'hints'}. ` : ''}Tap any word to see
+        what it means.
+      </p>
 
       <div className="flex w-full gap-2">
         {!solved && onTryAgain && (

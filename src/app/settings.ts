@@ -30,6 +30,8 @@ export type Settings = {
   showBones: boolean;
   /** Submit the word as soon as its last letter is typed, no Enter needed. */
   autoEnter: boolean;
+  /** Hints show which letter to change, or a crossword-style clue for the next word. */
+  hintStyle: 'letter' | 'clue';
 };
 
 export const DEFAULTS: Settings = {
@@ -48,6 +50,7 @@ export const DEFAULTS: Settings = {
   animations: true,
   showBones: true,
   autoEnter: false,
+  hintStyle: 'letter',
 };
 
 /** One tap to a whole feel. Only game rules change; look and sound stay as they are. */

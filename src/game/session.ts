@@ -16,6 +16,8 @@ export type Ladder = {
   bonesUsed: number;
   /** Rungs taken back with Undo, most recent last, so Redo can put them back. */
   undone: string[];
+  /** Hints shown so far, counted for the end card. */
+  hints: number;
 };
 
 /** What happened when the player tried a word. */
@@ -30,7 +32,7 @@ export type MoveResult =
   | 'not-a-word';
 
 export function newLadder(start: string, end: string): Ladder {
-  return { start, end, rungs: [], bonesUsed: 0, undone: [] };
+  return { start, end, rungs: [], bonesUsed: 0, undone: [], hints: 0 };
 }
 
 /** The word the next rung changes: the last rung, or the start word. */
@@ -91,6 +93,11 @@ export function redo(ladder: Ladder): Ladder {
   const word = ladder.undone.at(-1);
   if (word === undefined) return ladder;
   return { ...ladder, rungs: [...ladder.rungs, word], undone: ladder.undone.slice(0, -1) };
+}
+
+/** Counts one hint. */
+export function noteHint(ladder: Ladder): Ladder {
+  return { ...ladder, hints: ladder.hints + 1 };
 }
 
 /** Same puzzle, fresh ladder and a full set of bones. */

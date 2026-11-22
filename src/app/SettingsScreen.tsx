@@ -212,6 +212,24 @@ export function SettingsScreen({ onBack }: { onBack: () => void }) {
             checked={settings.doubledEnds}
             onChange={(doubledEnds) => set({ doubledEnds })}
           />
+          <Row
+            label="Hints"
+            description={
+              settings.hintStyle === 'letter'
+                ? 'Shows which letter to change.'
+                : 'A crossword-style clue for your next word.'
+            }
+          >
+            <Segmented
+              label="Hint style"
+              value={settings.hintStyle}
+              options={[
+                { value: 'letter', label: 'Letter' },
+                { value: 'clue', label: 'Clue' },
+              ]}
+              onChange={(hintStyle) => set({ hintStyle })}
+            />
+          </Row>
         </Group>
       </>
 

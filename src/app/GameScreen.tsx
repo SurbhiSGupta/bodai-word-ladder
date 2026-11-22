@@ -12,6 +12,7 @@ import { Keyboard } from '../components/Keyboard.tsx';
 import { Rung } from '../components/Rung.tsx';
 import { Sheet } from '../components/Sheet.tsx';
 import { Toast } from '../components/Toast.tsx';
+import { maskClue, ordinal, type NextStep } from '../game/hint.ts';
 import { getSettings } from './settings.ts';
 import { useLadderGame, type GameSource } from './useLadderGame.ts';
 import { loadMeanings, type Meaning, type WordData } from './wordData.ts';
@@ -31,6 +32,10 @@ export function GameScreen({ data, source, onHome }: Props) {
   const scroller = useRef<HTMLOListElement>(null);
   const [meaningOf, setMeaningOf] = useState<string | null>(null);
   const [meanings, setMeanings] = useState<Record<string, Meaning[]> | null>(null);
+  /** Opened from 🔍: also say whether the word is in our list. */
+  const [lookingUp, setLookingUp] = useState(false);
+  const [hintStep, setHintStep] = useState<NextStep | null>(null);
+  const [hintRevealed, setHintRevealed] = useState(false);
 
   // Keep the newest rung in view.
   useEffect(() => {
@@ -40,15 +45,37 @@ export function GameScreen({ data, source, onHome }: Props) {
     });
   }, [ladder.rungs.length, over]);
 
-  // Meanings load the first time a word is tapped.
+  // Meanings load the first time a word or a clue needs one.
+  const needMeanings = meaningOf !== null || (hintStep !== null && game.hintStyle === 'clue');
   useEffect(() => {
-    if (meaningOf && !meanings) void loadMeanings(length).then(setMeanings);
-  }, [meaningOf, meanings, length]);
+    if (needMeanings && !meanings) void loadMeanings(length).then(setMeanings);
+  }, [needMeanings, meanings, length]);
+
+  function openHint() {
+    const step = game.hint();
+    if (!step) {
+      game.say('No way up from here. Try Undo.', 'info');
+      return;
+    }
+    setHintRevealed(false);
+    setHintStep(step);
+  }
+
+  function lookUp() {
+    if (draft.length < length) {
+      game.say('Type a whole word to look it up', 'info');
+      return;
+    }
+    setLookingUp(true);
+    setMeaningOf(draft);
+  }
+
+  const sheetOpen = meaningOf !== null || hintStep !== null;
 
   // Physical keyboard. Shortcuts follow Guidelines/Interaction in Storybook.
   useEffect(() => {
     function onKeyDown(event: KeyboardEvent) {
-      if (meaningOf) return; // the sheet handles its own keys (Escape closes it)
+      if (sheetOpen) return; // the sheet handles its own keys (Escape closes it)
       const mod = event.metaKey || event.ctrlKey;
       if (mod && event.key.toLowerCase() === 'z') {
         if (event.shiftKey) game.redo();
@@ -57,13 +84,14 @@ export function GameScreen({ data, source, onHome }: Props) {
         return;
       } else if (event.key === 'Enter') game.submit();
       else if (event.key === 'Backspace') game.backspace();
+      else if (event.key === '?') openHint();
       else if (/^[a-zA-Z]$/.test(event.key)) game.type(event.key.toLowerCase());
       else return;
       event.preventDefault();
     }
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [game, meaningOf]);
+  });
 
   const steps = ladder.rungs.filter((w) => w !== puzzle.end);
   const typed = draft.padEnd(length, ' ');
@@ -140,6 +168,7 @@ export function GameScreen({ data, source, onHome }: Props) {
                 yourPath={[puzzle.start, ...ladder.rungs]}
                 bestPath={puzzle.bestPath}
                 par={puzzle.par}
+                hints={ladder.hints}
                 onWord={setMeaningOf}
                 onNext={daily ? onHome : game.newPuzzle}
                 nextLabel={daily ? 'Back to home' : undefined}
@@ -170,9 +199,15 @@ export function GameScreen({ data, source, onHome }: Props) {
             <Button variant="quiet" onClick={game.redo} disabled={!game.canRedo}>
               Redo
             </Button>
+            <Button variant="quiet" aria-label="Hint (shortcut: ?)" onClick={openHint}>
+              💡
+            </Button>
+            <Button variant="quiet" aria-label="Look up the word you've typed" onClick={lookUp}>
+              🔍
+            </Button>
             {!daily && (
               <Button variant="quiet" className="ml-auto" onClick={game.newPuzzle}>
-                New puzzle
+                New
               </Button>
             )}
           </div>
@@ -191,9 +226,26 @@ export function GameScreen({ data, source, onHome }: Props) {
 
       <Sheet
         open={meaningOf !== null}
-        onClose={() => setMeaningOf(null)}
+        onClose={() => {
+          setMeaningOf(null);
+          setLookingUp(false);
+        }}
         title={(meaningOf ?? '').toUpperCase()}
       >
+        {lookingUp && meaningOf && (
+          <p
+            className={[
+              'text-body-strong',
+              game.wordStatus(meaningOf) === 'ok' ? 'text-ink' : 'text-bad-ink',
+            ].join(' ')}
+          >
+            {game.wordStatus(meaningOf) === 'ok'
+              ? '✓ In our word list'
+              : game.wordStatus(meaningOf) === 'blocked'
+                ? "Let's keep it friendly 🐾"
+                : 'Not in our word list'}
+          </p>
+        )}
         {!meanings ? (
           <p className="text-body text-muted">Looking it up…</p>
         ) : (meanings[meaningOf ?? ''] ?? []).length === 0 ? (
@@ -210,6 +262,51 @@ export function GameScreen({ data, source, onHome }: Props) {
               </li>
             ))}
           </ul>
+        )}
+      </Sheet>
+
+      <Sheet open={hintStep !== null} onClose={() => setHintStep(null)} title="Hint">
+        {hintStep && (
+          <div className="flex flex-col gap-4">
+            {(() => {
+              const meaning = meanings?.[hintStep.word]?.[0];
+              const clue =
+                game.hintStyle === 'clue' && meaning
+                  ? maskClue(meaning.text, [hintStep.word, meaning.base ?? ''])
+                  : null;
+              if (game.hintStyle === 'clue' && !meanings) {
+                return <p className="text-body text-muted">Finding a clue…</p>;
+              }
+              return clue ? (
+                <div className="flex flex-col gap-1">
+                  <span className="text-label text-muted">Clue for your next word</span>
+                  <p className="text-heading">{clue}</p>
+                </div>
+              ) : (
+                <p className="text-heading">Change the {ordinal(hintStep.position)} letter.</p>
+              );
+            })()}
+            <p className="text-small text-muted">
+              {hintStep.stepsLeft} {hintStep.stepsLeft === 1 ? 'step' : 'steps'} to go from here.
+            </p>
+            {hintRevealed ? (
+              <div className="flex items-center justify-between gap-3">
+                <p className="text-title tracking-[0.2em] uppercase">{hintStep.word}</p>
+                <Button
+                  onClick={() => {
+                    game.fillIn(hintStep.word);
+                    setHintStep(null);
+                  }}
+                >
+                  Use it
+                </Button>
+              </div>
+            ) : (
+              <Button variant="quiet" onClick={() => setHintRevealed(true)}>
+                Show me the word
+              </Button>
+            )}
+          </div>
         )}
       </Sheet>
     </div>
