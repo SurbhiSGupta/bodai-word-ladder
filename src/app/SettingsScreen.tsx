@@ -3,7 +3,7 @@
  * it looks, then sound and feel. Every change saves straight away.
  */
 
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { PalettePicker } from '../components/PalettePicker.tsx';
 import { Segmented } from '../components/Segmented.tsx';
 import { ThemeSwitch } from '../components/ThemeSwitch.tsx';
@@ -50,135 +50,203 @@ function Row({
   );
 }
 
-export function SettingsScreen({ onBack }: { onBack: () => void }) {
+/**
+ * Layout options while we choose between them (see Proposals in Storybook):
+ * - "picks-and-rows": quick picks on top, every rule listed below (what shipped first)
+ * - "picks-then-customize": quick picks, with the detailed rules folded under Customize
+ * - "rows-only": no quick picks, just the rules
+ */
+export type SettingsLayout = 'picks-and-rows' | 'picks-then-customize' | 'rows-only';
+
+export function SettingsScreen({
+  onBack,
+  layout = 'picks-and-rows',
+}: {
+  onBack: () => void;
+  layout?: SettingsLayout;
+}) {
   const settings = useSettings();
   const preset = activePreset(settings);
   const set = (patch: Partial<Settings>) => updateSettings(patch);
+  const [customizing, setCustomizing] = useState(false);
+  const showRules = layout !== 'picks-then-customize' || customizing || !preset;
+
+  const picks = (
+    <>
+      <div role="radiogroup" aria-label="Quick picks" className="grid grid-cols-3 gap-2">
+        {(Object.entries(PRESETS) as [PresetName, (typeof PRESETS)[PresetName]][]).map(
+          ([name, p]) => (
+            <button
+              key={name}
+              type="button"
+              role="radio"
+              aria-checked={preset === name}
+              onClick={() => set(p.settings)}
+              className={[
+                'flex flex-col items-start gap-1 rounded-md p-3 text-left',
+                'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink',
+                preset === name ? 'bg-ink text-bg' : 'bg-surface text-ink shadow-card',
+              ].join(' ')}
+            >
+              <span className="text-body-strong">{p.label}</span>
+              <span
+                className={['text-small', preset === name ? 'opacity-80' : 'text-muted'].join(' ')}
+              >
+                {p.description}
+              </span>
+            </button>
+          ),
+        )}
+      </div>
+      {/* Always takes the same space, so switching a rule never makes the page jump. */}
+      <p className="text-small text-muted" aria-live="polite">
+        {preset ? `Playing ${PRESETS[preset].label}.` : 'Your own mix.'}
+      </p>
+    </>
+  );
+
+  const rules = (
+    <>
+      <Row label="Bones" description="One is eaten for each word that isn't in our list.">
+        <Segmented
+          label="Bones"
+          value={settings.bones}
+          options={[
+            { value: 10, label: '10' },
+            { value: 5, label: '5' },
+            { value: 'unlimited', label: 'Unlimited' },
+          ]}
+          onChange={(bones) => set({ bones })}
+        />
+      </Row>
+      <Row
+        label="Pace"
+        description={
+          settings.pace === 'zen'
+            ? 'No clock. Take your time.'
+            : 'Beat the clock, or the move limit.'
+        }
+      >
+        <Segmented
+          label="Pace"
+          value={settings.pace}
+          options={[
+            { value: 'zen', label: 'Zen' },
+            { value: 'ninja', label: 'Ninja' },
+          ]}
+          onChange={(pace) => set({ pace })}
+        />
+      </Row>
+      {settings.pace === 'ninja' && (
+        <>
+          <Row
+            label="Ninja challenge"
+            description={
+              settings.ninja === 'timer'
+                ? 'Solve before the clock runs out.'
+                : 'Solve within par + 2 steps.'
+            }
+          >
+            <Segmented
+              label="Ninja challenge"
+              value={settings.ninja}
+              options={[
+                { value: 'timer', label: 'Clock' },
+                { value: 'moves', label: 'Moves' },
+              ]}
+              onChange={(ninja) => set({ ninja })}
+            />
+          </Row>
+          {settings.ninja === 'timer' && (
+            <Row label="Clock">
+              <Segmented
+                label="Clock"
+                value={settings.ninjaSeconds}
+                options={[
+                  { value: 60, label: '1 min' },
+                  { value: 120, label: '2 min' },
+                  { value: 180, label: '3 min' },
+                ]}
+                onChange={(ninjaSeconds) => set({ ninjaSeconds })}
+              />
+            </Row>
+          )}
+        </>
+      )}
+      <Toggle
+        label="Show par"
+        description="How many steps the shortest ladder takes."
+        checked={settings.showPar}
+        onChange={(showPar) => set({ showPar })}
+      />
+    </>
+  );
 
   return (
     <div className="mx-auto flex min-h-dvh max-w-md flex-col gap-5 px-4 pt-3 pb-10">
       <ScreenHeader title="Settings" onBack={onBack} />
 
-      <section aria-labelledby="presets-h" className="flex flex-col gap-1">
-        <h2 id="presets-h" className="text-label text-muted">
-          Quick picks
-        </h2>
-        <div role="radiogroup" aria-labelledby="presets-h" className="grid grid-cols-3 gap-2">
-          {(Object.entries(PRESETS) as [PresetName, (typeof PRESETS)[PresetName]][]).map(
-            ([name, p]) => (
-              <button
-                key={name}
-                type="button"
-                role="radio"
-                aria-checked={preset === name}
-                onClick={() => set(p.settings)}
-                className={[
-                  'flex flex-col items-start gap-1 rounded-md p-3 text-left',
-                  'focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ink',
-                  preset === name ? 'bg-ink text-bg' : 'bg-surface text-ink shadow-card',
-                ].join(' ')}
-              >
-                <span className="text-body-strong">{p.label}</span>
-                <span
-                  className={['text-small', preset === name ? 'opacity-80' : 'text-muted'].join(
-                    ' ',
-                  )}
-                >
-                  {p.description}
-                </span>
-              </button>
-            ),
-          )}
-        </div>
-        {!preset && <p className="text-small text-muted">Your own mix.</p>}
-      </section>
+      {layout === 'picks-and-rows' && (
+        <>
+          <section className="flex flex-col gap-1">
+            <h2 className="text-label text-muted">Quick picks</h2>
+            {picks}
+          </section>
+          <Group title="Game">
+            {rules}
+            <Toggle
+              label="Family-friendly"
+              description="Grown-up words are refused kindly and never used."
+              checked={settings.familyFriendly}
+              onChange={(familyFriendly) => set({ familyFriendly })}
+            />
+            <Toggle
+              label="Doubled letters at the ends allowed"
+              description="Practice puzzles may start or end on words like BOOK."
+              checked={settings.doubledEnds}
+              onChange={(doubledEnds) => set({ doubledEnds })}
+            />
+          </Group>
+        </>
+      )}
 
-      <Group title="Game">
-        <Row label="Bones" description="One is eaten for each word that isn't in our list.">
-          <Segmented
-            label="Bones"
-            value={settings.bones}
-            options={[
-              { value: 10, label: '10' },
-              { value: 5, label: '5' },
-              { value: 'unlimited', label: 'Unlimited' },
-            ]}
-            onChange={(bones) => set({ bones })}
-          />
-        </Row>
-        <Row
-          label="Pace"
-          description={
-            settings.pace === 'zen'
-              ? 'No clock. Take your time.'
-              : 'Beat the clock, or the move limit.'
-          }
-        >
-          <Segmented
-            label="Pace"
-            value={settings.pace}
-            options={[
-              { value: 'zen', label: 'Zen' },
-              { value: 'ninja', label: 'Ninja' },
-            ]}
-            onChange={(pace) => set({ pace })}
-          />
-        </Row>
-        {settings.pace === 'ninja' && (
-          <>
-            <Row
-              label="Ninja challenge"
-              description={
-                settings.ninja === 'timer'
-                  ? 'Solve before the clock runs out.'
-                  : 'Solve within par + 2 steps.'
-              }
-            >
-              <Segmented
-                label="Ninja challenge"
-                value={settings.ninja}
-                options={[
-                  { value: 'timer', label: 'Clock' },
-                  { value: 'moves', label: 'Moves' },
-                ]}
-                onChange={(ninja) => set({ ninja })}
-              />
-            </Row>
-            {settings.ninja === 'timer' && (
-              <Row label="Clock">
-                <Segmented
-                  label="Clock"
-                  value={settings.ninjaSeconds}
-                  options={[
-                    { value: 60, label: '1 min' },
-                    { value: 120, label: '2 min' },
-                    { value: 180, label: '3 min' },
-                  ]}
-                  onChange={(ninjaSeconds) => set({ ninjaSeconds })}
-                />
-              </Row>
+      {layout !== 'picks-and-rows' && (
+        <>
+          <section className="flex flex-col gap-1">
+            <h2 className="text-label text-muted">Challenge</h2>
+            {layout === 'picks-then-customize' && picks}
+            {layout === 'picks-then-customize' && preset && (
+              <button
+                type="button"
+                aria-expanded={showRules}
+                onClick={() => setCustomizing((c) => !c)}
+                className="self-start rounded-pill px-1 py-1 text-small font-semibold text-ink underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-ink"
+              >
+                {showRules ? 'Hide details' : 'Customize'}
+              </button>
             )}
-          </>
-        )}
-        <Toggle
-          label="Show par"
-          description="How many steps the shortest ladder takes."
-          checked={settings.showPar}
-          onChange={(showPar) => set({ showPar })}
-        />
-        <Toggle
-          label="Family-friendly"
-          description="Grown-up words are refused kindly and never used."
-          checked={settings.familyFriendly}
-          onChange={(familyFriendly) => set({ familyFriendly })}
-        />
-        <Toggle
-          label="Doubled letters at the ends"
-          description="Practice puzzles may start or end on words like BOOK."
-          checked={settings.doubledEnds}
-          onChange={(doubledEnds) => set({ doubledEnds })}
-        />
-      </Group>
+            {showRules && (
+              <div className="flex flex-col divide-y divide-edge rounded-lg bg-surface px-4 py-1 shadow-card">
+                {rules}
+              </div>
+            )}
+          </section>
+          <Group title="Words">
+            <Toggle
+              label="Family-friendly"
+              description="Grown-up words are refused kindly and never used."
+              checked={settings.familyFriendly}
+              onChange={(familyFriendly) => set({ familyFriendly })}
+            />
+            <Toggle
+              label="Doubled letters at the ends allowed"
+              description="Practice puzzles may start or end on words like BOOK."
+              checked={settings.doubledEnds}
+              onChange={(doubledEnds) => set({ doubledEnds })}
+            />
+          </Group>
+        </>
+      )}
 
       <Group title="Look">
         <Row label="Theme">
