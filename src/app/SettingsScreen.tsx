@@ -50,26 +50,13 @@ function Row({
   );
 }
 
-/**
- * Layout options while we choose between them (see Proposals in Storybook):
- * - "picks-and-rows": quick picks on top, every rule listed below (what shipped first)
- * - "picks-then-customize": quick picks, with the detailed rules folded under Customize
- * - "rows-only": no quick picks, just the rules
- */
-export type SettingsLayout = 'picks-and-rows' | 'picks-then-customize' | 'rows-only';
-
-export function SettingsScreen({
-  onBack,
-  layout = 'picks-and-rows',
-}: {
-  onBack: () => void;
-  layout?: SettingsLayout;
-}) {
+export function SettingsScreen({ onBack }: { onBack: () => void }) {
   const settings = useSettings();
   const preset = activePreset(settings);
   const set = (patch: Partial<Settings>) => updateSettings(patch);
   const [customizing, setCustomizing] = useState(false);
-  const showRules = layout !== 'picks-then-customize' || customizing || !preset;
+  // The detailed rules stay folded unless opened, or when the settings are a custom mix.
+  const showRules = customizing || !preset;
 
   const picks = (
     <>
@@ -186,67 +173,41 @@ export function SettingsScreen({
     <div className="mx-auto flex min-h-dvh max-w-md flex-col gap-5 px-4 pt-3 pb-10">
       <ScreenHeader title="Settings" onBack={onBack} />
 
-      {layout === 'picks-and-rows' && (
-        <>
-          <section className="flex flex-col gap-1">
-            <h2 className="text-label text-muted">Quick picks</h2>
-            {picks}
-          </section>
-          <Group title="Game">
-            {rules}
-            <Toggle
-              label="Family-friendly"
-              description="Grown-up words are refused kindly and never used."
-              checked={settings.familyFriendly}
-              onChange={(familyFriendly) => set({ familyFriendly })}
-            />
-            <Toggle
-              label="Doubled letters at the ends allowed"
-              description="Practice puzzles may start or end on words like BOOK."
-              checked={settings.doubledEnds}
-              onChange={(doubledEnds) => set({ doubledEnds })}
-            />
-          </Group>
-        </>
-      )}
-
-      {layout !== 'picks-and-rows' && (
-        <>
-          <section className="flex flex-col gap-1">
-            <h2 className="text-label text-muted">Challenge</h2>
-            {layout === 'picks-then-customize' && picks}
-            {layout === 'picks-then-customize' && preset && (
-              <button
-                type="button"
-                aria-expanded={showRules}
-                onClick={() => setCustomizing((c) => !c)}
-                className="self-start rounded-pill px-1 py-1 text-small font-semibold text-ink underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-ink"
-              >
-                {showRules ? 'Hide details' : 'Customize'}
-              </button>
-            )}
-            {showRules && (
-              <div className="flex flex-col divide-y divide-edge rounded-lg bg-surface px-4 py-1 shadow-card">
-                {rules}
-              </div>
-            )}
-          </section>
-          <Group title="Words">
-            <Toggle
-              label="Family-friendly"
-              description="Grown-up words are refused kindly and never used."
-              checked={settings.familyFriendly}
-              onChange={(familyFriendly) => set({ familyFriendly })}
-            />
-            <Toggle
-              label="Doubled letters at the ends allowed"
-              description="Practice puzzles may start or end on words like BOOK."
-              checked={settings.doubledEnds}
-              onChange={(doubledEnds) => set({ doubledEnds })}
-            />
-          </Group>
-        </>
-      )}
+      <>
+        <section className="flex flex-col gap-1">
+          <h2 className="text-label text-muted">Challenge</h2>
+          {picks}
+          {preset && (
+            <button
+              type="button"
+              aria-expanded={showRules}
+              onClick={() => setCustomizing((c) => !c)}
+              className="self-start rounded-pill px-1 py-1 text-small font-semibold text-ink underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-ink"
+            >
+              {showRules ? 'Hide details' : 'Customize'}
+            </button>
+          )}
+          {showRules && (
+            <div className="flex flex-col divide-y divide-edge rounded-lg bg-surface px-4 py-1 shadow-card">
+              {rules}
+            </div>
+          )}
+        </section>
+        <Group title="Words">
+          <Toggle
+            label="Family-friendly"
+            description="Grown-up words are refused kindly and never used."
+            checked={settings.familyFriendly}
+            onChange={(familyFriendly) => set({ familyFriendly })}
+          />
+          <Toggle
+            label="Doubled letters at the ends allowed"
+            description="Practice puzzles may start or end on words like BOOK."
+            checked={settings.doubledEnds}
+            onChange={(doubledEnds) => set({ doubledEnds })}
+          />
+        </Group>
+      </>
 
       <Group title="Look">
         <Row label="Theme">

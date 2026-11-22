@@ -4,7 +4,6 @@ import { BoneCounter } from '../components/BoneCounter.tsx';
 import { Key } from '../components/Key.tsx';
 import { Rung } from '../components/Rung.tsx';
 import { Wordmark } from '../components/Wordmark.tsx';
-import { SettingsScreen, type SettingsLayout } from '../app/SettingsScreen.tsx';
 
 /**
  * Side-by-side color proposals, kept as a record of what was compared and chosen. Each column overrides a few light-mode tokens,
@@ -77,41 +76,4 @@ export const LightMode: StoryObj = {
   name: 'Light mode: warmer and deeper',
   render: () => <LightModeCompare />,
   globals: { theme: 'light' },
-};
-
-const SETTINGS_LAYOUTS: { layout: SettingsLayout; name: string; note: string }[] = [
-  {
-    layout: 'picks-and-rows',
-    name: 'Before',
-    note: 'Quick picks on top, then every rule. Bones, pace and par show up twice.',
-  },
-  {
-    layout: 'picks-then-customize',
-    name: 'Option 1 · Picks, then Customize',
-    note: 'Pick a feel; the rules stay folded away unless you open them or make your own mix.',
-  },
-  {
-    layout: 'rows-only',
-    name: 'Option 2 · Just the rules',
-    note: 'No quick picks. Every rule set by hand, like Boduku.',
-  },
-];
-
-export const SettingsLayouts: StoryObj = {
-  name: 'Settings: quick picks or rules',
-  render: () => (
-    <div className="flex flex-wrap gap-4">
-      {SETTINGS_LAYOUTS.map(({ layout, name, note }) => (
-        <figure key={layout} className="flex w-[375px] flex-col gap-2">
-          <figcaption className="flex flex-col">
-            <span className="text-heading">{name}</span>
-            <span className="text-small text-muted">{note}</span>
-          </figcaption>
-          <div className="h-[760px] overflow-y-auto rounded-lg border border-edge bg-bg">
-            <SettingsScreen layout={layout} onBack={() => {}} />
-          </div>
-        </figure>
-      ))}
-    </div>
-  ),
 };
