@@ -18,7 +18,8 @@
     "tokens": "node scripts/build-tokens.ts",
     "figma-sync": "node scripts/build-figma-sync.ts",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build",
+    "daily": "node scripts/build-daily.ts"
   },
   "dependencies": {
     "@fontsource-variable/outfit": "^5.3.0",

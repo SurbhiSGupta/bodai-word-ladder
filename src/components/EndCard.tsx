@@ -10,7 +10,10 @@ export type EndCardProps = {
   par: number;
   onWord: (word: string) => void;
   onNext: () => void;
-  onTryAgain: () => void;
+  /** Label for the main button. */
+  nextLabel?: string;
+  /** Same puzzle, every bone back. Left out for the daily, which counts once. */
+  onTryAgain?: () => void;
 };
 
 /**
@@ -24,6 +27,7 @@ export function EndCard({
   par,
   onWord,
   onNext,
+  nextLabel,
   onTryAgain,
 }: EndCardProps) {
   const steps = yourPath.length - 1;
@@ -77,13 +81,13 @@ export function EndCard({
       <p className="text-small text-muted">Tap any word to see what it means.</p>
 
       <div className="flex w-full gap-2">
-        {!solved && (
+        {!solved && onTryAgain && (
           <Button variant="quiet" className="flex-1" onClick={onTryAgain}>
             Try again
           </Button>
         )}
         <Button className="flex-1" onClick={onNext}>
-          {solved ? 'Next puzzle' : 'New puzzle'}
+          {nextLabel ?? (solved ? 'Next puzzle' : 'New puzzle')}
         </Button>
       </div>
     </section>

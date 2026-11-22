@@ -1,10 +1,10 @@
 /**
- * Everything one practice game needs: the puzzle, the ladder, the word being typed,
- * and the actions the screen calls. Progress is saved in the browser per word length,
- * so a refresh (or coming back tomorrow) picks up where the player left off.
+ * Everything one game needs: the puzzle, the ladder, the word being typed, and the actions
+ * the screen calls. It plays either a practice puzzle (saved per word length) or one day's
+ * daily puzzle (saved per date, with the result recorded for streaks and stats).
  */
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { playTone } from '../feedback/tones.ts';
 import type { Puzzle } from '../game/ladder.ts';
 import {
@@ -19,6 +19,8 @@ import {
   type Ladder,
 } from '../game/session.ts';
 import type { ToastProps } from '../components/Toast.tsx';
+import { dateKey } from '../game/daily.ts';
+import { recordDaily } from './dailyStore.ts';
 import { practicePuzzle, type WordData } from './wordData.ts';
 
 export const BONES = 10;
@@ -26,11 +28,17 @@ export const BONES = 10;
 type Saved = { puzzle: Puzzle; ladder: Ladder };
 type Message = { text: string; tone: ToastProps['tone']; id: number };
 
-const storageKey = (length: number) => `bodai-ladder-practice-${length}`;
+/** What to play: a practice puzzle, or a given day's daily. */
+export type GameSource = { kind: 'practice' } | { kind: 'daily'; date: string; puzzle: Puzzle };
 
-function load(length: number): Saved | null {
+const storageKey = (length: number, source: GameSource) =>
+  source.kind === 'daily' ? `bodai-ladder-daily-${source.date}` : `bodai-ladder-practice-${length}`;
+
+function load(length: number, source: GameSource): Saved | null {
   try {
-    const saved = JSON.parse(localStorage.getItem(storageKey(length)) ?? 'null') as Saved | null;
+    const saved = JSON.parse(
+      localStorage.getItem(storageKey(length, source)) ?? 'null',
+    ) as Saved | null;
     const ok =
       saved?.puzzle?.start?.length === length &&
       Array.isArray(saved.ladder?.rungs) &&
@@ -41,23 +49,29 @@ function load(length: number): Saved | null {
   }
 }
 
-function save(length: number, game: Saved) {
+function save(length: number, source: GameSource, game: Saved) {
   try {
-    localStorage.setItem(storageKey(length), JSON.stringify(game));
+    localStorage.setItem(storageKey(length, source), JSON.stringify(game));
   } catch {
     // Private browsing or storage full: the game still plays, it just isn't remembered.
   }
 }
 
-function fresh(data: WordData): Saved {
-  const puzzle = practicePuzzle(data);
+function fresh(data: WordData, source: GameSource): Saved {
+  const puzzle = source.kind === 'daily' ? source.puzzle : practicePuzzle(data);
   return { puzzle, ladder: newLadder(puzzle.start, puzzle.end) };
 }
 
-export function useLadderGame(data: WordData) {
+export function useLadderGame(data: WordData, source: GameSource = { kind: 'practice' }) {
   const length = data.length;
-  const [game, setGame] = useState<Saved>(() => load(length) ?? fresh(data));
-  const [draft, setDraft] = useState('');
+  const [game, setGame] = useState<Saved>(() => load(length, source) ?? fresh(data, source));
+  const [draft, setDraftState] = useState('');
+  // The latest letters, so Enter pressed in the same instant as the last letter still sees it.
+  const draftRef = useRef('');
+  const setDraft = useCallback((next: string | ((d: string) => string)) => {
+    draftRef.current = typeof next === 'function' ? next(draftRef.current) : next;
+    setDraftState(draftRef.current);
+  }, []);
   const [message, setMessage] = useState<Message | null>(null);
   /** Read aloud to screen readers: what just happened, in a sentence. */
   const [announcement, setAnnouncement] = useState('');
@@ -69,7 +83,20 @@ export function useLadderGame(data: WordData) {
   const over = solved || outOfBones;
   const bonesLeft = Math.max(BONES - ladder.bonesUsed, 0);
 
-  useEffect(() => save(length, game), [length, game]);
+  useEffect(() => save(length, source, game), [length, source, game]);
+
+  // A finished daily counts toward streaks and stats.
+  const dailyDate = source.kind === 'daily' ? source.date : null;
+  useEffect(() => {
+    if (!dailyDate || !over) return;
+    recordDaily(dailyDate, {
+      solved,
+      steps: ladder.rungs.length,
+      par: puzzle.par,
+      bonesUsed: ladder.bonesUsed,
+      late: dailyDate !== dateKey(new Date()),
+    });
+  }, [dailyDate, over, solved, ladder, puzzle.par]);
 
   useEffect(() => {
     if (!message) return;
@@ -88,14 +115,14 @@ export function useLadderGame(data: WordData) {
       if (over) return;
       setDraft((d) => (d.length < length ? d + letter : d));
     },
-    [over, length],
+    [over, length, setDraft],
   );
 
-  const backspace = useCallback(() => setDraft((d) => d.slice(0, -1)), []);
+  const backspace = useCallback(() => setDraft((d) => d.slice(0, -1)), [setDraft]);
 
   const submit = useCallback(() => {
     if (over) return;
-    const word = draft;
+    const word = draftRef.current;
     const { ladder: next, result } = tryWord(ladder, word.padEnd(length, ' '), data.dictionary);
     setLadder(next);
     const spoken = word.toUpperCase();
@@ -119,7 +146,7 @@ export function useLadderGame(data: WordData) {
       say(RESULT_MESSAGES[result], result === 'blocked' ? 'gentle' : 'info');
       setAnnouncement(RESULT_MESSAGES[result]);
     }
-  }, [over, draft, ladder, length, data.dictionary, puzzle.par, say]);
+  }, [over, ladder, length, data.dictionary, puzzle.par, say, setDraft]);
 
   const undo = useCallback(() => {
     if (over || ladder.rungs.length === 0) return;
@@ -127,26 +154,26 @@ export function useLadderGame(data: WordData) {
     setLadder(undoLadder(ladder));
     setDraft('');
     setAnnouncement(`Took back ${ladder.rungs.at(-1)!.toUpperCase()}.`);
-  }, [over, ladder]);
+  }, [over, ladder, setDraft]);
 
   const redo = useCallback(() => {
     if (over || ladder.undone.length === 0) return;
     setLadder(redoLadder(ladder));
     setDraft('');
     setAnnouncement(`Put back ${ladder.undone.at(-1)!.toUpperCase()}.`);
-  }, [over, ladder]);
+  }, [over, ladder, setDraft]);
 
   const newPuzzle = useCallback(() => {
-    setGame(fresh(data));
+    setGame(fresh(data, { kind: 'practice' }));
     setDraft('');
     setAnnouncement('New puzzle.');
-  }, [data]);
+  }, [data, setDraft]);
 
   const tryAgain = useCallback(() => {
     setLadder(restartLadder(ladder));
     setDraft('');
     setAnnouncement('Same puzzle, every bone back.');
-  }, [ladder]);
+  }, [ladder, setDraft]);
 
   return {
     puzzle,

@@ -1,5 +1,5 @@
 /**
- * The practice game: start word pinned at the top, end word at the bottom, rungs scrolling
+ * One game, daily or practice: start word pinned at the top, end word at the bottom, rungs scrolling
  * in between, and the keyboard in the thumb zone. Words are typed whole and colored only
  * after Enter. All the rules live in useLadderGame and src/game; this file is layout.
  */
@@ -9,19 +9,22 @@ import { BoneCounter } from '../components/BoneCounter.tsx';
 import { Button } from '../components/Button.tsx';
 import { EndCard } from '../components/EndCard.tsx';
 import { Keyboard } from '../components/Keyboard.tsx';
-import { LengthPicker } from '../components/LengthPicker.tsx';
 import { Rung } from '../components/Rung.tsx';
 import { Sheet } from '../components/Sheet.tsx';
-import { ThemeSwitch } from '../components/ThemeSwitch.tsx';
 import { Toast } from '../components/Toast.tsx';
-import { Wordmark } from '../components/Wordmark.tsx';
-import { BONES, useLadderGame } from './useLadderGame.ts';
-import { LENGTHS, loadMeanings, type Meaning, type WordData } from './wordData.ts';
+import { BONES, useLadderGame, type GameSource } from './useLadderGame.ts';
+import { loadMeanings, type Meaning, type WordData } from './wordData.ts';
 
-type Props = { data: WordData; onLength: (length: number) => void };
+type Props = { data: WordData; source: GameSource; onHome: () => void };
 
-export function GameScreen({ data, onLength }: Props) {
-  const game = useLadderGame(data);
+function shortDate(key: string) {
+  const [y, m, d] = key.split('-').map(Number) as [number, number, number];
+  return new Date(y, m - 1, d).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
+}
+
+export function GameScreen({ data, source, onHome }: Props) {
+  const game = useLadderGame(data, source);
+  const daily = source.kind === 'daily';
   const { puzzle, ladder, draft, over } = game;
   const length = data.length;
   const scroller = useRef<HTMLOListElement>(null);
@@ -63,16 +66,25 @@ export function GameScreen({ data, onLength }: Props) {
 
   return (
     <div className="mx-auto flex h-dvh max-w-md flex-col gap-3 px-4 pt-3 pb-4">
-      <header className="flex items-center justify-between gap-3">
-        <h1>
-          <Wordmark size="heading">Word Ladder</Wordmark>
-        </h1>
-        <BoneCounter used={ladder.bonesUsed} total={BONES} size="sm" />
+      <header className="flex items-center justify-between gap-2">
+        <div className="flex min-w-0 items-center gap-1">
+          <button
+            type="button"
+            onClick={onHome}
+            aria-label="Back to home"
+            className="grid size-11 shrink-0 place-items-center rounded-pill text-title leading-none hover:bg-tile focus-visible:outline-2 focus-visible:outline-ink"
+          >
+            ‹
+          </button>
+          <h1 className="truncate text-heading">
+            {daily ? `Daily · ${shortDate(source.date)}` : `Practice · ${length} letters`}
+          </h1>
+        </div>
       </header>
 
-      <div className="flex flex-wrap items-center justify-between gap-2">
-        <LengthPicker value={length} lengths={LENGTHS} onChange={onLength} />
-        <ThemeSwitch />
+      <div className="flex items-center justify-between gap-2 px-1">
+        <span className="text-small text-muted">Par {puzzle.par}</span>
+        <BoneCounter used={ladder.bonesUsed} total={BONES} size="sm" />
       </div>
 
       <section aria-label="Ladder" className="flex min-h-0 flex-1 flex-col items-center gap-1">
@@ -107,14 +119,14 @@ export function GameScreen({ data, onLength }: Props) {
                 bestPath={puzzle.bestPath}
                 par={puzzle.par}
                 onWord={setMeaningOf}
-                onNext={game.newPuzzle}
-                onTryAgain={game.tryAgain}
+                onNext={daily ? onHome : game.newPuzzle}
+                nextLabel={daily ? 'Back to home' : undefined}
+                onTryAgain={daily ? undefined : game.tryAgain}
               />
             </li>
           )}
         </ol>
         <Rung word={puzzle.end} role="end" size="md" />
-        <p className="text-small text-muted">Par {puzzle.par}</p>
       </section>
 
       <div className="flex h-9 justify-center">
@@ -136,9 +148,11 @@ export function GameScreen({ data, onLength }: Props) {
             <Button variant="quiet" onClick={game.redo} disabled={!game.canRedo}>
               Redo
             </Button>
-            <Button variant="quiet" className="ml-auto" onClick={game.newPuzzle}>
-              New puzzle
-            </Button>
+            {!daily && (
+              <Button variant="quiet" className="ml-auto" onClick={game.newPuzzle}>
+                New puzzle
+              </Button>
+            )}
           </div>
           <Keyboard
             onKey={(key) =>
