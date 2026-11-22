@@ -7,12 +7,12 @@ Accepted = everything up to tier 70, minus "never" words.
 Endpoints = common words that can start or end a puzzle (no plurals or -ed/-ing forms).
 
 | Letters | Common | Also accepted | Endpoints | Dead ends (common) | Dead ends (accepted) | Pairs with a path | With meanings |
-| ------- | ------ | ------------- | --------- | ------------------ | -------------------- | ----------------- | ------------- |
-| 3       | 492    | 292           | 462       | 10                 | 9                    | 100%              | 82%           |
-| 4       | 1953   | 1176          | 1487      | 58                 | 75                   | 94%               | 85%           |
-| 5       | 3601   | 2780          | 1706      | 466                | 743                  | 55%               | 85%           |
-| 6       | 5275   | 5431          | 1696      | 1533               | 2928                 | 16%               | 83%           |
-| 7       | 6709   | 8630          | 1256      | 2800               | 6369                 | 4%                | 80%           |
+|---|---|---|---|---|---|---|---|
+| 3 | 492 | 292 | 462 | 10 | 9 | 100% | 82% |
+| 4 | 1952 | 1176 | 1486 | 58 | 75 | 95% | 85% |
+| 5 | 3592 | 2772 | 1704 | 468 | 744 | 59% | 85% |
+| 6 | 5268 | 5423 | 1696 | 1535 | 2930 | 16% | 83% |
+| 7 | 6700 | 8617 | 1256 | 2799 | 6363 | 4% | 80% |
 
 ## Sample puzzles
 
@@ -30,11 +30,11 @@ Dead ends among common words: chi, ebb, gnu, ova, qua, ugh, ups, urn, use, you
 ### 4 letters (par 3 to 6)
 
 - **YOUR → WEAK**, par 5: your → sour → soar → sear → wear → weak
-- **OUST → LEAK**, par 5: oust → bust → best → beat → beak → leak
-- **JACK → HERO**, par 5: jack → hack → hark → hard → herd → hero
-- **HAIL → TUSH**, par 6: hail → tail → tall → talk → task → tusk → tush
+- **FUEL → FEUD**, par 3: fuel → feel → feed → feud
+- **JADE → HAZE**, par 3: jade → fade → faze → haze
+- **HAIR → TYKE**, par 6: hair → hail → tail → tall → tale → take → tyke
 - **WHOM → SUIT**, par 6: whom → wham → sham → slam → slim → slit → suit
-- **BURP → HAWK**, par 5: burp → burn → barn → bark → hark → hawk
+- **BURN → HERO**, par 5: burn → barn → bard → hard → herd → hero
 
 Dead ends among common words: abet, ahoy, alga, amok, anon, atom, aura, avow, daub, deli, dodo, ebbs, echo, ends, envy, epic, ergo, evil, exam, fern, guru, hobo, hymn, idea, idol, ills, iota, jinx, judo, kiwi
 
@@ -43,7 +43,7 @@ Dead ends among common words: abet, ahoy, alga, amok, anon, atom, aura, avow, da
 - **CHAFE → RETCH**, par 7: chafe → chase → cease → lease → leash → leach → reach → retch
 - **HEDGE → DODGE**, par 3: hedge → ledge → lodge → dodge
 - **PROSE → SHARK**, par 6: prose → prone → phone → shone → shore → share → shark
-- **TOWER → FORTH**, par 7: tower → cower → cover → coves → cores → fores → forts → forth
+- **TOWER → FORTE**, par 7: tower → cower → cover → coves → cores → fores → forts → forte
 - **AWOKE → AWARD**, par 3: awoke → awake → aware → award
 - **CHUCK → BREAK**, par 5: chuck → check → cheek → creek → creak → break
 

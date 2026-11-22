@@ -174,6 +174,24 @@ const never = new Set(
     .map((word) => word.toLowerCase())
     .filter((word) => isPlainWord(word) && LENGTHS.includes(word.length) && !mild.has(word)),
 );
+// Plurals and past forms of a blocked word are blocked too (DICK → DICKS, SEX → SEXED).
+const blockedBases = new Set([...never].filter((word) => !mild.has(word)));
+for (const word of tierOf.keys()) {
+  // Only real endings: ASSETS is not ASS + "ets".
+  const bases: string[] = [];
+  if (word.endsWith('s')) bases.push(word.slice(0, -1));
+  if (word.endsWith('es') || word.endsWith('ed')) bases.push(word.slice(0, -2));
+  if (word.endsWith('ed')) bases.push(word.slice(0, -1));
+  if (word.endsWith('ing')) bases.push(word.slice(0, -3));
+  // SPICES, JAPED and BUTTES are forms of SPICE, JAPE and BUTTE, not of a blocked word.
+  const siblings: string[] = [];
+  if (word.endsWith('es') || word.endsWith('ed')) siblings.push(word.slice(0, -1));
+  if (word.endsWith('ing')) siblings.push(word.slice(0, -3) + 'e');
+  const innocentBase = siblings.some((base) => allTiers.has(base) && !blockedBases.has(base));
+  if (!never.has(word) && !innocentBase && bases.some((base) => blockedBases.has(base))) {
+    never.add(word);
+  }
+}
 const meaningsOf = loadWordNet();
 
 mkdirSync(OUT, { recursive: true });

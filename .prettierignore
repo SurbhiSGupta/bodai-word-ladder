@@ -3,3 +3,4 @@ dist
 package-lock.json
 src/data
 wordlists/review.json
+wordlists/report.md
