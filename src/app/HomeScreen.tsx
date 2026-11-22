@@ -6,7 +6,6 @@
 import { Buddies } from '../components/Buddies.tsx';
 import { Button } from '../components/Button.tsx';
 import { LengthPicker } from '../components/LengthPicker.tsx';
-import { ThemeSwitch } from '../components/ThemeSwitch.tsx';
 import { Wordmark } from '../components/Wordmark.tsx';
 import type { DailyResults } from '../game/daily.ts';
 import { currentStreak } from '../game/daily.ts';
@@ -24,6 +23,8 @@ type Props = {
   onPractice: () => void;
   onCalendar: () => void;
   onStats: () => void;
+  onSettings: () => void;
+  showPar: boolean;
 };
 
 function longDate(key: string) {
@@ -80,7 +81,7 @@ export function HomeScreen(props: Props) {
     : todayInProgress
       ? 'In progress'
       : todayPuzzle
-        ? `4 letters · par ${todayPuzzle.par}`
+        ? `4 letters${props.showPar ? ` · par ${todayPuzzle.par}` : ''}`
         : '';
 
   return (
@@ -89,7 +90,26 @@ export function HomeScreen(props: Props) {
         <h1>
           <Wordmark size="title">Word Ladder</Wordmark>
         </h1>
-        <ThemeSwitch />
+        <button
+          type="button"
+          onClick={props.onSettings}
+          aria-label="Settings"
+          className="grid size-11 place-items-center rounded-pill bg-surface shadow-card focus-visible:outline-2 focus-visible:outline-ink"
+        >
+          <svg
+            viewBox="0 0 24 24"
+            className="size-6"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="12" cy="12" r="3" />
+            <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z" />
+          </svg>
+        </button>
       </header>
 
       <div className="flex justify-center pt-2">

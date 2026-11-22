@@ -12,7 +12,7 @@ import { Keyboard } from '../components/Keyboard.tsx';
 import { Rung } from '../components/Rung.tsx';
 import { Sheet } from '../components/Sheet.tsx';
 import { Toast } from '../components/Toast.tsx';
-import { BONES, useLadderGame, type GameSource } from './useLadderGame.ts';
+import { useLadderGame, type GameSource } from './useLadderGame.ts';
 import { loadMeanings, type Meaning, type WordData } from './wordData.ts';
 
 type Props = { data: WordData; source: GameSource; onHome: () => void };
@@ -76,15 +76,33 @@ export function GameScreen({ data, source, onHome }: Props) {
           >
             ‹
           </button>
-          <h1 className="truncate text-heading">
+          <h1 className={['truncate text-heading', game.focus ? 'sr-only' : ''].join(' ')}>
             {daily ? `Daily · ${shortDate(source.date)}` : `Practice · ${length} letters`}
           </h1>
         </div>
       </header>
 
       <div className="flex items-center justify-between gap-2 px-1">
-        <span className="text-small text-muted">Par {puzzle.par}</span>
-        <BoneCounter used={ladder.bonesUsed} total={BONES} size="sm" />
+        <span className="flex items-center gap-3 text-small text-muted tabular-nums">
+          {game.showPar && <span>Par {puzzle.par}</span>}
+          {game.secondsLeft !== undefined && (
+            <span
+              aria-label={`${game.secondsLeft} seconds left`}
+              className={[
+                'font-semibold',
+                game.secondsLeft <= 15 ? 'text-bad-ink' : 'text-ink',
+              ].join(' ')}
+            >
+              ⏱ {Math.floor(game.secondsLeft / 60)}:{String(game.secondsLeft % 60).padStart(2, '0')}
+            </span>
+          )}
+          {game.movesLeft !== undefined && (
+            <span className="font-semibold text-ink">
+              {game.movesLeft} {game.movesLeft === 1 ? 'move' : 'moves'} left
+            </span>
+          )}
+        </span>
+        <BoneCounter used={ladder.bonesUsed} total={game.bones} size="sm" />
       </div>
 
       <section aria-label="Ladder" className="flex min-h-0 flex-1 flex-col items-center gap-1">
@@ -114,7 +132,7 @@ export function GameScreen({ data, source, onHome }: Props) {
           {over && (
             <li className="w-full pt-2">
               <EndCard
-                outcome={game.solved ? 'solved' : 'out-of-bones'}
+                outcome={game.outcome ?? 'solved'}
                 yourPath={[puzzle.start, ...ladder.rungs]}
                 bestPath={puzzle.bestPath}
                 par={puzzle.par}
@@ -141,7 +159,7 @@ export function GameScreen({ data, source, onHome }: Props) {
 
       {!over && (
         <>
-          <div className="flex gap-2">
+          <div className={['flex gap-2', game.focus ? 'hidden' : ''].join(' ')}>
             <Button variant="quiet" onClick={game.undo} disabled={!game.canUndo}>
               Undo
             </Button>

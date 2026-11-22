@@ -10,7 +10,9 @@ import type { Puzzle } from '../game/ladder.ts';
 import { CalendarScreen } from './CalendarScreen.tsx';
 import { GameScreen } from './GameScreen.tsx';
 import { HomeScreen } from './HomeScreen.tsx';
+import { SettingsScreen } from './SettingsScreen.tsx';
 import { StatsScreen } from './StatsScreen.tsx';
+import { useSettings } from './settings.ts';
 import { isInProgress, loadDailies, loadResults } from './dailyStore.ts';
 import type { GameSource } from './useLadderGame.ts';
 import { LENGTHS, loadWords, type WordData, type WordLength } from './wordData.ts';
@@ -19,7 +21,8 @@ type Screen =
   | { name: 'home' }
   | { name: 'game'; source: GameSource }
   | { name: 'calendar' }
-  | { name: 'stats' };
+  | { name: 'stats' }
+  | { name: 'settings' };
 
 const LENGTH_KEY = 'bodai-ladder-length';
 const DAILY_LENGTH: WordLength = 4;
@@ -56,6 +59,16 @@ export default function App() {
 
   const neededLength: WordLength =
     screen.name === 'game' && screen.source.kind === 'practice' ? practiceLength : DAILY_LENGTH;
+
+  const settings = useSettings();
+
+  // Theme and palette live on <html>, where the color tokens look for them.
+  useEffect(() => {
+    const root = document.documentElement;
+    if (settings.theme === 'auto') delete root.dataset.theme;
+    else root.dataset.theme = settings.theme;
+    root.dataset.palette = settings.palette;
+  }, [settings.theme, settings.palette]);
 
   useEffect(() => {
     void loadDailies().then(setDailies);
@@ -118,6 +131,8 @@ export default function App() {
           onPractice={() => go({ name: 'game', source: { kind: 'practice' } })}
           onCalendar={() => go({ name: 'calendar' })}
           onStats={() => go({ name: 'stats' })}
+          onSettings={() => go({ name: 'settings' })}
+          showPar={settings.showPar}
         />
       )}
       {screen.name === 'calendar' && dailies && (
@@ -130,6 +145,7 @@ export default function App() {
         />
       )}
       {screen.name === 'stats' && <StatsScreen today={today} results={results} onBack={home} />}
+      {screen.name === 'settings' && <SettingsScreen onBack={home} />}
     </main>
   );
 }

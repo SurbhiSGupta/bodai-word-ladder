@@ -3,7 +3,7 @@ import { Button } from './Button.tsx';
 import { WordChip } from './WordChip.tsx';
 
 export type EndCardProps = {
-  outcome: 'solved' | 'out-of-bones';
+  outcome: 'solved' | 'out-of-bones' | 'time-up' | 'out-of-moves';
   /** Every word the player climbed, start to end. */
   yourPath: string[];
   bestPath: string[];
@@ -36,7 +36,11 @@ export function EndCard({
   const best = new Set(bestPath);
 
   const headline = !solved
-    ? "Frisky's out of bones"
+    ? outcome === 'time-up'
+      ? "Time's up!"
+      : outcome === 'out-of-moves'
+        ? 'Out of moves'
+        : "Frisky's out of bones"
     : underPar
       ? `Under par! ${steps} steps`
       : steps === par

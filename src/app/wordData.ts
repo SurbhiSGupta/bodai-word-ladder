@@ -36,7 +36,10 @@ const MEANING_FILES: Record<WordLength, () => Promise<{ default: Record<string, 
 
 export type WordData = {
   length: WordLength;
+  /** Family-friendly on: grown-up words refused. */
   dictionary: Dictionary;
+  /** Family-friendly off: grown-up words allowed (never-words still refused). */
+  grownUpDictionary: Dictionary;
   index: NeighborIndex;
   endpoints: string[];
 };
@@ -49,6 +52,7 @@ export function loadWords(length: WordLength): Promise<WordData> {
     loading = WORD_FILES[length]().then(({ default: words }) => ({
       length,
       dictionary: makeDictionary(words, blocked),
+      grownUpDictionary: makeDictionary(words, blocked, { familyFriendly: false }),
       index: buildNeighborIndex(words.common),
       endpoints: words.endpoints,
     }));
@@ -62,13 +66,17 @@ export async function loadMeanings(length: WordLength): Promise<Record<string, M
 }
 
 /** A fresh random practice puzzle. */
-export function practicePuzzle(data: WordData, seed = Date.now()): Puzzle {
+export function practicePuzzle(
+  data: WordData,
+  { allowDoubledEnds = false, seed = Date.now() } = {},
+): Puzzle {
   const [minPar, maxPar] = PAR_RANGE[data.length];
   const puzzle = randomPuzzle(seededRandom(seed), {
     endpoints: data.endpoints,
     index: data.index,
     minPar,
     maxPar,
+    allowDoubledEnds,
   });
   if (!puzzle) throw new Error(`No ${data.length}-letter puzzle found`);
   return puzzle;

@@ -5,7 +5,7 @@
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { playTone } from '../feedback/tones.ts';
+import { feel } from '../feedback/feel.ts';
 import type { Puzzle } from '../game/ladder.ts';
 import {
   RESULT_MESSAGES,
@@ -21,9 +21,11 @@ import {
 import type { ToastProps } from '../components/Toast.tsx';
 import { dateKey } from '../game/daily.ts';
 import { recordDaily } from './dailyStore.ts';
+import { bonesLimit, getSettings, useSettings } from './settings.ts';
 import { practicePuzzle, type WordData } from './wordData.ts';
 
-export const BONES = 10;
+/** How a game ended, or null while it's still going. */
+export type Outcome = 'solved' | 'out-of-bones' | 'time-up' | 'out-of-moves';
 
 type Saved = { puzzle: Puzzle; ladder: Ladder };
 type Message = { text: string; tone: ToastProps['tone']; id: number };
@@ -58,7 +60,10 @@ function save(length: number, source: GameSource, game: Saved) {
 }
 
 function fresh(data: WordData, source: GameSource): Saved {
-  const puzzle = source.kind === 'daily' ? source.puzzle : practicePuzzle(data);
+  const puzzle =
+    source.kind === 'daily'
+      ? source.puzzle
+      : practicePuzzle(data, { allowDoubledEnds: getSettings().doubledEnds });
   return { puzzle, ladder: newLadder(puzzle.start, puzzle.end) };
 }
 
@@ -77,11 +82,36 @@ export function useLadderGame(data: WordData, source: GameSource = { kind: 'prac
   const [announcement, setAnnouncement] = useState('');
   const [shakes, setShakes] = useState(0);
 
+  const settings = useSettings();
+  const bones = bonesLimit(settings);
+  const dictionary = settings.familyFriendly ? data.dictionary : data.grownUpDictionary;
   const { puzzle, ladder } = game;
+
+  // Ninja pace: a countdown, or a cap of par + 2 steps.
+  const clock = settings.pace === 'ninja' && settings.ninja === 'timer';
+  const moveCap =
+    settings.pace === 'ninja' && settings.ninja === 'moves' ? puzzle.par + 2 : undefined;
+  const [secondsLeft, setSecondsLeft] = useState<number>(settings.ninjaSeconds);
+
   const solved = isSolved(ladder);
-  const outOfBones = !solved && isOutOfBones(ladder, BONES);
-  const over = solved || outOfBones;
-  const bonesLeft = Math.max(BONES - ladder.bonesUsed, 0);
+  const outcome: Outcome | null = solved
+    ? 'solved'
+    : isOutOfBones(ladder, bones)
+      ? 'out-of-bones'
+      : clock && secondsLeft <= 0
+        ? 'time-up'
+        : moveCap !== undefined && ladder.rungs.length >= moveCap
+          ? 'out-of-moves'
+          : null;
+  const over = outcome !== null;
+  const bonesLeft = bones === undefined ? undefined : Math.max(bones - ladder.bonesUsed, 0);
+
+  // The clock starts fresh each time the game screen opens, and on a new puzzle or retry.
+  useEffect(() => {
+    if (!clock || over) return;
+    const tick = setInterval(() => setSecondsLeft((s) => Math.max(s - 1, 0)), 1000);
+    return () => clearInterval(tick);
+  }, [clock, over]);
 
   useEffect(() => save(length, source, game), [length, source, game]);
 
@@ -123,34 +153,40 @@ export function useLadderGame(data: WordData, source: GameSource = { kind: 'prac
   const submit = useCallback(() => {
     if (over) return;
     const word = draftRef.current;
-    const { ladder: next, result } = tryWord(ladder, word.padEnd(length, ' '), data.dictionary);
+    const { ladder: next, result } = tryWord(ladder, word.padEnd(length, ' '), dictionary);
     setLadder(next);
     const spoken = word.toUpperCase();
 
     if (result === 'added') {
-      playTone('rung-added');
+      feel('rung-added');
       setDraft('');
       setAnnouncement(`${spoken} added. ${next.rungs.length} so far, par is ${puzzle.par}.`);
     } else if (result === 'solved') {
-      playTone('rung-added');
+      feel('rung-added');
+      feel(next.rungs.length < puzzle.par ? 'under-par' : 'solved');
       setDraft('');
       setAnnouncement(`${spoken}. Solved in ${next.rungs.length} steps.`);
     } else if (result === 'not-a-word') {
-      playTone('not-a-word');
+      feel('not-a-word');
       setShakes((n) => n + 1);
       setDraft('');
-      const left = Math.max(BONES - next.bonesUsed, 0);
       say(RESULT_MESSAGES['not-a-word'], 'problem');
-      setAnnouncement(`${spoken} isn't in our word list. ${left} of ${BONES} bones left.`);
+      setAnnouncement(
+        `${spoken} isn't in our word list. ` +
+          (bones === undefined
+            ? `${next.bonesUsed} bones used.`
+            : `${Math.max(bones - next.bonesUsed, 0)} of ${bones} bones left.`),
+      );
     } else {
+      if (result === 'blocked') feel('keep-it-friendly');
       say(RESULT_MESSAGES[result], result === 'blocked' ? 'gentle' : 'info');
       setAnnouncement(RESULT_MESSAGES[result]);
     }
-  }, [over, ladder, length, data.dictionary, puzzle.par, say, setDraft]);
+  }, [over, ladder, length, dictionary, bones, puzzle.par, say, setDraft]);
 
   const undo = useCallback(() => {
     if (over || ladder.rungs.length === 0) return;
-    playTone('undo');
+    feel('undo');
     setLadder(undoLadder(ladder));
     setDraft('');
     setAnnouncement(`Took back ${ladder.rungs.at(-1)!.toUpperCase()}.`);
@@ -165,15 +201,17 @@ export function useLadderGame(data: WordData, source: GameSource = { kind: 'prac
 
   const newPuzzle = useCallback(() => {
     setGame(fresh(data, { kind: 'practice' }));
+    setSecondsLeft(getSettings().ninjaSeconds);
     setDraft('');
     setAnnouncement('New puzzle.');
-  }, [data, setDraft]);
+  }, [data, setDraft, setSecondsLeft]);
 
   const tryAgain = useCallback(() => {
     setLadder(restartLadder(ladder));
+    setSecondsLeft(getSettings().ninjaSeconds);
     setDraft('');
-    setAnnouncement('Same puzzle, every bone back.');
-  }, [ladder, setDraft]);
+    setAnnouncement('Same puzzle, a fresh start.');
+  }, [ladder, setDraft, setSecondsLeft]);
 
   return {
     puzzle,
@@ -183,9 +221,15 @@ export function useLadderGame(data: WordData, source: GameSource = { kind: 'prac
     announcement,
     shakes,
     solved,
-    outOfBones,
+    outcome,
     over,
+    bones,
     bonesLeft,
+    secondsLeft: clock && !over ? secondsLeft : undefined,
+    movesLeft:
+      moveCap === undefined || over ? undefined : Math.max(moveCap - ladder.rungs.length, 0),
+    showPar: settings.showPar,
+    focus: settings.focus,
     canUndo: !over && ladder.rungs.length > 0,
     canRedo: !over && ladder.undone.length > 0,
     type,

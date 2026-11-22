@@ -47,3 +47,12 @@ export const OutOfBones: Story = {
     par: 4,
   },
 };
+
+export const TimeUp: Story = {
+  args: {
+    outcome: 'time-up',
+    yourPath: ['deft', 'daft'],
+    bestPath: ['deft', 'daft', 'dart', 'part', 'port'],
+    par: 4,
+  },
+};
