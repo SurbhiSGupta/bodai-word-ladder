@@ -1,0 +1,20 @@
+{
+  "name": "Bodai Word Ladder",
+  "short_name": "Word Ladder",
+  "description": "Change one letter at a time to climb from one word to another.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f1ecdf",
+  "theme_color": "#f1ecdf",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    {
+      "src": "/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

@@ -107,6 +107,13 @@ function Screens() {
     else root.dataset.motion = 'off';
   }, [settings.theme, settings.palette, settings.animations, supporter, screen.name]);
 
+  // Fetch today's 4-letter words while Home is idle, so the daily still opens offline
+  // (the service worker keeps whatever has been fetched once).
+  useEffect(() => {
+    const timer = setTimeout(() => void loadWords(DAILY_LENGTH), 1500);
+    return () => clearTimeout(timer);
+  }, []);
+
   useEffect(() => {
     void loadDailies().then(setDailies);
     void loadChallenges().then(setChallenges);

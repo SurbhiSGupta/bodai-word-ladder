@@ -9,6 +9,7 @@ import { ChallengeCompare } from './ChallengeProposals.tsx';
 import { OppositesCompare } from './OppositesProposals.tsx';
 import { ShareCompare } from './ShareProposals.tsx';
 import { ThemeCompare } from './ThemeProposals.tsx';
+import { IconCompare, IconHomeScreens } from './IconProposals.tsx';
 
 /**
  * Side-by-side color proposals, kept as a record of what was compared and chosen. Each column overrides a few light-mode tokens,
@@ -119,4 +120,16 @@ export const ThemesDark: StoryObj = {
   name: 'New themes: dark',
   render: () => <ThemeCompare mode="dark" />,
   globals: { theme: 'dark' },
+};
+
+/** Phase 6: the app icon for the home screen and the browser tab. */
+export const Icon: StoryObj = {
+  name: 'App icon: climb, ladder or rungs',
+  render: () => <IconCompare />,
+};
+
+/** The climb and the ladder on a phone's home screen, next to Boduku. */
+export const IconOnPhone: StoryObj = {
+  name: 'App icon: climb vs ladder on a phone (ladder chosen)',
+  render: () => <IconHomeScreens />,
 };
