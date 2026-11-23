@@ -4,11 +4,11 @@
  */
 
 import { useState, type ReactNode } from 'react';
-import { OutfitPicker } from '../components/OutfitPicker.tsx';
-import { PalettePicker } from '../components/PalettePicker.tsx';
 import { Segmented } from '../components/Segmented.tsx';
 import { ThemeSwitch } from '../components/ThemeSwitch.tsx';
+import { Button } from '../components/Button.tsx';
 import { Toggle } from '../components/Toggle.tsx';
+import { MoreLinks } from './MoreLinks.tsx';
 import { feel } from '../feedback/feel.ts';
 import { ScreenHeader } from './ScreenHeader.tsx';
 import {
@@ -51,7 +51,13 @@ function Row({
   );
 }
 
-export function SettingsScreen({ onBack }: { onBack: () => void }) {
+export function SettingsScreen({
+  onBack,
+  onSupport,
+}: {
+  onBack: () => void;
+  onSupport: () => void;
+}) {
   const settings = useSettings();
   const preset = activePreset(settings);
   const set = (patch: Partial<Settings>) => updateSettings(patch);
@@ -238,22 +244,11 @@ export function SettingsScreen({ onBack }: { onBack: () => void }) {
         <Row label="Theme">
           <ThemeSwitch value={settings.theme} onChange={(theme) => set({ theme })} />
         </Row>
-        <div className="flex flex-col gap-2 py-3">
-          <span className="text-body-strong">Colors</span>
-          <PalettePicker value={settings.palette} onChange={(palette) => set({ palette })} />
-        </div>
-        <div className="flex flex-col gap-2 py-3">
-          <span className="text-body-strong">Outfits</span>
-          <OutfitPicker
-            her={settings.herOutfit}
-            frisky={settings.friskyOutfit}
-            onHer={(herOutfit) => set({ herOutfit })}
-            onFrisky={(friskyOutfit) => set({ friskyOutfit })}
-          />
-          <p className="rounded-md bg-highlight-faint px-3 py-2 text-small">
-            Outfits are free for everyone. If they made you smile, you can 💛 Support Bodai.
-          </p>
-        </div>
+        <Row label="Outfits and colors" description="Part of the one-time Support pack.">
+          <Button variant="quiet" onClick={onSupport}>
+            💛 Try them on
+          </Button>
+        </Row>
       </Group>
 
       <Group title="Sound and feel">
@@ -290,6 +285,8 @@ export function SettingsScreen({ onBack }: { onBack: () => void }) {
           onChange={(autoEnter) => set({ autoEnter })}
         />
       </Group>
+
+      <MoreLinks onSupport={onSupport} />
     </div>
   );
 }

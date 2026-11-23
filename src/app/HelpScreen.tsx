@@ -3,6 +3,7 @@
  */
 
 import type { ReactNode } from 'react';
+import { MoreLinks } from './MoreLinks.tsx';
 import { Button } from '../components/Button.tsx';
 import { ScreenHeader } from './ScreenHeader.tsx';
 
@@ -27,7 +28,15 @@ const SHORTCUTS: [string, string][] = [
   ['Escape', 'Close a sheet'],
 ];
 
-export function HelpScreen({ onBack, onTour }: { onBack: () => void; onTour: () => void }) {
+export function HelpScreen({
+  onBack,
+  onTour,
+  onSupport,
+}: {
+  onBack: () => void;
+  onTour: () => void;
+  onSupport: () => void;
+}) {
   return (
     <div className="mx-auto flex min-h-dvh max-w-md flex-col gap-5 px-4 pt-3 pb-10">
       <ScreenHeader title="Help" onBack={onBack} />
@@ -108,7 +117,13 @@ export function HelpScreen({ onBack, onTour }: { onBack: () => void; onTour: () 
           Settings has quick picks (Easy-ish, Classic, Brain Melt), a clock for Ninja days, word
           colors, family-friendly words, sound, vibration and focus mode.
         </p>
+        <p>
+          The one-time Support pack adds outfits for her and Frisky and more colors. Everything else
+          is free, with no ads.
+        </p>
       </Section>
+
+      <MoreLinks onSupport={onSupport} />
     </div>
   );
 }

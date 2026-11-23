@@ -118,58 +118,72 @@ const FACES: Record<Face, ReactNode> = {
 };
 
 /**
- * Outfits: small extras drawn in the same pen, free for everyone. Hers are lines only,
- * like the rest of her; Frisky's are filled in his collar red.
+ * Support pack outfits, drawn exactly as in Bodai Sudoku: the same pen, filled in their
+ * own wear-* colors. The cape goes behind her; everything else sits on top.
  */
+const WEAR = (color: string, strokeWidth = 2) => ({ fill: `var(--wear-${color})`, strokeWidth });
+
+const CAPE = (
+  <path
+    style={WEAR('cape')}
+    d="M58 62.5q-14 24-25.5 49.5l12.5-4l15-42zM62 62.5q14 24 25.5 49.5l-12.5-4l-15-42z"
+  />
+);
 
 const HER_OUTFITS: Record<HerOutfit, ReactNode> = {
   none: null,
-  beanie: (
+  cape: null,
+  party: (
     <>
-      <path d="M38 24q22-26 44 0" />
-      <path d="M37 25.5q23-5 46 0" />
-      <path style={{ strokeWidth: 1.6 }} d="M50 16v6M60 13v8M70 16v6" />
-      <circle cx="60" cy="7" r="3.2" />
+      <path style={WEAR('party')} d="M49 13.5l13.5-27l10.5 28q-12-4-24-1z" />
+      <path
+        style={{ stroke: '#ffffff', strokeWidth: 2.4 }}
+        d="M53 6.5q7-1.6 13.5.5M57.5-3q3.5-.8 7 .3"
+      />
+      <circle style={WEAR('pom', 1.6)} cx="62.5" cy="-14.5" r="3.6" />
     </>
   ),
-  'sun-hat': (
+  crown: (
+    <path
+      style={WEAR('crown')}
+      d="M45 16l-1.5-14l8.5 7l8-10.5l8 10.5l8.5-7l-1.5 14q-15-4.5-30 0z"
+    />
+  ),
+  beret: (
     <>
-      <path d="M26 23q34 9 68 0" />
-      <path d="M43 21q1-15 17-15t17 15" />
-      <path style={{ strokeWidth: 1.8 }} d="M43.5 17.5q16.5 4 33 0" />
+      <path style={WEAR('beret')} d="M37.5 19q-2-15 21-16.5q26-1 23.5 14.5q-22-8-44.5 2z" />
+      <path d="M59 2.6q.6-3.4 2.6-4.6" />
+    </>
+  ),
+  shades: (
+    <>
+      <path
+        style={{ fill: 'var(--wear-shades)', stroke: 'none' }}
+        d="M43.6 31h13.2q1 0 1 1v3.4q0 4-4 4h-6.4q-3.6 0-4.1-3.6l-.6-3.8q-.1-1 .9-1zM76.4 31h-13.2q-1 0-1 1v3.4q0 4 4 4h6.4q3.6 0 4.1-3.6l.6-3.8q.1-1-.9-1z"
+      />
+      <path style={{ stroke: '#ffffff', strokeWidth: 1.2 }} d="M46.5 33.5l3-2M65.5 33.5l3-2" />
     </>
   ),
   scarf: (
     <>
-      <path d="M49 58q11 7 22 0" />
-      <path d="M49.5 61.5q10.5 6 21 0" />
-      <path d="M65 63l3 13M69 62l5 12" />
-    </>
-  ),
-  bow: (
-    <>
-      <path d="M77 15l-7-5.5v11z" />
-      <path d="M77 15l7-5.5v11z" />
-      <circle style={{ fill: 'var(--ink)', stroke: 'none' }} cx="77" cy="15" r="1.8" />
+      <path style={WEAR('scarf', 1.8)} d="M50.5 58.5q9.5 5.5 19 0v5.5q-9.5 5.5-19 0z" />
+      <path style={WEAR('scarf', 1.8)} d="M63 65l3.5 15.5l5-1.5l-3.5-15" />
     </>
   ),
 };
 
-const RED = { fill: 'var(--collar)', strokeWidth: 1.6 };
-
 const FRISKY_OUTFITS: Record<FriskyOutfit, ReactNode> = {
   none: null,
-  bandana: <path style={RED} d="M36 112.5l10 3.5l-7.5 7z" />,
-  'bow-tie': (
-    <>
-      <path style={RED} d="M41 116l-5.5-3.5v7z" />
-      <path style={RED} d="M41 116l5.5-3.5v7z" />
-    </>
+  bandana: (
+    <path
+      style={{ fill: 'var(--collar)', strokeWidth: 1.6 }}
+      d="M35.5 111.5q6.5 5.5 13.5 1.5l-6 12.5z"
+    />
   ),
-  'party-hat': (
+  bow: (
     <>
-      <path style={RED} d="M38.5 100.5l4.5-14l6 13z" />
-      <circle style={{ fill: 'var(--fur)', strokeWidth: 1.4 }} cx="43" cy="86" r="2.4" />
+      <path style={WEAR('scarf', 1.4)} d="M42 116l-7-4.6v9.2zM42 116l7-4.6v9.2z" />
+      <circle style={WEAR('scarf', 1.4)} cx="42" cy="116" r="1.8" />
     </>
   ),
 };
@@ -177,6 +191,7 @@ const FRISKY_OUTFITS: Record<FriskyOutfit, ReactNode> = {
 function Her({ face, outfit = 'none' }: { face: Face; outfit?: HerOutfit }) {
   return (
     <g style={PEN}>
+      {outfit === 'cape' && CAPE}
       <path d="M60 14c13-1 23 9 22 22c0 13-10 22-23 21c-12 0-21-10-20-22c1-12 9-21 21-21" />
       <g style={{ stroke: 'var(--glasses)', strokeWidth: 1.7 }}>
         <path d="M43.6 31h13.2q1 0 1 1v3.4q0 4-4 4h-6.4q-3.6 0-4.1-3.6l-.6-3.8q-.1-1 .9-1z" />

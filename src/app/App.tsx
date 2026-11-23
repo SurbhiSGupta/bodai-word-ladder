@@ -15,6 +15,8 @@ import { HelpScreen } from './HelpScreen.tsx';
 import { SettingsScreen } from './SettingsScreen.tsx';
 import { Tour } from './Tour.tsx';
 import { StatsScreen } from './StatsScreen.tsx';
+import { SupportScreen } from './SupportScreen.tsx';
+import { useSupporter } from './supporter.ts';
 import { useSettings } from './settings.ts';
 import { isInProgress, loadChallenges, loadDailies, loadResults } from './dailyStore.ts';
 import type { GameSource } from './useLadderGame.ts';
@@ -26,7 +28,8 @@ type Screen =
   | { name: 'calendar' }
   | { name: 'stats' }
   | { name: 'settings' }
-  | { name: 'help' };
+  | { name: 'help' }
+  | { name: 'support' };
 
 const LENGTH_KEY = 'bodai-ladder-length';
 const TOUR_KEY = 'bodai-ladder-tour-seen';
@@ -80,6 +83,7 @@ function Screens() {
         : (screen.source.puzzle.start.length as WordLength);
 
   const settings = useSettings();
+  const supporter = useSupporter();
   const [tourOpen, setTourOpen] = useState(false);
   const [showTourBanner, setShowTourBanner] = useState(() => !tourSeen());
 
@@ -97,10 +101,11 @@ function Screens() {
     const root = document.documentElement;
     if (settings.theme === 'auto') delete root.dataset.theme;
     else root.dataset.theme = settings.theme;
-    root.dataset.palette = settings.palette;
+    // Extra colors are part of the Support pack; the Support screen previews them for everyone.
+    root.dataset.palette = supporter || screen.name === 'support' ? settings.palette : 'bodai';
     if (settings.animations) delete root.dataset.motion;
     else root.dataset.motion = 'off';
-  }, [settings.theme, settings.palette, settings.animations]);
+  }, [settings.theme, settings.palette, settings.animations, supporter, screen.name]);
 
   useEffect(() => {
     void loadDailies().then(setDailies);
@@ -213,8 +218,17 @@ function Screens() {
         />
       )}
       {screen.name === 'stats' && <StatsScreen today={today} results={results} onBack={home} />}
-      {screen.name === 'settings' && <SettingsScreen onBack={home} />}
-      {screen.name === 'help' && <HelpScreen onBack={home} onTour={() => setTourOpen(true)} />}
+      {screen.name === 'settings' && (
+        <SettingsScreen onBack={home} onSupport={() => go({ name: 'support' })} />
+      )}
+      {screen.name === 'support' && <SupportScreen onBack={home} />}
+      {screen.name === 'help' && (
+        <HelpScreen
+          onBack={home}
+          onTour={() => setTourOpen(true)}
+          onSupport={() => go({ name: 'support' })}
+        />
+      )}
       <Tour open={tourOpen} onClose={() => setTourOpen(false)} />
     </main>
   );
@@ -223,8 +237,12 @@ function Screens() {
 /** Dresses her and Frisky everywhere, from the outfits picked in Settings. */
 export default function App() {
   const { herOutfit, friskyOutfit } = useSettings();
+  // Outfits are part of the Support pack: worn everywhere once it's unlocked.
+  const supporter = useSupporter();
   return (
-    <OutfitContext.Provider value={{ her: herOutfit, frisky: friskyOutfit }}>
+    <OutfitContext.Provider
+      value={supporter ? { her: herOutfit, frisky: friskyOutfit } : { her: 'none', frisky: 'none' }}
+    >
       <Screens />
     </OutfitContext.Provider>
   );

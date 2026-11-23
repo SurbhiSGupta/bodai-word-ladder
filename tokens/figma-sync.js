@@ -3,7 +3,8 @@ const T = {
   $description:
     'Master copy of every color in Bodai Word Ladder. Edit here, then run `npm run tokens` to rebuild src/styles/tokens.css. Values come from Bodai Sudoku so both games feel like one family.',
   theme: {
-    $description: 'Colors that change with light and dark mode, the same for every palette.',
+    $description:
+      "Colors that change with light and dark mode, the same for every palette. The wear-* colors are the Support pack outfits, the same as Boduku's, and stay the same in both modes.",
     light: {
       bg: '#f1ecdf',
       surface: '#ffffff',
@@ -28,6 +29,13 @@ const T = {
       'fur-shade': '#c9da1e',
       tongue: '#f08a8d',
       collar: '#e5484d',
+      'wear-cape': '#8a6cff',
+      'wear-shades': '#1d2733',
+      'wear-party': '#ff8fb7',
+      'wear-pom': '#ffd84a',
+      'wear-crown': '#ffcf3f',
+      'wear-beret': '#e5484d',
+      'wear-scarf': '#2f80ed',
     },
     dark: {
       bg: '#0a1e25',
@@ -53,10 +61,18 @@ const T = {
       'fur-shade': '#c9da1e',
       tongue: '#f08a8d',
       collar: '#e5484d',
+      'wear-cape': '#8a6cff',
+      'wear-shades': '#1d2733',
+      'wear-party': '#ff8fb7',
+      'wear-pom': '#ffd84a',
+      'wear-crown': '#ffcf3f',
+      'wear-beret': '#e5484d',
+      'wear-scarf': '#2f80ed',
     },
   },
   palettes: {
-    $description: "The player's chosen color family. Each palette has a light and a dark version.",
+    $description:
+      "The player's chosen color family. Each palette has a light and a dark version. The first five match Bodai Sudoku; Coral, Sky and Sand were added for the ladder on Nov 23, 2026.",
     bodai: {
       light: {
         accent: '#eeff41',
@@ -135,6 +151,54 @@ const T = {
         'highlight-strong': '#155159',
         'highlight-ink': '#c8fbf8',
         'highlight-faint': '#1d4a4f',
+      },
+    },
+    coral: {
+      light: {
+        accent: '#ff8f70',
+        highlight: '#ffddd4',
+        'highlight-strong': '#ffc7b8',
+        'highlight-ink': '#10303b',
+        'highlight-faint': '#fff0ec',
+      },
+      dark: {
+        accent: '#ff8f70',
+        highlight: '#4a2018',
+        'highlight-strong': '#5c2a1f',
+        'highlight-ink': '#ffd6ca',
+        'highlight-faint': '#4f2a22',
+      },
+    },
+    sky: {
+      light: {
+        accent: '#8ec5ff',
+        highlight: '#ddeeff',
+        'highlight-strong': '#c6e2ff',
+        'highlight-ink': '#10303b',
+        'highlight-faint': '#f0f7ff',
+      },
+      dark: {
+        accent: '#8ec5ff',
+        highlight: '#16304d',
+        'highlight-strong': '#1d3d61',
+        'highlight-ink': '#d2e7ff',
+        'highlight-faint': '#213a55',
+      },
+    },
+    sand: {
+      light: {
+        accent: '#e9c98f',
+        highlight: '#f8efdd',
+        'highlight-strong': '#f4e4c7',
+        'highlight-ink': '#10303b',
+        'highlight-faint': '#fcf8f0',
+      },
+      dark: {
+        accent: '#e9c98f',
+        highlight: '#42351a',
+        'highlight-strong': '#534322',
+        'highlight-ink': '#f5e4c2',
+        'highlight-faint': '#483c25',
       },
     },
   },
@@ -239,9 +303,9 @@ const T = {
         note: 'A real word, one rung up. Two rising notes.',
       },
       'not-a-word': {
-        sound: { tone: [220], length: 0.14, volume: 0.05, wave: 'triangle' },
+        sound: { samples: ['frisky-bark'], volume: 0.45 },
         haptic: 'error',
-        note: 'Rung shakes, one bone eaten. Low and short, never harsh.',
+        note: "Rung shakes, one bone eaten: a quiet bark as it drops into Frisky's mouth.",
       },
       'keep-it-friendly': {
         sound: null,
@@ -259,14 +323,14 @@ const T = {
         note: 'Stepping back down.',
       },
       solved: {
-        sound: { sample: 'laugh' },
+        sound: { samples: ['laugh'] },
         haptic: 'win',
-        note: "One family laugh, shuffled so the same one doesn't repeat soon, like Boduku.",
+        note: "One laugh, from the family's twelve and three recorded ones, shuffled so the same one doesn't repeat soon, like Boduku.",
       },
       'under-par': {
-        sound: { sample: 'frisky-bark' },
+        sound: { samples: ['frisky-bark', 'laugh'] },
         haptic: 'win',
-        note: 'Frisky barks after the laugh.',
+        note: "Frisky barks, then a laugh, like Boduku's happiest moments.",
       },
       'sound-on': {
         sound: { tone: [520], length: 0.09, volume: 0.04 },

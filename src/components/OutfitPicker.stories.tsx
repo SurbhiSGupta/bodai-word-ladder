@@ -4,7 +4,7 @@ import type { FriskyOutfit, HerOutfit } from './Buddies.tsx';
 import { OutfitPicker } from './OutfitPicker.tsx';
 
 function Demo() {
-  const [her, setHer] = useState<HerOutfit>('sun-hat');
+  const [her, setHer] = useState<HerOutfit>('crown');
   const [frisky, setFrisky] = useState<FriskyOutfit>('bandana');
   return (
     <div className="max-w-sm">

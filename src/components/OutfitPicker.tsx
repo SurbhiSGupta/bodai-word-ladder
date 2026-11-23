@@ -54,7 +54,7 @@ function Choice({
 export function OutfitPicker({ her, frisky, onHer, onFrisky }: OutfitPickerProps) {
   return (
     <div className="flex flex-col gap-3">
-      <div role="radiogroup" aria-label="Her outfit" className="grid grid-cols-5 gap-1">
+      <div role="radiogroup" aria-label="Her outfit" className="grid grid-cols-4 gap-1">
         {(Object.keys(HER_OUTFIT_NAMES) as HerOutfit[]).map((id) => (
           <Choice
             key={id}

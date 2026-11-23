@@ -3,7 +3,12 @@
  * non-React code, like the sound player, can read it too. Components use useSettings().
  */
 
-import type { FriskyOutfit, HerOutfit } from '../components/Buddies.tsx';
+import {
+  FRISKY_OUTFIT_NAMES,
+  HER_OUTFIT_NAMES,
+  type FriskyOutfit,
+  type HerOutfit,
+} from '../components/outfits.ts';
 import { useSyncExternalStore } from 'react';
 import { DEFAULT_PALETTE, PALETTES, type Palette } from '../styles/palettes.ts';
 
@@ -111,6 +116,9 @@ function read(): Settings {
       ...saved,
     };
     if (!(PALETTES as readonly string[]).includes(merged.palette)) merged.palette = DEFAULT_PALETTE;
+    // Outfits from before the switch to Boduku's set fall back to none.
+    if (!(merged.herOutfit in HER_OUTFIT_NAMES)) merged.herOutfit = 'none';
+    if (!(merged.friskyOutfit in FRISKY_OUTFIT_NAMES)) merged.friskyOutfit = 'none';
     return merged as Settings;
   } catch {
     return DEFAULTS;

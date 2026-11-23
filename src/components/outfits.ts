@@ -5,8 +5,9 @@
 
 import { createContext } from 'react';
 
-export type HerOutfit = 'none' | 'beanie' | 'sun-hat' | 'scarf' | 'bow';
-export type FriskyOutfit = 'none' | 'bandana' | 'bow-tie' | 'party-hat';
+/** The Support pack outfits, the same as Bodai Sudoku's, so both games dress them alike. */
+export type HerOutfit = 'none' | 'party' | 'crown' | 'beret' | 'shades' | 'scarf' | 'cape';
+export type FriskyOutfit = 'none' | 'bandana' | 'bow';
 
 /** What they're wearing everywhere in the app. Set once at the top; props still win. */
 export const OutfitContext = createContext<{ her: HerOutfit; frisky: FriskyOutfit }>({
@@ -14,17 +15,18 @@ export const OutfitContext = createContext<{ her: HerOutfit; frisky: FriskyOutfi
   frisky: 'none',
 });
 
-/** Every outfit with its name, in the order Settings shows them. */
+/** Every outfit with its name, in Boduku's order. */
 export const HER_OUTFIT_NAMES: Record<HerOutfit, string> = {
-  none: 'As she is',
-  beanie: 'Beanie',
-  'sun-hat': 'Sun hat',
+  none: 'None',
+  party: 'Party hat',
+  crown: 'Crown',
+  beret: 'Beret',
+  shades: 'Sunglasses',
   scarf: 'Scarf',
-  bow: 'Hair bow',
+  cape: 'Cape',
 };
 export const FRISKY_OUTFIT_NAMES: Record<FriskyOutfit, string> = {
-  none: 'Just his collar',
+  none: 'Collar',
   bandana: 'Bandana',
-  'bow-tie': 'Bow tie',
-  'party-hat': 'Party hat',
+  bow: 'Bow tie',
 };
