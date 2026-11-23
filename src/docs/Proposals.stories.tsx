@@ -4,6 +4,10 @@ import { BoneCounter } from '../components/BoneCounter.tsx';
 import { Key } from '../components/Key.tsx';
 import { Rung } from '../components/Rung.tsx';
 import { Wordmark } from '../components/Wordmark.tsx';
+import { ClimbCompare } from './ClimbProposals.tsx';
+import { ChallengeCompare } from './ChallengeProposals.tsx';
+import { OppositesCompare } from './OppositesProposals.tsx';
+import { ShareCompare } from './ShareProposals.tsx';
 
 /**
  * Side-by-side color proposals, kept as a record of what was compared and chosen. Each column overrides a few light-mode tokens,
@@ -76,4 +80,28 @@ export const LightMode: StoryObj = {
   name: 'Light mode: warmer and deeper',
   render: () => <LightModeCompare />,
   globals: { theme: 'light' },
+};
+
+/** Phase 5: her climbing while Frisky waits. Press the buttons to play the same ladder in each. */
+export const Climb: StoryObj = {
+  name: 'The climb: side rail or flipped ladder',
+  render: () => <ClimbCompare />,
+};
+
+/** Phase 5: where the Challenge of the day lives. */
+export const Challenge: StoryObj = {
+  name: 'Challenge of the day: card or invitation (invitation chosen)',
+  render: () => <ChallengeCompare />,
+};
+
+/** Phase 5: how Home says it's Opposites day. */
+export const Opposites: StoryObj = {
+  name: 'Opposites day: quiet or flipped card (flipped chosen)',
+  render: () => <OppositesCompare />,
+};
+
+/** Phase 5: the spoiler-free share. */
+export const Share: StoryObj = {
+  name: 'Share: little ladder or just the result (ladder chosen)',
+  render: () => <ShareCompare />,
 };

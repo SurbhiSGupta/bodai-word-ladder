@@ -1,32 +1,56 @@
 /**
- * One game, daily or practice: start word pinned at the top, end word at the bottom, rungs scrolling
- * in between, and the keyboard in the thumb zone. Words are typed whole and colored only
+ * One game, daily or practice, laid out like a real ladder: end word pinned on top, start word
+ * at the bottom, rungs climbing in between, and the keyboard in the thumb zone. She stands on
+ * the rung you're typing; Frisky waits by the start word. Words are typed whole and colored only
  * after Enter. All the rules live in useLadderGame and src/game; this file is layout.
  */
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { BoneCounter } from '../components/BoneCounter.tsx';
 import { Button } from '../components/Button.tsx';
+import { ChallengeInvite } from '../components/ChallengeCard.tsx';
+import { Climber, FriskyWaiting } from '../components/Climbers.tsx';
 import { EndCard } from '../components/EndCard.tsx';
 import { Keyboard } from '../components/Keyboard.tsx';
 import { Rung } from '../components/Rung.tsx';
 import { Sheet } from '../components/Sheet.tsx';
 import { Toast } from '../components/Toast.tsx';
 import { maskClue, ordinal, type NextStep } from '../game/hint.ts';
+import type { Puzzle } from '../game/ladder.ts';
+import { shareLadder } from '../game/share.ts';
 import { getSettings } from './settings.ts';
 import { useLadderGame, type GameSource } from './useLadderGame.ts';
 import { loadMeanings, type Meaning, type WordData } from './wordData.ts';
 
-type Props = { data: WordData; source: GameSource; onHome: () => void };
+type Props = {
+  data: WordData;
+  source: GameSource;
+  onHome: () => void;
+  /** Today's challenge, offered once this daily is solved. */
+  challenge?: { puzzle: Puzzle; onAccept: () => void };
+};
+
+const SHARE_URL = 'wordladder.bodaijewels.com';
+
+const askedKey = (date: string) => `bodai-ladder-challenge-asked-${date}`;
+
+function alreadyAsked(date: string): boolean {
+  try {
+    return localStorage.getItem(askedKey(date)) === 'yes';
+  } catch {
+    return false;
+  }
+}
 
 function shortDate(key: string) {
   const [y, m, d] = key.split('-').map(Number) as [number, number, number];
   return new Date(y, m - 1, d).toLocaleDateString(undefined, { month: 'short', day: 'numeric' });
 }
 
-export function GameScreen({ data, source, onHome }: Props) {
+export function GameScreen({ data, source, onHome, challenge }: Props) {
   const game = useLadderGame(data, source);
-  const daily = source.kind === 'daily';
+  /** Daily and challenge: one fixed puzzle that counts once, so no New or Try again. */
+  const daily = source.kind !== 'practice';
   const { puzzle, ladder, draft, over } = game;
   const length = data.length;
   const scroller = useRef<HTMLOListElement>(null);
@@ -36,11 +60,35 @@ export function GameScreen({ data, source, onHome }: Props) {
   const [lookingUp, setLookingUp] = useState(false);
   const [hintStep, setHintStep] = useState<NextStep | null>(null);
   const [hintRevealed, setHintRevealed] = useState(false);
+  const [inviting, setInviting] = useState(false);
 
-  // Keep the newest rung in view.
+  // Like Boduku's Wild card: a moment after today's puzzle is solved, the challenge asks once.
+  const inviteDate = challenge && source.kind === 'daily' ? source.date : null;
+  const justSolved = game.outcome === 'solved';
+  useEffect(() => {
+    if (!inviteDate || !justSolved || alreadyAsked(inviteDate)) return;
+    const timer = setTimeout(() => {
+      setInviting(true);
+      try {
+        localStorage.setItem(askedKey(inviteDate), 'yes');
+      } catch {
+        // Private browsing: it may ask again next time, which is fine.
+      }
+    }, 1400);
+    return () => clearTimeout(timer);
+  }, [inviteDate, justSolved]);
+
+  // She climbs one rung per word, and back down on Undo.
+  const rungCount = ladder.rungs.length;
+  const [climb, setClimb] = useState({ step: rungCount, direction: 'up' as 'up' | 'down' });
+  if (climb.step !== rungCount) {
+    setClimb({ step: rungCount, direction: rungCount > climb.step ? 'up' : 'down' });
+  }
+
+  // Keep the newest rung, at the top of the list, in view.
   useEffect(() => {
     scroller.current?.scrollTo({
-      top: scroller.current.scrollHeight,
+      top: 0,
       behavior: getSettings().animations ? 'smooth' : 'auto',
     });
   }, [ladder.rungs.length, over]);
@@ -70,6 +118,43 @@ export function GameScreen({ data, source, onHome }: Props) {
     setMeaningOf(draft);
   }
 
+  /** Spoiler-free: colors only. The share sheet on phones, the clipboard elsewhere. */
+  async function share() {
+    const text = shareLadder({
+      title:
+        source.kind === 'practice'
+          ? `Practice · ${length} letters`
+          : source.kind === 'challenge'
+            ? 'Challenge'
+            : puzzle.theme === 'opposites'
+              ? 'Opposites day'
+              : 'Daily',
+      date: source.kind === 'practice' ? undefined : shortDate(source.date),
+      path: [puzzle.start, ...ladder.rungs],
+      end: puzzle.end,
+      par: puzzle.par,
+      solved: game.outcome === 'solved',
+      bonesUsed: ladder.bonesUsed,
+      bones: game.bones,
+      hints: ladder.hints,
+      url: SHARE_URL,
+    });
+    try {
+      if (navigator.share) {
+        await navigator.share({ text });
+        return;
+      }
+    } catch (error) {
+      if ((error as Error).name === 'AbortError') return; // closed the share sheet
+    }
+    try {
+      await navigator.clipboard.writeText(text);
+      game.say('Copied! Paste it anywhere', 'info');
+    } catch {
+      game.say('Couldn’t copy this time', 'info');
+    }
+  }
+
   const sheetOpen = meaningOf !== null || hintStep !== null;
 
   // Physical keyboard. Shortcuts follow Guidelines/Interaction in Storybook.
@@ -95,6 +180,20 @@ export function GameScreen({ data, source, onHome }: Props) {
 
   const steps = ladder.rungs.filter((w) => w !== puzzle.end);
   const typed = draft.padEnd(length, ' ');
+  // Where she stands once the game is over: on top if solved, else on the last rung she reached.
+  const solved = game.outcome === 'solved';
+  const herOn: 'end' | 'start' | number | null = !over
+    ? null
+    : solved
+      ? 'end'
+      : steps.length > 0
+        ? steps.length - 1
+        : 'start';
+  const herFace = solved ? 'joy' : over ? 'sad' : 'default';
+  const buddies = !game.focus;
+  // 6 and 7-letter words get smaller tiles, so a challenge fits a phone with her beside it.
+  const small = length >= 6;
+  const rungSize = small ? 'sm' : 'md';
 
   return (
     <div className="mx-auto flex h-dvh max-w-md flex-col gap-3 px-4 pt-3 pb-4">
@@ -109,7 +208,13 @@ export function GameScreen({ data, source, onHome }: Props) {
             ‹
           </button>
           <h1 className={['truncate text-heading', game.focus ? 'sr-only' : ''].join(' ')}>
-            {daily ? `Daily · ${shortDate(source.date)}` : `Practice · ${length} letters`}
+            {source.kind === 'practice'
+              ? `Practice · ${length} letters`
+              : source.kind === 'challenge'
+                ? `Challenge · ${length} letters`
+                : puzzle.theme === 'opposites'
+                  ? `Opposites day · ${shortDate(source.date)}`
+                  : `Daily · ${shortDate(source.date)}`}
           </h1>
         </div>
       </header>
@@ -137,32 +242,25 @@ export function GameScreen({ data, source, onHome }: Props) {
         {game.showBones && <BoneCounter used={ladder.bonesUsed} total={game.bones} size="sm" />}
       </div>
 
-      <section aria-label="Ladder" className="flex min-h-0 flex-1 flex-col items-center gap-1">
-        <Rung word={puzzle.start} role="start" size="md" />
+      {/* Read bottom to top, like a real ladder: the end word waits on top. */}
+      <section
+        aria-label="Ladder"
+        className="flex min-h-0 flex-1 flex-col items-center gap-1"
+        style={{ '--rung': small ? '56px' : '64px' } as CSSProperties}
+      >
+        <div className="relative">
+          <Rung word={puzzle.end} role="end" size={rungSize} />
+          {buddies && herOn === 'end' && (
+            <Climber small={small} face={herFace} step={climb.step} direction={climb.direction} />
+          )}
+        </div>
         <ol
           ref={scroller}
-          aria-label="Your steps"
+          aria-label="Your steps, newest first"
           className="flex min-h-0 w-full flex-1 flex-col items-center gap-1 overflow-y-auto py-1"
         >
-          {steps.map((word, i) => (
-            <li key={`${word}-${i}`}>
-              <Rung word={word} endWord={puzzle.end} size="md" />
-            </li>
-          ))}
-          {!over && (
-            <li key={`current-${game.shakes}`}>
-              {/* No colors while typing: letters are only judged after Enter. */}
-              <Rung
-                word={typed}
-                role="current"
-                size="md"
-                selectedIndex={draft.length < length ? draft.length : undefined}
-                invalid={game.shakes > 0}
-              />
-            </li>
-          )}
           {over && (
-            <li className="w-full pt-2">
+            <li className="w-full pb-2">
               <EndCard
                 outcome={game.outcome ?? 'solved'}
                 yourPath={[puzzle.start, ...ladder.rungs]}
@@ -173,11 +271,50 @@ export function GameScreen({ data, source, onHome }: Props) {
                 onNext={daily ? onHome : game.newPuzzle}
                 nextLabel={daily ? 'Back to home' : undefined}
                 onTryAgain={daily ? undefined : game.tryAgain}
+                onShare={() => void share()}
               />
             </li>
           )}
+          {!over && (
+            // mt-auto keeps a short ladder sitting on the start word, not floating at the top.
+            <li key={`current-${game.shakes}`} className="relative mt-auto">
+              {/* No colors while typing: letters are only judged after Enter. */}
+              <Rung
+                word={typed}
+                role="current"
+                size={rungSize}
+                selectedIndex={draft.length < length ? draft.length : undefined}
+                invalid={game.shakes > 0}
+              />
+              {buddies && <Climber small={small} step={climb.step} direction={climb.direction} />}
+            </li>
+          )}
+          {steps
+            .map((word, i) => (
+              <li
+                key={`${word}-${i}`}
+                className={['relative', over && i === steps.length - 1 ? 'mt-auto' : ''].join(' ')}
+              >
+                <Rung word={word} endWord={puzzle.end} size={rungSize} />
+                {buddies && herOn === i && (
+                  <Climber
+                    small={small}
+                    face={herFace}
+                    step={climb.step}
+                    direction={climb.direction}
+                  />
+                )}
+              </li>
+            ))
+            .reverse()}
         </ol>
-        <Rung word={puzzle.end} role="end" size="md" />
+        <div className="relative">
+          <Rung word={puzzle.start} role="start" size={rungSize} />
+          {buddies && herOn === 'start' && (
+            <Climber small={small} face={herFace} step={climb.step} direction={climb.direction} />
+          )}
+          {buddies && <FriskyWaiting small={small} bonesEaten={ladder.bonesUsed} />}
+        </div>
       </section>
 
       <div className="flex h-9 justify-center">
@@ -222,6 +359,21 @@ export function GameScreen({ data, source, onHome }: Props) {
             canSubmit={draft.length === length}
           />
         </>
+      )}
+
+      {challenge && (
+        <Sheet
+          open={inviting}
+          onClose={() => setInviting(false)}
+          title="Do you accept the challenge?"
+        >
+          <ChallengeInvite
+            puzzle={challenge.puzzle}
+            showPar={game.showPar}
+            onDecline={() => setInviting(false)}
+            onAccept={challenge.onAccept}
+          />
+        </Sheet>
       )}
 
       <Sheet

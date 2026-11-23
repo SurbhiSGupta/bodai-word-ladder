@@ -150,7 +150,7 @@ writeFileSync(
 export type Haptic = 'tap' | 'error' | 'win';
 export type Sound =
   | { tone: number[]; length: number; volume: number; wave?: OscillatorType }
-  | { sample: string };
+  | { samples: string[]; volume?: number };
 export type Feedback = { sound: Sound | null; haptic: Haptic | null; note: string };
 
 /** What the player hears and feels for each moment in the game. */

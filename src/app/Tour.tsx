@@ -15,14 +15,14 @@ type Card = { title: string; body: string; demo: ReactNode };
 const CARDS: Card[] = [
   {
     title: 'Climb from one word to another',
-    body: 'Change one letter at a time, and every step has to be a real word.',
+    body: 'Start at the bottom and climb to the word on top. Change one letter at a time, and every step has to be a real word.',
     demo: (
       <div className="flex flex-col items-center gap-1">
-        <Rung word="fire" role="start" size="md" />
-        <Rung word="fore" endWord="cold" size="md" />
-        <Rung word="core" endWord="cold" size="md" />
-        <Rung word="cord" endWord="cold" size="md" />
         <Rung word="cold" role="end" size="md" />
+        <Rung word="cord" endWord="cold" size="md" />
+        <Rung word="core" endWord="cold" size="md" />
+        <Rung word="fore" endWord="cold" size="md" />
+        <Rung word="fire" role="start" size="md" />
       </div>
     ),
   },
@@ -31,8 +31,8 @@ const CARDS: Card[] = [
     body: 'Then press Enter. The glowing square shows where your next letter goes.',
     demo: (
       <div className="flex flex-col items-center gap-1">
-        <Rung word="fire" role="start" size="md" />
         <Rung word="fo  " role="current" size="md" selectedIndex={2} />
+        <Rung word="fire" role="start" size="md" />
       </div>
     ),
   },
@@ -41,8 +41,8 @@ const CARDS: Card[] = [
     body: 'Green: right letter, right place. Yellow: the end word has it, somewhere else.',
     demo: (
       <div className="flex flex-col items-center gap-1">
-        <Rung word="dolt" endWord="cold" size="md" />
         <Rung word="cold" role="end" size="md" />
+        <Rung word="dolt" endWord="cold" size="md" />
       </div>
     ),
   },

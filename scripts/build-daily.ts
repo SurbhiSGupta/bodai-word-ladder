@@ -5,12 +5,16 @@
  *
  * Days already in the file are never changed, so a word-list update can't rewrite
  * a puzzle someone has played. New days are added up to a year ahead.
+ *
+ * Fridays are Opposites day: the next unused pair from wordlists/opposites.txt, in file
+ * order. That is the one exception to "never changed": a plain Friday that's still in the
+ * future (so nobody can have played it) becomes an Opposites day.
  */
 
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { buildNeighborIndex, randomPuzzle, type Puzzle } from '../src/game/ladder.ts';
+import { buildNeighborIndex, randomPuzzle, shortestPath, type Puzzle } from '../src/game/ladder.ts';
 import { seedFromText, seededRandom } from '../src/game/random.ts';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -58,8 +62,47 @@ for (let date = FIRST_DAY; date <= last; date = addDays(date, 1)) {
   added++;
 }
 
+// ---------- Opposites day ----------
+
+const OPPOSITE_PAR = { min: 3, max: 7 };
+const common = new Set(words.common);
+const usedPairs = new Set(
+  Object.values(daily)
+    .filter((p) => p.theme === 'opposites')
+    .map((p) => `${p.start}>${p.end}`),
+);
+const opposites: Puzzle[] = [];
+for (const line of readFileSync(join(ROOT, 'wordlists/opposites.txt'), 'utf8').split('\n')) {
+  const pair = line.trim().toLowerCase();
+  if (!pair || pair.startsWith('#') || usedPairs.has(pair)) continue;
+  const [start = '', end = ''] = pair.split('>');
+  const path = common.has(start) && common.has(end) ? shortestPath(start, end, index) : null;
+  const par = path ? path.length - 1 : 0;
+  if (!path || par < OPPOSITE_PAR.min || par > OPPOSITE_PAR.max) {
+    console.warn(
+      `Skipping opposites ${pair}: ${path ? `par ${par}` : 'no path through common words'}.`,
+    );
+    continue;
+  }
+  opposites.push({ start, end, par, bestPath: path, theme: 'opposites' });
+}
+
+let themed = 0;
+for (let date = addDays(today, 1); date <= last; date = addDays(date, 1)) {
+  const friday = new Date(`${date}T00:00:00Z`).getUTCDay() === 5;
+  if (!friday || daily[date]?.theme) continue;
+  const next = opposites.shift();
+  if (!next) {
+    console.warn(`Opposites list used up at ${date}. Add pairs to wordlists/opposites.txt.`);
+    break;
+  }
+  daily[date] = next;
+  themed++;
+}
+
 const sorted = Object.fromEntries(Object.entries(daily).sort(([a], [b]) => a.localeCompare(b)));
 writeFileSync(OUT, JSON.stringify(sorted));
 console.log(
-  `Daily puzzles: ${Object.keys(sorted).length} in total, ${added} added, up to ${last}.`,
+  `Daily puzzles: ${Object.keys(sorted).length} in total, ${added} added, up to ${last}. ` +
+    `${themed} Fridays became Opposites day; ${opposites.length} pairs left.`,
 );

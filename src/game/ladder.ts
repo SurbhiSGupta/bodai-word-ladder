@@ -100,6 +100,8 @@ export type Puzzle = {
   par: number;
   /** One shortest ladder, from start to end. */
   bestPath: string[];
+  /** A themed day: the start and end are opposites, like FIRE and COLD. */
+  theme?: 'opposites';
 };
 
 export type PuzzleOptions = {

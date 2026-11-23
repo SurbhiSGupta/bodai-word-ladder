@@ -6,9 +6,10 @@
 import { useState } from 'react';
 import { Buddies, type Face } from '../components/Buddies.tsx';
 import { Button } from '../components/Button.tsx';
+import { ChallengeCard } from '../components/ChallengeCard.tsx';
 import { LengthPicker } from '../components/LengthPicker.tsx';
 import { Wordmark } from '../components/Wordmark.tsx';
-import type { DailyResults } from '../game/daily.ts';
+import type { DailyResults, DayResult } from '../game/daily.ts';
 import { currentStreak } from '../game/daily.ts';
 import type { Puzzle } from '../game/ladder.ts';
 import { LENGTHS, type WordLength } from './wordData.ts';
@@ -21,6 +22,11 @@ type Props = {
   practiceLength: WordLength;
   onPracticeLength: (length: WordLength) => void;
   onPlayToday: () => void;
+  /** Today's Challenge of the day, once loaded. */
+  challenge: Puzzle | undefined;
+  challengeResult: DayResult | undefined;
+  challengeInProgress: boolean;
+  onPlayChallenge: () => void;
   onPractice: () => void;
   onCalendar: () => void;
   onStats: () => void;
@@ -107,6 +113,8 @@ export function HomeScreen(props: Props) {
   const { today, todayPuzzle, results, todayInProgress } = props;
   const todayResult = results[today];
   const streak = currentStreak(results, today);
+  // Fridays: the words are opposites, and as a little joke the card turns its opposite color.
+  const opposites = todayPuzzle?.theme === 'opposites';
 
   const status = todayResult
     ? todayResult.solved
@@ -187,9 +195,16 @@ export function HomeScreen(props: Props) {
 
       <section
         aria-label="Today's puzzle"
-        className="flex flex-col gap-3 rounded-lg bg-ink p-5 text-bg shadow-raised dark:bg-surface dark:text-ink"
+        className={[
+          'flex flex-col gap-3 rounded-lg p-5 shadow-raised',
+          opposites
+            ? 'border-2 border-ink bg-surface text-ink dark:border-0 dark:bg-ink dark:text-bg'
+            : 'bg-ink text-bg dark:bg-surface dark:text-ink',
+        ].join(' ')}
       >
-        <span className="text-label text-accent">☀ Today's puzzle</span>
+        <span className={['text-label', opposites ? '' : 'text-accent'].join(' ')}>
+          {opposites ? '⇄ Opposites day' : "☀ Today's puzzle"}
+        </span>
         <div className="flex flex-col">
           <span className="text-title">{longDate(today)}</span>
           <span className="text-small opacity-80">{status}</span>
@@ -199,13 +214,36 @@ export function HomeScreen(props: Props) {
             className="text-heading tracking-[0.2em] uppercase"
             aria-label={`${todayPuzzle.start} to ${todayPuzzle.end}`}
           >
-            {todayPuzzle.start} → {todayPuzzle.end}
+            {todayPuzzle.start} {opposites ? '⇄' : '→'} {todayPuzzle.end}
           </p>
+        )}
+        {opposites && (
+          <p className="text-small opacity-80">Every Friday, the two words are opposites.</p>
         )}
         <Button size="lg" onClick={props.onPlayToday} disabled={!todayPuzzle}>
           {todayResult ? 'See your ladder' : todayInProgress ? 'Continue' : 'Play'}
         </Button>
       </section>
+
+      {props.challenge && (
+        <ChallengeCard
+          puzzle={props.challenge}
+          showPar={props.showPar}
+          status={
+            props.challengeResult
+              ? props.challengeResult.solved
+                ? `Conquered in ${props.challengeResult.steps} steps ✓`
+                : 'Not this time. A new one tomorrow.'
+              : props.challengeInProgress
+                ? 'In progress'
+                : undefined
+          }
+          actionLabel={
+            props.challengeResult ? 'See it' : props.challengeInProgress ? 'Continue' : 'I accept'
+          }
+          onPlay={props.onPlayChallenge}
+        />
+      )}
 
       <p className="text-center text-small text-muted">
         {streak > 0

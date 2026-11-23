@@ -15,7 +15,7 @@ import { SettingsScreen } from './SettingsScreen.tsx';
 import { Tour } from './Tour.tsx';
 import { StatsScreen } from './StatsScreen.tsx';
 import { useSettings } from './settings.ts';
-import { isInProgress, loadDailies, loadResults } from './dailyStore.ts';
+import { isInProgress, loadChallenges, loadDailies, loadResults } from './dailyStore.ts';
 import type { GameSource } from './useLadderGame.ts';
 import { LENGTHS, loadWords, type WordData, type WordLength } from './wordData.ts';
 
@@ -64,13 +64,19 @@ export default function App() {
   const [practiceLength, setPracticeLength] = useState<WordLength>(savedLength);
   const [words, setWords] = useState<Partial<Record<WordLength, WordData>>>({});
   const [dailies, setDailies] = useState<Record<string, Puzzle> | null>(null);
+  const [challenges, setChallenges] = useState<Record<string, Puzzle> | null>(null);
   // Re-read when coming back to a screen, so a just-finished daily shows up.
-  const [results, setResults] = useState(loadResults);
+  const [results, setResults] = useState(() => loadResults());
+  const [challengeResults, setChallengeResults] = useState(() => loadResults('challenge'));
   // Checked again on every screen change, so leaving the game open past midnight still works.
   const [today, setToday] = useState(() => dateKey(new Date()));
 
   const neededLength: WordLength =
-    screen.name === 'game' && screen.source.kind === 'practice' ? practiceLength : DAILY_LENGTH;
+    screen.name !== 'game'
+      ? DAILY_LENGTH
+      : screen.source.kind === 'practice'
+        ? practiceLength
+        : (screen.source.puzzle.start.length as WordLength);
 
   const settings = useSettings();
   const [tourOpen, setTourOpen] = useState(false);
@@ -97,6 +103,7 @@ export default function App() {
 
   useEffect(() => {
     void loadDailies().then(setDailies);
+    void loadChallenges().then(setChallenges);
   }, []);
 
   useEffect(() => {
@@ -121,6 +128,7 @@ export default function App() {
   function go(next: Screen) {
     setToday(dateKey(new Date()));
     setResults(loadResults());
+    setChallengeResults(loadResults('challenge'));
     setScreen(next);
     window.scrollTo(0, 0);
   }
@@ -130,14 +138,37 @@ export default function App() {
     const puzzle = dailies?.[date];
     if (puzzle) go({ name: 'game', source: { kind: 'daily', date, puzzle } });
   };
+  const playChallenge = () => {
+    const puzzle = challenges?.[today];
+    if (puzzle) go({ name: 'game', source: { kind: 'challenge', date: today, puzzle } });
+  };
+  // Offered once today's daily is solved, unless the challenge has already been played.
+  const todayChallenge = challenges?.[today];
+  const offerChallenge =
+    todayChallenge && !challengeResults[today] && !isInProgress(today, 'challenge')
+      ? { puzzle: todayChallenge, onAccept: playChallenge }
+      : undefined;
 
   if (screen.name === 'game') {
     const data = words[neededLength];
     if (!data) return <Loading />;
-    const key = screen.source.kind === 'daily' ? screen.source.date : `practice-${practiceLength}`;
+    const key =
+      screen.source.kind === 'practice'
+        ? `practice-${practiceLength}`
+        : `${screen.source.kind}-${screen.source.date}`;
     return (
       <main>
-        <GameScreen key={key} data={data} source={screen.source} onHome={home} />
+        <GameScreen
+          key={key}
+          data={data}
+          source={screen.source}
+          onHome={home}
+          challenge={
+            screen.source.kind === 'daily' && screen.source.date === today
+              ? offerChallenge
+              : undefined
+          }
+        />
       </main>
     );
   }
@@ -153,6 +184,10 @@ export default function App() {
           practiceLength={practiceLength}
           onPracticeLength={setPracticeLength}
           onPlayToday={() => playDaily(today)}
+          challenge={todayChallenge}
+          challengeResult={challengeResults[today]}
+          challengeInProgress={isInProgress(today, 'challenge')}
+          onPlayChallenge={playChallenge}
           onPractice={() => go({ name: 'game', source: { kind: 'practice' } })}
           onCalendar={() => go({ name: 'calendar' })}
           onStats={() => go({ name: 'stats' })}

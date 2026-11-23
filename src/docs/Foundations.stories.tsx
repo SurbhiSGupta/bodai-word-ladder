@@ -224,7 +224,7 @@ export const SoundAndHaptics: Story = {
                     ? 'none'
                     : isTone
                       ? `${sound.tone.join(' → ')} Hz`
-                      : `recording (${sound.sample})`}{' '}
+                      : `recording (${sound.samples.join(', then ')})`}{' '}
                   · Haptic: {f.haptic ? tokens.feedback.haptics[f.haptic] : 'none'}
                 </span>
                 <span className="text-small text-muted">{f.note}</span>

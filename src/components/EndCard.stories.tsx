@@ -56,3 +56,6 @@ export const TimeUp: Story = {
     par: 4,
   },
 };
+
+/** The daily's end card, with Share. */
+export const WithShare: Story = { args: { onShare: () => {}, nextLabel: 'Back to home' } };

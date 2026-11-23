@@ -13,11 +13,19 @@ import {
 } from '../game/ladder.ts';
 import { seededRandom } from '../game/random.ts';
 
+/** Lengths offered for practice. 6 and 7 letters only come as the Challenge of the day. */
 export const LENGTHS = [3, 4, 5] as const;
-export type WordLength = (typeof LENGTHS)[number];
+export type PracticeLength = (typeof LENGTHS)[number];
+export type WordLength = PracticeLength | 6 | 7;
 
 /** How long a fair practice ladder is, by word length. */
-const PAR_RANGE: Record<WordLength, [number, number]> = { 3: [3, 4], 4: [3, 5], 5: [3, 6] };
+const PAR_RANGE: Record<WordLength, [number, number]> = {
+  3: [3, 4],
+  4: [3, 5],
+  5: [3, 6],
+  6: [5, 9],
+  7: [5, 9],
+};
 
 type WordFile = { common: string[]; rare: string[]; endpoints: string[] };
 export type Meaning = { pos: string; text: string; base?: string };
@@ -26,12 +34,16 @@ const WORD_FILES: Record<WordLength, () => Promise<{ default: WordFile }>> = {
   3: () => import('../data/words-3.json'),
   4: () => import('../data/words-4.json'),
   5: () => import('../data/words-5.json'),
+  6: () => import('../data/words-6.json'),
+  7: () => import('../data/words-7.json'),
 };
 
 const MEANING_FILES: Record<WordLength, () => Promise<{ default: Record<string, Meaning[]> }>> = {
   3: () => import('../data/meanings-3.json'),
   4: () => import('../data/meanings-4.json'),
   5: () => import('../data/meanings-5.json'),
+  6: () => import('../data/meanings-6.json'),
+  7: () => import('../data/meanings-7.json'),
 };
 
 export type WordData = {

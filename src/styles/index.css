@@ -18,6 +18,41 @@
   --font-sans: 'Outfit Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --animate-shake: shake 0.32s ease-in-out;
   --animate-hop: hop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --animate-climb-up: climb-up 0.45s cubic-bezier(0.34, 1.4, 0.64, 1);
+  --animate-climb-down: climb-down 0.35s ease-out;
+  --animate-chomp: chomp 0.7s ease-in;
+}
+
+/* One rung up: 64px for a md rung plus its gap, 56px for sm (set as --rung on the ladder). */
+@keyframes climb-up {
+  from {
+    transform: translateY(var(--rung, 64px));
+  }
+  50% {
+    transform: translateY(-4px) rotate(-3deg);
+  }
+}
+
+/* Undo: back down one rung. */
+@keyframes climb-down {
+  from {
+    transform: translateY(calc(-1 * var(--rung, 64px)));
+  }
+}
+
+/* A bone dropping into Frisky's mouth, then gone. */
+@keyframes chomp {
+  from {
+    transform: translate(0, -18px) rotate(-30deg);
+    opacity: 1;
+  }
+  80% {
+    opacity: 1;
+  }
+  to {
+    transform: translate(14px, 18px) scale(0.2);
+    opacity: 0;
+  }
 }
 
 /* The bottom sheet rising into place. */
@@ -60,7 +95,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   .animate-shake,
-  .animate-hop {
+  .animate-hop,
+  .animate-climb-up,
+  .animate-climb-down,
+  .animate-chomp {
     animation: none;
   }
 }

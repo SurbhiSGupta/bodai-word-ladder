@@ -1,7 +1,7 @@
 /**
  * Everything one game needs: the puzzle, the ladder, the word being typed, and the actions
  * the screen calls. It plays either a practice puzzle (saved per word length) or one day's
- * daily puzzle (saved per date, with the result recorded for streaks and stats).
+ * daily puzzle or Challenge of the day (saved per date, with the result recorded).
  */
 
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -33,11 +33,14 @@ export type Outcome = 'solved' | 'out-of-bones' | 'time-up' | 'out-of-moves';
 type Saved = { puzzle: Puzzle; ladder: Ladder };
 type Message = { text: string; tone: ToastProps['tone']; id: number };
 
-/** What to play: a practice puzzle, or a given day's daily. */
-export type GameSource = { kind: 'practice' } | { kind: 'daily'; date: string; puzzle: Puzzle };
+/** What to play: a practice puzzle, or a given day's daily or Challenge of the day. */
+export type GameSource =
+  { kind: 'practice' } | { kind: 'daily' | 'challenge'; date: string; puzzle: Puzzle };
 
 const storageKey = (length: number, source: GameSource) =>
-  source.kind === 'daily' ? `bodai-ladder-daily-${source.date}` : `bodai-ladder-practice-${length}`;
+  source.kind === 'practice'
+    ? `bodai-ladder-practice-${length}`
+    : `bodai-ladder-${source.kind}-${source.date}`;
 
 function load(length: number, source: GameSource): Saved | null {
   try {
@@ -73,7 +76,7 @@ function save(length: number, source: GameSource, game: Saved) {
 
 function fresh(data: WordData, source: GameSource): Saved {
   const puzzle =
-    source.kind === 'daily'
+    source.kind !== 'practice'
       ? source.puzzle
       : practicePuzzle(data, { allowDoubledEnds: getSettings().doubledEnds });
   return { puzzle, ladder: newLadder(puzzle.start, puzzle.end) };
@@ -127,18 +130,23 @@ export function useLadderGame(data: WordData, source: GameSource = { kind: 'prac
 
   useEffect(() => save(length, source, game), [length, source, game]);
 
-  // A finished daily counts toward streaks and stats.
-  const dailyDate = source.kind === 'daily' ? source.date : null;
+  // A finished daily counts toward streaks and stats; a challenge is remembered on its own.
+  const dayKind = source.kind === 'practice' ? null : source.kind;
+  const dayDate = source.kind === 'practice' ? null : source.date;
   useEffect(() => {
-    if (!dailyDate || !over) return;
-    recordDaily(dailyDate, {
-      solved,
-      steps: ladder.rungs.length,
-      par: puzzle.par,
-      bonesUsed: ladder.bonesUsed,
-      late: dailyDate !== dateKey(new Date()),
-    });
-  }, [dailyDate, over, solved, ladder, puzzle.par]);
+    if (!dayKind || !dayDate || !over) return;
+    recordDaily(
+      dayDate,
+      {
+        solved,
+        steps: ladder.rungs.length,
+        par: puzzle.par,
+        bonesUsed: ladder.bonesUsed,
+        late: dayDate !== dateKey(new Date()),
+      },
+      dayKind,
+    );
+  }, [dayKind, dayDate, over, solved, ladder, puzzle.par]);
 
   useEffect(() => {
     if (!message) return;

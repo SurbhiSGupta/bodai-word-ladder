@@ -6,7 +6,8 @@ export type LetterTileProps = {
   hint?: LetterHint;
   /** The slot the next letter goes in. A soft highlight with an accent ring. */
   selected?: boolean;
-  size?: 'md' | 'lg';
+  /** sm fits a 7-letter word on a phone, with room for her beside it. */
+  size?: 'sm' | 'md' | 'lg';
 };
 
 const HINT_STYLES: Record<LetterHint, string> = {
@@ -16,6 +17,7 @@ const HINT_STYLES: Record<LetterHint, string> = {
 };
 
 const SIZE_STYLES = {
+  sm: 'size-9 text-lg rounded-sm',
   md: 'size-11 text-xl rounded-sm',
   lg: 'size-14 text-2xl rounded-md',
 };

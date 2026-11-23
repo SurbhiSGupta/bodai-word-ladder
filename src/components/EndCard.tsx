@@ -16,6 +16,8 @@ export type EndCardProps = {
   nextLabel?: string;
   /** Same puzzle, every bone back. Left out for the daily, which counts once. */
   onTryAgain?: () => void;
+  /** Shares how it went, without the words. Left out where there's nothing to share. */
+  onShare?: () => void;
 };
 
 /**
@@ -32,6 +34,7 @@ export function EndCard({
   onNext,
   nextLabel,
   onTryAgain,
+  onShare,
 }: EndCardProps) {
   const steps = yourPath.length - 1;
   const solved = outcome === 'solved';
@@ -91,6 +94,11 @@ export function EndCard({
       </p>
 
       <div className="flex w-full gap-2">
+        {onShare && (
+          <Button variant="quiet" className="flex-1" onClick={onShare}>
+            Share
+          </Button>
+        )}
         {!solved && onTryAgain && (
           <Button variant="quiet" className="flex-1" onClick={onTryAgain}>
             Try again

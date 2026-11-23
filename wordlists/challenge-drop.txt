@@ -1,0 +1,2 @@
+# Challenge pairs or words to never use. One per line: "start>end" or a single word.
+termini

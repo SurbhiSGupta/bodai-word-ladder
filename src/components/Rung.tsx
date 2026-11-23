@@ -13,7 +13,7 @@ export type RungProps = {
   selectedIndex?: number;
   /** Shakes the rung, for a word that isn't in the list. */
   invalid?: boolean;
-  size?: 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg';
 };
 
 const ROLE_LABEL = {
@@ -41,7 +41,8 @@ export function Rung({
       role="group"
       aria-label={`${ROLE_LABEL[role]}: ${word.toUpperCase().replaceAll(' ', '_')}`}
       className={[
-        'inline-flex gap-1.5 rounded-lg p-2',
+        'inline-flex rounded-lg p-2',
+        size === 'sm' ? 'gap-1' : 'gap-1.5',
         pinned ? 'bg-highlight' : 'bg-transparent',
         role === 'current' ? 'outline-2 outline-dashed outline-edge' : '',
         invalid ? 'animate-shake' : '',

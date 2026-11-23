@@ -1,0 +1,798 @@
+# Challenge pool
+
+Made by `npm run challenge`. Do not edit by hand: veto a pair or a word in
+`challenge-drop.txt` and run it again. Days already scheduled never change.
+
+## 6 letters: 586 pairs
+
+SCOWL tier 20 or lower, at least 4 letters different, par 5 to 9.
+
+- ACCEPT → ASSORT (par 5): accept accent ascent assent assert assort
+- ARISEN → TRICKY (par 8): arisen arises crises crimes primes prices pricks tricks tricky
+- ARISEN → TRAVEL (par 9): arisen arises crises crimes grimes gripes grapes graves gravel travel
+- BALLET → RELIEF (par 5): ballet balled belled belied relied relief
+- BALLET → HASTEN (par 6): ballet balled bailed baited basted hasted hasten
+- BALLET → SADDEN (par 6): ballet balled balded balder badder sadder sadden
+- BALLET → TICKET (par 6): ballet balled balked talked tacked ticked ticket
+- BALLET → POCKET (par 6): ballet balled balked backed packed packet pocket
+- BALLET → ROCKET (par 6): ballet balled balked backed racked rocked rocket
+- BALLET → SICKEN (par 6): ballet balled balked backed sacked sicked sicken
+- BALLET → SOCKET (par 6): ballet balled balked backed sacked socked socket
+- BALLET → LISTEN (par 7): ballet wallet walled willed wilted lilted listed listen
+- BALLET → ROTTEN (par 7): ballet balled bailed baited batted ratted rotted rotten
+- BALLET → BITTEN (par 7): ballet balled bailed baited batted batter bitter bitten
+- BALLET → SUDDEN (par 7): ballet balled balded balder badder sadder sadden sudden
+- BALLET → CANCEL (par 7): ballet balled balked banked banker canker cancer cancel
+- BALLET → FORGET (par 8): ballet bullet bulled bugled bugged bogged fogged forged forget
+- BALLET → HEAVEN (par 8): ballet balled belled yelled yelped helped heaped heaved heaven
+- BALLET → GOTTEN (par 8): ballet balled bailed baited batted ratted rotted rotten gotten
+- BALLET → BEATEN (par 8): ballet balled bailed baited batted batter better beater beaten
+- BALLET → GARDEN (par 8): ballet balled balded banded landed larded warded warden garden
+- BALLET → HARDEN (par 8): ballet balled balded banded landed larded warded warden harden
+- BALLET → RIDDEN (par 8): ballet balled balded balder badder bedder redder redden ridden
+- BALLET → FORGOT (par 9): ballet bullet bulled bugled bugged bogged fogged forged forget forgot
+- BALLET → WOODEN (par 9): ballet balled palled polled pooled pooped hooped hooded wooded wooden
+- BALLET → HIDDEN (par 9): ballet balled balded balder badder bedder redder redden ridden hidden
+- BALLOT → BELIEF (par 5): ballot ballet balled belled belied belief
+- BALLOT → BUDGET (par 6): ballot ballet bullet bulled bulged budged budget
+- BALLOT → BUCKET (par 6): ballot ballet bullet bulled bulked bucked bucket
+- BALLOT → RELIEF (par 6): ballot ballet balled belled belied relied relief
+- BALLOT → TOILET (par 6): ballot ballet balled bailed tailed toiled toilet
+- BALLOT → JACKET (par 6): ballot ballet balled balked backed jacked jacket
+- BALLOT → PACKET (par 6): ballot ballet balled balked backed packed packet
+- BALLOT → RACKET (par 6): ballot ballet balled balked backed racked racket
+- BALLOT → MARKET (par 6): ballot ballet balled balked barked marked market
+- BALLOT → BARREL (par 6): ballot ballet balled balked barked barred barrel
+- BALLOT → HASTEN (par 7): ballot ballet balled bailed baited basted hasted hasten
+- BALLOT → SADDEN (par 7): ballot ballet balled balded balder badder sadder sadden
+- BALLOT → TICKET (par 7): ballot ballet balled balked talked tacked ticked ticket
+- BALLOT → POCKET (par 7): ballot ballet balled balked backed packed packet pocket
+- BALLOT → ROCKET (par 7): ballot ballet balled balked backed racked rocked rocket
+- BALLOT → SICKEN (par 7): ballot ballet balled balked backed sacked sicked sicken
+- BALLOT → SOCKET (par 7): ballot ballet balled balked backed sacked socked socket
+- BALLOT → LISTEN (par 8): ballot ballet wallet walled willed wilted lilted listed listen
+- BALLOT → ROTTEN (par 8): ballot ballet balled bailed baited batted ratted rotted rotten
+- BALLOT → BITTEN (par 8): ballot ballet balled bailed baited batted batter bitter bitten
+- BALLOT → SUDDEN (par 8): ballot ballet balled balded balder badder sadder sadden sudden
+- BALLOT → CANCEL (par 8): ballot ballet balled balked banked banker canker cancer cancel
+- BALLOT → CARPET (par 8): ballot ballet balled balked barked harked harped carped carpet
+- BALLOT → FORGET (par 9): ballot ballet bullet bulled bugled bugged bogged fogged forged forget
+- BALLOT → HEAVEN (par 9): ballot ballet balled belled yelled yelped helped heaped heaved heaven
+- BALLOT → GOTTEN (par 9): ballot ballet balled bailed baited batted ratted rotted rotten gotten
+- BALLOT → BEATEN (par 9): ballot ballet balled bailed baited batted batter better beater beaten
+- BALLOT → GARDEN (par 9): ballot ballet balled balded banded landed larded warded warden garden
+- BALLOT → HARDEN (par 9): ballot ballet balled balded banded landed larded warded warden harden
+- BALLOT → RIDDEN (par 9): ballot ballet balled balded balder badder bedder redder redden ridden
+- BARREL → PACKET (par 5): barrel barred parred parked packed packet
+- BARREL → JACKET (par 5): barrel barred barked backed jacked jacket
+- BARREL → RACKET (par 5): barrel barred barked backed racked racket
+- BARREL → BUCKET (par 5): barrel barred barked backed bucked bucket
+- BARREL → POCKET (par 6): barrel barred parred parked packed packet pocket
+- BARREL → HASTEN (par 6): barrel barred parred parted pasted hasted hasten
+- BARREL → WOODEN (par 6): barrel barred warred warded worded wooded wooden
+- BARREL → BUDGET (par 6): barrel barred barged bagged bugged budged budget
+- BARREL → ROCKET (par 6): barrel barred barked backed racked rocked rocket
+- BARREL → SICKEN (par 6): barrel barred barked backed sacked sicked sicken
+- BARREL → SOCKET (par 6): barrel barred barked backed sacked socked socket
+- BARREL → TICKET (par 6): barrel barred barked backed tacked ticked ticket
+- BARREL → WALLET (par 6): barrel barred barked balked walked walled wallet
+- BARREL → BULLET (par 6): barrel barred barked balked bulked bulled bullet
+- BARREL → ROTTEN (par 7): barrel barred parred parted ported potted rotted rotten
+- BARREL → LISTEN (par 7): barrel barred parred parted pasted lasted listed listen
+- BARREL → FORGET (par 7): barrel barred warred warded worded forded forged forget
+- BARREL → BITTEN (par 7): barrel barred barbed barber barter batter bitter bitten
+- BARREL → VALLEY (par 7): barrel barred barked balked balled galled galley valley
+- BARREL → BELIEF (par 7): barrel barred barked balked balled belled belied belief
+- BARREL → TOILET (par 8): barrel barred parred paired haired hailed tailed toiled toilet
+- BARREL → GOTTEN (par 8): barrel barred parred parted ported potted rotted rotten gotten
+- BARREL → FORGOT (par 8): barrel barred warred warded worded forded forged forget forgot
+- BARREL → BEATEN (par 8): barrel barred barbed barber barter batter better beater beaten
+- BARREL → SADDEN (par 8): barrel barred barged barges badges badger badder sadder sadden
+- BARREL → RELIEF (par 8): barrel barred barked balked balled belled belied relied relief
+- BARREL → HEAVEN (par 9): barrel barred parred parked perked peaked leaked leaved heaved heaven
+- BARREL → SUDDEN (par 9): barrel barred warred warded carded corded codded sodded sodden sudden
+- BARREL → RIDDEN (par 9): barrel barred warred warded wadded wedded wedder redder redden ridden
+- BASKET → SICKEN (par 5): basket basked backed sacked sicked sicken
+- BASKET → LISTEN (par 5): basket basked basted lasted listed listen
+- BASKET → VALLEY (par 6): basket basked balked balled galled galley valley
+- BASKET → BELIEF (par 6): basket basked balked balled belled belied belief
+- BASKET → CANCEL (par 6): basket basked banked banker canker cancer cancel
+- BASKET → ROTTEN (par 6): basket basked basted batted ratted rotted rotten
+- BASKET → BITTEN (par 6): basket basked basted batted batter bitter bitten
+- BASKET → SADDEN (par 7): basket basked balked balded balder badder sadder sadden
+- BASKET → RELIEF (par 7): basket basked balked balled belled belied relied relief
+- BASKET → TOILET (par 7): basket basked balked balled bailed tailed toiled toilet
+- BASKET → GARDEN (par 7): basket basked barked larked larded warded warden garden
+- BASKET → HARDEN (par 7): basket basked barked larked larded warded warden harden
+- BASKET → GOTTEN (par 7): basket basked basted batted ratted rotted rotten gotten
+- BASKET → BEATEN (par 7): basket basked basted batted batter better beater beaten
+- BASKET → WOODEN (par 8): basket basked backed hacked hocked hooked hooded wooded wooden
+- BASKET → SUDDEN (par 8): basket basked balked balded balder badder sadder sadden sudden
+- BASKET → FORGET (par 8): basket basked banked banged ganged gonged gorged forged forget
+- BASKET → HEAVEN (par 9): basket basked backed packed pecked peaked leaked leaved heaved heaven
+- BASKET → SHAKEN (par 9): basket basked backed sacked socked soaked slaked slakes shakes shaken
+- BASKET → RIDDEN (par 9): basket basked balked balded balder badder bedder redder redden ridden
+- BASKET → FORGOT (par 9): basket basked banked banged ganged gonged gorged forged forget forgot
+- BEATEN → TRAVEL (par 6): beaten beater beaver braver graver gravel travel
+- BEATEN → RIDDEN (par 7): beaten beater heater header reader redder redden ridden
+- BEATEN → CANCEL (par 7): beaten beater better batter banter canter cancer cancel
+- BEATEN → PACKET (par 7): beaten beater beaker beaked peaked pecked packed packet
+- BEATEN → HIDDEN (par 8): beaten beater heater header reader redder redden ridden hidden
+- BEATEN → PLANET (par 8): beaten beater heater heated seated slated plated planed planet
+- BEATEN → WALLET (par 8): beaten beater better wetter welter welted welled walled wallet
+- BEATEN → BULLET (par 8): beaten beater better butter butler bugler bugled bulled bullet
+- BEATEN → JACKET (par 8): beaten beater beaker beaked peaked pecked packed jacked jacket
+- BEATEN → RACKET (par 8): beaten beater beaker beaked peaked pecked packed racked racket
+- BEATEN → POCKET (par 8): beaten beater beaker beaked peaked pecked packed packet pocket
+- BEATEN → SICKEN (par 8): beaten beater beaker beaked peaked pecked picked sicked sicken
+- BEATEN → TICKET (par 8): beaten beater beaker beaked peaked pecked picked ticked ticket
+- BEATEN → MARKET (par 8): beaten beater beaker beaked peaked perked parked marked market
+- BEATEN → BUDGET (par 8): beaten beater beaker beaked beaded bedded budded budged budget
+- BEATEN → PROVEN (par 8): beaten beater beaver braver graver graves groves proves proven
+- BEATEN → SADDEN (par 9): beaten beater heater header reader redder bedder badder sadder sadden
+- BEATEN → FORGET (par 9): beaten beater heater header headed herded horded forded forged forget
+- BEATEN → WOODEN (par 9): beaten beater heater header headed herded horded worded wooded wooden
+- BEATEN → STOLEN (par 9): beaten beater heater healer healed sealed staled stales stoles stolen
+- BEATEN → SOCKET (par 9): beaten beater heater heated seated slated slaked soaked socked socket
+- BEATEN → RELIEF (par 9): beaten beater better wetter welter welted belted belied relied relief
+- BEATEN → CARPET (par 9): beaten beater better batter patter patted parted carted carped carpet
+- BEATEN → BUCKET (par 9): beaten beater better batter banter banker bunker bunked bucked bucket
+- BEATEN → TOILET (par 9): beaten beater better batter batted baited bailed tailed toiled toilet
+- BEATEN → ROCKET (par 9): beaten beater beaker beaked peaked pecked decked docked rocked rocket
+- BEATEN → DRIVEL (par 9): beaten beater beaver braver graver graves groves droves drives drivel
+- BEATEN → DRIVEN (par 9): beaten beater beaver braver graver graves groves droves drives driven
+- BEATEN → TRICKY (par 9): beaten beater beaver braver braves braces traces tracks tricks tricky
+- BELIEF → WALLET (par 5): belief belied belled welled walled wallet
+- BELIEF → VALLEY (par 6): belief belied belled balled galled galley valley
+- BELIEF → BUDGET (par 6): belief belied belled bulled bulged budged budget
+- BELIEF → BUCKET (par 6): belief belied belled bulled bulked bucked bucket
+- BELIEF → HASTEN (par 6): belief belied belted bested basted hasted hasten
+- BELIEF → TOILET (par 7): belief belied belled balled bailed tailed toiled toilet
+- BELIEF → JACKET (par 7): belief belied belled balled balked backed jacked jacket
+- BELIEF → PACKET (par 7): belief belied belled balled balked backed packed packet
+- BELIEF → RACKET (par 7): belief belied belled balled balked backed racked racket
+- BELIEF → MARKET (par 7): belief belied belled balled balked barked marked market
+- BELIEF → ROTTEN (par 7): belief belied belted pelted petted potted rotted rotten
+- BELIEF → LISTEN (par 7): belief belied belted welted wilted lilted listed listen
+- BELIEF → HEAVEN (par 8): belief belied belled yelled yelped helped heaped heaved heaven
+- BELIEF → SADDEN (par 8): belief belied belled balled balded balder badder sadder sadden
+- BELIEF → TICKET (par 8): belief belied belled balled balked talked tacked ticked ticket
+- BELIEF → POCKET (par 8): belief belied belled balled balked backed packed packet pocket
+- BELIEF → ROCKET (par 8): belief belied belled balled balked backed racked rocked rocket
+- BELIEF → SICKEN (par 8): belief belied belled balled balked backed sacked sicked sicken
+- BELIEF → SOCKET (par 8): belief belied belled balled balked backed sacked socked socket
+- BELIEF → GOTTEN (par 8): belief belied belted pelted petted potted rotted rotten gotten
+- BELIEF → BITTEN (par 8): belief belied belted welted welter wetter better bitter bitten
+- BELIEF → WOODEN (par 8): belief belied belted bolted booted hooted hooded wooded wooden
+- BELIEF → FORGET (par 9): belief belied belled felled filled filmed firmed formed forged forget
+- BELIEF → GARDEN (par 9): belief belied belled welled welded wedded wadded warded warden garden
+- BELIEF → HARDEN (par 9): belief belied belled welled welded wedded wadded warded warden harden
+- BELIEF → RIDDEN (par 9): belief belied belled welled welded wedded wedder redder redden ridden
+- BELIEF → SUDDEN (par 9): belief belied belled balled balded balder badder sadder sadden sudden
+- BELIEF → CANCEL (par 9): belief belied belled balled balked banked banker canker cancer cancel
+- BELIEF → CARPET (par 9): belief belied belled balled balked barked harked harped carped carpet
+- BITTEN → CANCEL (par 6): bitten bitter batter banter canter cancer cancel
+- BITTEN → PACKET (par 7): bitten bitter batter banter banker backer packer packet
+- BITTEN → HEAVEN (par 7): bitten bitter better beater heater heated heaved heaven
+- BITTEN → BULLET (par 7): bitten bitter butter butler bugler bugled bulled bullet
+- BITTEN → WALLET (par 8): bitten bitter fitter filter filler filled willed walled wallet
+- BITTEN → TOILET (par 8): bitten bitter titter totter totted tooted tooled toiled toilet
+- BITTEN → CARPET (par 8): bitten bitter batter patter patted parted carted carped carpet
+- BITTEN → MARKET (par 8): bitten bitter batter patter patted parted parked marked market
+- BITTEN → RACKET (par 8): bitten bitter batter banter banker ranker ranked racked racket
+- BITTEN → BUCKET (par 8): bitten bitter batter banter banker bunker bunked bucked bucket
+- BITTEN → JACKET (par 8): bitten bitter batter banter banker backer packer packet jacket
+- BITTEN → POCKET (par 8): bitten bitter batter banter banker backer packer packet pocket
+- BITTEN → TRAVEL (par 8): bitten bitter better beater beaver braver graver gravel travel
+- BITTEN → BUDGET (par 8): bitten bitter butter butler bugler bugger bugged budged budget
+- BITTEN → WOODEN (par 9): bitten bitter titter totter hotter hooter hooted hooded wooded wooden
+- BITTEN → ROCKET (par 9): bitten bitter titter totter totted rotted rooted rooked rocked rocket
+- BITTEN → TICKET (par 9): bitten bitter batter banter banker tanker tanked tacked ticked ticket
+- BITTEN → SOCKET (par 9): bitten bitter batter banter banker backer packer packet pocket socket
+- BITTEN → VALLEY (par 9): bitten bitter batter batted baited bailed balled galled galley valley
+- BITTEN → RELIEF (par 9): bitten bitter batter batted basted bested belted belied relied relief
+- BLOODY → TRENDY (par 7): bloody bloods broods broads breads treads trends trendy
+- BLOODY → TREATY (par 7): bloody bloods broods broads breads treads treats treaty
+- BLOODY → DREARY (par 8): bloody bloods broods broads breads dreads dreams dreamy dreary
+- BLOODY → STICKY (par 8): bloody bloods blonds blinds blinks slinks stinks sticks sticky
+- BLOODY → TRICKY (par 8): bloody bloods blonds blinds blinks brinks bricks tricks tricky
+- BLOODY → PLANET (par 8): bloody bloods blonds blinds blinks blanks planks planes planet
+- BOGGLE → TACKLE (par 8): boggle goggle giggle jiggle jingle tingle tinkle tickle tackle
+- BOUGHT → ROTTEN (par 7): bought boughs roughs rouges routes routed rotted rotten
+- BOUGHT → GOTTEN (par 8): bought boughs roughs rouges routes routed rotted rotten gotten
+- BOUGHT → ROCKET (par 9): bought boughs roughs rouges routes routed rooted rooked rocked rocket
+- BUBBLE → MANGLE (par 6): bubble burble burgle bungle jungle jangle mangle
+- BUBBLE → SINGLE (par 6): bubble burble burgle bungle jungle jingle single
+- BUBBLE → TACKLE (par 9): bubble burble burgle bungle jungle jingle tingle tinkle tickle tackle
+- BUBBLE → TOGGLE (par 9): bubble burble burgle bungle jungle jingle jiggle giggle goggle toggle
+- BUCKET → WALLET (par 6): bucket bucked backed balked walked walled wallet
+- BUCKET → HASTEN (par 6): bucket bucked backed basked basted hasted hasten
+- BUCKET → CARPET (par 7): bucket bucked backed hacked harked harped carped carpet
+- BUCKET → VALLEY (par 7): bucket bucked backed balked balled galled galley valley
+- BUCKET → CANCEL (par 7): bucket bucked backed banked banker canker cancer cancel
+- BUCKET → LISTEN (par 7): bucket bucked backed basked basted lasted listed listen
+- BUCKET → RELIEF (par 7): bucket bucked bulked bulled belled belied relied relief
+- BUCKET → WOODEN (par 8): bucket bucked ducked docked hocked hooked hooded wooded wooden
+- BUCKET → ROTTEN (par 8): bucket bucked ducked docked rocked rooked rooted rotted rotten
+- BUCKET → GARDEN (par 8): bucket bucked lucked lacked larked larded warded warden garden
+- BUCKET → HARDEN (par 8): bucket bucked lucked lacked larked larded warded warden harden
+- BUCKET → SADDEN (par 8): bucket bucked backed balked balded balder badder sadder sadden
+- BUCKET → TOILET (par 8): bucket bucked backed balked balled bailed tailed toiled toilet
+- BUCKET → FORGET (par 8): bucket bucked bulked bulged bugged bogged fogged forged forget
+- BUCKET → HEAVEN (par 9): bucket bucked ducked decked pecked peaked leaked leaved heaved heaven
+- BUCKET → GOTTEN (par 9): bucket bucked ducked docked rocked rooked rooted rotted rotten gotten
+- BUCKET → SHAKEN (par 9): bucket bucked ducked docked socked soaked slaked slakes shakes shaken
+- BUCKET → SUDDEN (par 9): bucket bucked backed balked balded balder badder sadder sadden sudden
+- BUCKET → FORGOT (par 9): bucket bucked bulked bulged bugged bogged fogged forged forget forgot
+- BUDGET → WALLET (par 6): budget budged bulged bulled balled walled wallet
+- BUDGET → SADDEN (par 6): budget budges badges badger badder sadder sadden
+- BUDGET → MARKET (par 7): budget budged bugged bagged barged barked marked market
+- BUDGET → FORGOT (par 7): budget budged bugged bogged fogged forged forget forgot
+- BUDGET → JACKET (par 7): budget budged bulged bulked balked backed jacked jacket
+- BUDGET → PACKET (par 7): budget budged bulged bulked balked backed packed packet
+- BUDGET → RACKET (par 7): budget budged bulged bulked balked backed racked racket
+- BUDGET → TICKET (par 7): budget budged bulged bulked bucked tucked ticked ticket
+- BUDGET → VALLEY (par 7): budget budged bulged bulled gulled galled galley valley
+- BUDGET → RELIEF (par 7): budget budged bulged bulled belled belied relied relief
+- BUDGET → HEAVEN (par 7): budget budged budded bedded beaded headed heaved heaven
+- BUDGET → RIDDEN (par 7): budget budged budded bedded bedder redder redden ridden
+- BUDGET → POCKET (par 8): budget budged bulged bulked balked backed packed packet pocket
+- BUDGET → ROCKET (par 8): budget budged bulged bulked balked backed racked rocked rocket
+- BUDGET → SICKEN (par 8): budget budged bulged bulked balked backed sacked sicked sicken
+- BUDGET → SOCKET (par 8): budget budged bulged bulked balked backed sacked socked socket
+- BUDGET → HASTEN (par 8): budget budged bulged bulked balked basked basted hasted hasten
+- BUDGET → TOILET (par 8): budget budged bulged bulled dulled dolled tolled toiled toilet
+- BUDGET → GARDEN (par 8): budget budged budded bedded wedded wadded warded warden garden
+- BUDGET → HARDEN (par 8): budget budged budded bedded wedded wadded warded warden harden
+- BUDGET → HIDDEN (par 8): budget budged budded bedded bedder redder redden ridden hidden
+- BUDGET → ROTTEN (par 9): budget budged bugged rugged ragged ranged ranted ratted rotted rotten
+- BUDGET → CANCEL (par 9): budget budged bugged bagged banged banked banker canker cancer cancel
+- BUDGET → CARPET (par 9): budget budged bugged bagged barged barked harked harped carped carpet
+- BUDGET → WOODEN (par 9): budget budged bugged bogged fogged forged forded worded wooded wooden
+- BUDGET → LISTEN (par 9): budget budged bulged bulked balked basked basted lasted listed listen
+- BULLET → RELIEF (par 5): bullet bulled belled belied relied relief
+- BULLET → JACKET (par 6): bullet ballet balled balked backed jacked jacket
+- BULLET → PACKET (par 6): bullet ballet balled balked backed packed packet
+- BULLET → RACKET (par 6): bullet ballet balled balked backed racked racket
+- BULLET → MARKET (par 6): bullet ballet balled balked barked marked market
+- BULLET → TICKET (par 6): bullet bulled bulked bucked tucked ticked ticket
+- BULLET → HASTEN (par 7): bullet ballet balled bailed baited basted hasted hasten
+- BULLET → SADDEN (par 7): bullet ballet balled balded balder badder sadder sadden
+- BULLET → POCKET (par 7): bullet ballet balled balked backed packed packet pocket
+- BULLET → ROCKET (par 7): bullet ballet balled balked backed racked rocked rocket
+- BULLET → SICKEN (par 7): bullet ballet balled balked backed sacked sicked sicken
+- BULLET → SOCKET (par 7): bullet ballet balled balked backed sacked socked socket
+- BULLET → CARPET (par 7): bullet bulled culled curled curved carved carped carpet
+- BULLET → LISTEN (par 7): bullet bulled mulled milled misled misted listed listen
+- BULLET → FORGET (par 7): bullet bulled bugled bugged bogged fogged forged forget
+- BULLET → ROTTEN (par 8): bullet ballet balled bailed baited batted ratted rotted rotten
+- BULLET → SUDDEN (par 8): bullet ballet balled balded balder badder sadder sadden sudden
+- BULLET → CANCEL (par 8): bullet ballet balled balked banked banker canker cancer cancel
+- BULLET → HEAVEN (par 8): bullet bulled belled yelled yelped helped heaped heaved heaven
+- BULLET → FORGOT (par 8): bullet bulled bugled bugged bogged fogged forged forget forgot
+- BULLET → GOTTEN (par 9): bullet ballet balled bailed baited batted ratted rotted rotten gotten
+- BULLET → GARDEN (par 9): bullet ballet balled balded banded landed larded warded warden garden
+- BULLET → HARDEN (par 9): bullet ballet balled balded banded landed larded warded warden harden
+- BULLET → RIDDEN (par 9): bullet ballet balled balded balder badder bedder redder redden ridden
+- BULLET → WOODEN (par 9): bullet bulled pulled polled pooled pooped hooped hooded wooded wooden
+- BUNDLE → GARBLE (par 5): bundle bungle burgle gurgle gargle garble
+- BUNDLE → TACKLE (par 7): bundle bungle jungle jingle tingle tinkle tickle tackle
+- BUNDLE → TOGGLE (par 7): bundle bungle jungle jingle jiggle giggle goggle toggle
+- BUNDLE → HUMBLY (par 8): bundle bungle burgle burble bubble rubble rumble humble humbly
+- CANCEL → MARKET (par 6): cancel cancer dancer danker darker marker market
+- CANCEL → PACKET (par 6): cancel cancer canker banker backer packer packet
+- CANCEL → RACKET (par 6): cancel cancer canker ranker ranked racked racket
+- CANCEL → HASTEN (par 6): cancel cancer canter caster faster fasten hasten
+- CANCEL → JACKET (par 7): cancel cancer canker banker backer packer packet jacket
+- CANCEL → POCKET (par 7): cancel cancer canker banker backer packer packet pocket
+- CANCEL → SICKEN (par 7): cancel cancer canker banker backer bicker sicker sicken
+- CANCEL → ROCKET (par 7): cancel cancer canker ranker ranked racked rocked rocket
+- CANCEL → TICKET (par 7): cancel cancer canker tanker tanked tacked ticked ticket
+- CANCEL → SOCKET (par 8): cancel cancer canker banker backer packer packet pocket socket
+- CANCEL → WALLET (par 8): cancel cancer canker banker banked balked walked walled wallet
+- CANCEL → ROTTEN (par 8): cancel cancer canker ranker ranked ranted ratted rotted rotten
+- CANCEL → LISTEN (par 8): cancel cancer canter caster faster fasted lasted listed listen
+- CANCEL → GARDEN (par 9): cancel cancer dancer danced lanced landed larded warded warden garden
+- CANCEL → HARDEN (par 9): cancel cancer dancer danced lanced landed larded warded warden harden
+- CANCEL → SADDEN (par 9): cancel cancer dancer danced lanced landed lander ladder sadder sadden
+- CANCEL → VALLEY (par 9): cancel cancer canker banker banked balked balled galled galley valley
+- CANCEL → GOTTEN (par 9): cancel cancer canker ranker ranked ranted ratted rotted rotten gotten
+- CARPET → WOODEN (par 6): carpet carped warped warded worded wooded wooden
+- CARPET → HASTEN (par 6): carpet carped carted parted pasted hasted hasten
+- CARPET → POCKET (par 7): carpet carped harped harked parked packed packet pocket
+- CARPET → ROCKET (par 7): carpet carped harped harked hacked racked rocked rocket
+- CARPET → SICKEN (par 7): carpet carped harped harked hacked sacked sicked sicken
+- CARPET → SOCKET (par 7): carpet carped harped harked hacked sacked socked socket
+- CARPET → TICKET (par 7): carpet carped harped harked hacked tacked ticked ticket
+- CARPET → FORGOT (par 7): carpet carped carded corded forded forged forget forgot
+- CARPET → SADDEN (par 7): carpet carped carded corded codded sodded sodden sadden
+- CARPET → SUDDEN (par 7): carpet carped carded corded codded sodded sodden sudden
+- CARPET → ROTTEN (par 7): carpet carped carted parted ported potted rotted rotten
+- CARPET → LISTEN (par 7): carpet carped carted parted pasted lasted listed listen
+- CARPET → TOILET (par 8): carpet carped capped copped cooped cooled tooled toiled toilet
+- CARPET → HEAVEN (par 8): carpet carped carded corded horded herded headed heaved heaven
+- CARPET → GOTTEN (par 8): carpet carped carted parted ported potted rotted rotten gotten
+- CARPET → VALLEY (par 9): carpet carped harped harked barked balked balled galled galley valley
+- CARPET → RIDDEN (par 9): carpet carped warped warded wadded wedded wedder redder redden ridden
+- CARPET → SHAKEN (par 9): carpet carped capped sapped sopped soaped shaped shaved shaven shaken
+- CLOSET → PROVEN (par 6): closet closes cloves gloves groves proves proven
+- CLOSET → DRIVEL (par 7): closet closes cloves gloves groves droves drives drivel
+- CLOSET → DRIVEN (par 7): closet closes cloves gloves groves droves drives driven
+- CLOSET → TRAVEL (par 7): closet closes cloves gloves groves graves gravel travel
+- DECENT → REVEAL (par 5): decent recent repent repeat repeal reveal
+- DIRECT → SEVERE (par 8): direct direst divest divert divers livers levers severs severe
+- DIRECT → MISERY (par 8): direct direst divest divert divers rivers risers misers misery
+- DIVIDE → SPRANG (par 7): divide divine diving hiving hiring siring spring sprang
+- DIVIDE → SPRUNG (par 7): divide divine diving hiving hiring siring spring sprung
+- DIVIDE → STRONG (par 7): divide divine diving hiving hiring siring string strong
+- DIVINE → SPRANG (par 6): divine diving hiving hiring siring spring sprang
+- DIVINE → SPRUNG (par 6): divine diving hiving hiring siring spring sprung
+- DIVINE → STRONG (par 6): divine diving hiving hiring siring string strong
+- DRIVEL → TRICKY (par 9): drivel drives droves groves graves graces traces tracks tricks tricky
+- DRIVEN → TRICKY (par 9): driven drives droves groves graves graces traces tracks tricks tricky
+- FORGET → WOODEN (par 5): forget forged forded worded wooded wooden
+- FORGET → GARDEN (par 6): forget forged forded worded warded warden garden
+- FORGET → HARDEN (par 6): forget forged forded worded warded warden harden
+- FORGET → ROTTEN (par 7): forget forged gorged gouged rouged routed rotted rotten
+- FORGET → SADDEN (par 7): forget forged forded corded codded sodded sodden sadden
+- FORGET → SUDDEN (par 7): forget forged forded corded codded sodded sodden sudden
+- FORGET → HEAVEN (par 7): forget forged forded horded herded headed heaved heaven
+- FORGET → RACKET (par 8): forget forged gorged gonged ganged ranged ranked racked racket
+- FORGET → GOTTEN (par 8): forget forged gorged gouged rouged routed rotted rotten gotten
+- FORGET → HASTEN (par 8): forget forged forded horded hooded hooted hosted hasted hasten
+- FORGET → PACKET (par 8): forget forged forded lorded larded larked parked packed packet
+- FORGET → JACKET (par 8): forget forged forded lorded larded larked lacked jacked jacket
+- FORGET → WALLET (par 8): forget forged formed firmed filmed filled willed walled wallet
+- FORGET → SICKEN (par 9): forget forged forded horded hooded hooked hocked socked sicked sicken
+- FORGET → TICKET (par 9): forget forged forded lorded larded larked lacked tacked ticked ticket
+- FORGET → TRAVEL (par 9): forget forged forded lorded loaded goaded graded graved gravel travel
+- FORGET → SHAKEN (par 9): forget forged formed foamed flamed flaked slaked slakes shakes shaken
+- FORGET → PLANET (par 9): forget forged formed foamed framed frayed prayed played planed planet
+- FORGOT → WOODEN (par 6): forgot forget forged forded worded wooded wooden
+- FORGOT → GARDEN (par 7): forgot forget forged forded worded warded warden garden
+- FORGOT → HARDEN (par 7): forgot forget forged forded worded warded warden harden
+- FORGOT → ROTTEN (par 8): forgot forget forged gorged gouged rouged routed rotted rotten
+- FORGOT → SADDEN (par 8): forgot forget forged forded corded codded sodded sodden sadden
+- FORGOT → SUDDEN (par 8): forgot forget forged forded corded codded sodded sodden sudden
+- FORGOT → HEAVEN (par 8): forgot forget forged forded horded herded headed heaved heaven
+- FORGOT → MARKET (par 8): forgot forget forged forded lorded larded larked marked market
+- FORGOT → ROCKET (par 8): forgot forget forged forked corked cooked rooked rocked rocket
+- FORGOT → TOILET (par 8): forgot forget forged formed foamed foaled foiled toiled toilet
+- FORGOT → RACKET (par 9): forgot forget forged gorged gonged ganged ranged ranked racked racket
+- FORGOT → GOTTEN (par 9): forgot forget forged gorged gouged rouged routed rotted rotten gotten
+- FORGOT → SOCKET (par 9): forgot forget forged forded horded hooded hooked hocked socked socket
+- FORGOT → HASTEN (par 9): forgot forget forged forded horded hooded hooted hosted hasted hasten
+- FORGOT → PACKET (par 9): forgot forget forged forded lorded larded larked parked packed packet
+- FORGOT → JACKET (par 9): forgot forget forged forded lorded larded larked lacked jacked jacket
+- FORGOT → POCKET (par 9): forgot forget forged forked corked cooked looked locked locket pocket
+- FORGOT → WALLET (par 9): forgot forget forged formed firmed filmed filled willed walled wallet
+- FOUGHT → ROTTEN (par 8): fought bought boughs roughs rouges routes routed rotted rotten
+- FOUGHT → GOTTEN (par 9): fought bought boughs roughs rouges routes routed rotted rotten gotten
+- GARBLE → HUMBLY (par 5): garble gamble ramble rumble humble humbly
+- GARBLE → JUNGLE (par 5): garble gargle gurgle burgle bungle jungle
+- GARBLE → SINGLE (par 7): garble gargle gurgle burgle bungle jungle jingle single
+- GARDEN → PACKET (par 7): garden warden warren warred parred parked packed packet
+- GARDEN → JACKET (par 7): garden warden warded larded larked lacked jacked jacket
+- GARDEN → RACKET (par 7): garden warden warded larded larked lacked racked racket
+- GARDEN → POCKET (par 8): garden warden warren warred parred parked packed packet pocket
+- GARDEN → ROCKET (par 8): garden warden warded larded larked lacked racked rocked rocket
+- GARDEN → SICKEN (par 8): garden warden warded larded larked lacked sacked sicked sicken
+- GARDEN → SOCKET (par 8): garden warden warded larded larked lacked sacked socked socket
+- GARDEN → TICKET (par 8): garden warden warded larded larked lacked tacked ticked ticket
+- GARDEN → HEAVEN (par 8): garden warden warded worded horded herded headed heaved heaven
+- GARDEN → WALLET (par 8): garden warden warded wadded wedded welded welled walled wallet
+- GARDEN → ROTTEN (par 9): garden warden warren warred parred parted ported potted rotted rotten
+- GARDEN → LISTEN (par 9): garden warden warren warred parred parted pasted lasted listed listen
+- GARDEN → TOILET (par 9): garden warden warded carded corded corned coined coiled toiled toilet
+- GOTTEN → ROCKET (par 6): gotten rotten rotted rooted rooked rocked rocket
+- GOTTEN → TOILET (par 7): gotten rotten rotted totted tooted tooled toiled toilet
+- GOTTEN → RACKET (par 7): gotten rotten rotted ratted ranted ranked racked racket
+- GOTTEN → SOCKET (par 7): gotten rotten rotted rooted rooked rocked socked socket
+- GOTTEN → POCKET (par 7): gotten rotten rotted rooted rooked rocked rocket pocket
+- GOTTEN → MARKET (par 8): gotten rotten rotted potted patted parted parked marked market
+- GOTTEN → PACKET (par 8): gotten rotten rotted potted patted parted parked packed packet
+- GOTTEN → JACKET (par 8): gotten rotten rotted ratted ranted ranked racked jacked jacket
+- GOTTEN → SICKEN (par 8): gotten rotten rotted rooted rooked rocked socked sicked sicken
+- GOTTEN → RELIEF (par 9): gotten rotten rotted jotted jolted bolted belted belied relied relief
+- GOTTEN → WALLET (par 9): gotten rotten rotted jotted jolted jilted wilted willed walled wallet
+- GOTTEN → TICKET (par 9): gotten rotten rotted ratted ranted ranked tanked tacked ticked ticket
+- GOTTEN → SOUGHT (par 9): gotten rotten rotted routed rouged rouges roughs boughs bought sought
+- HARDEN → PACKET (par 7): harden warden warren warred parred parked packed packet
+- HARDEN → JACKET (par 7): harden warden warded larded larked lacked jacked jacket
+- HARDEN → RACKET (par 7): harden warden warded larded larked lacked racked racket
+- HARDEN → POCKET (par 8): harden warden warren warred parred parked packed packet pocket
+- HARDEN → ROCKET (par 8): harden warden warded larded larked lacked racked rocked rocket
+- HARDEN → SICKEN (par 8): harden warden warded larded larked lacked sacked sicked sicken
+- HARDEN → SOCKET (par 8): harden warden warded larded larked lacked sacked socked socket
+- HARDEN → TICKET (par 8): harden warden warded larded larked lacked tacked ticked ticket
+- HARDEN → WALLET (par 8): harden warden warded wadded wedded welded welled walled wallet
+- HARDEN → ROTTEN (par 9): harden warden warren warred parred parted ported potted rotted rotten
+- HARDEN → LISTEN (par 9): harden warden warren warred parred parted pasted lasted listed listen
+- HARDEN → TOILET (par 9): harden warden warded carded corded corned coined coiled toiled toilet
+- HASTEN → MARKET (par 6): hasten hasted basted basked masked marked market
+- HASTEN → JACKET (par 6): hasten hasted basted basked backed jacked jacket
+- HASTEN → PACKET (par 6): hasten hasted basted basked backed packed packet
+- HASTEN → RACKET (par 6): hasten hasted basted basked backed racked racket
+- HASTEN → TICKET (par 6): hasten hasted tasted tasked tacked ticked ticket
+- HASTEN → WALLET (par 6): hasten hasted wasted waited wailed walled wallet
+- HASTEN → WOODEN (par 6): hasten hasted hosted hooted hooded wooded wooden
+- HASTEN → RELIEF (par 7): hasten hasted basted bested belted belied relied relief
+- HASTEN → TOILET (par 7): hasten hasted basted baited bailed tailed toiled toilet
+- HASTEN → POCKET (par 7): hasten hasted basted basked backed packed packet pocket
+- HASTEN → ROCKET (par 7): hasten hasted basted basked backed racked rocked rocket
+- HASTEN → SICKEN (par 7): hasten hasted basted basked backed sacked sicked sicken
+- HASTEN → SOCKET (par 7): hasten hasted basted basked backed sacked socked socket
+- HASTEN → VALLEY (par 8): hasten hasted basted baited bailed balled galled galley valley
+- HASTEN → TRAVEL (par 9): hasten hasted hosted costed coated crated grated graved gravel travel
+- HEAVEN → PACKET (par 7): heaven heaved leaved leaked peaked pecked packed packet
+- HEAVEN → WOODEN (par 7): heaven heaved headed herded horded worded wooded wooden
+- HEAVEN → RIDDEN (par 7): heaven heaved headed header reader redder redden ridden
+- HEAVEN → STOLEN (par 7): heaven heaved healed sealed staled stales stoles stolen
+- HEAVEN → PLANET (par 7): heaven heaved heated seated slated plated planed planet
+- HEAVEN → JACKET (par 8): heaven heaved leaved leaked peaked pecked packed jacked jacket
+- HEAVEN → RACKET (par 8): heaven heaved leaved leaked peaked pecked packed racked racket
+- HEAVEN → POCKET (par 8): heaven heaved leaved leaked peaked pecked packed packet pocket
+- HEAVEN → SICKEN (par 8): heaven heaved leaved leaked peaked pecked picked sicked sicken
+- HEAVEN → TICKET (par 8): heaven heaved leaved leaked peaked pecked picked ticked ticket
+- HEAVEN → MARKET (par 8): heaven heaved leaved leaked peaked perked parked marked market
+- HEAVEN → SADDEN (par 8): heaven heaved headed beaded bedded bedder badder sadder sadden
+- HEAVEN → WALLET (par 8): heaven heaved headed heeded weeded welded welled walled wallet
+- HEAVEN → SOCKET (par 8): heaven heaved healed sealed staled staked soaked socked socket
+- HEAVEN → ROCKET (par 9): heaven heaved leaved leaked peaked pecked decked docked rocked rocket
+- HEAVEN → SUDDEN (par 9): heaven heaved headed beaded bedded bedder badder sadder sadden sudden
+- HEAVEN → ROTTEN (par 9): heaven heaved headed herded horded hooded hooted rooted rotted rotten
+- HEAVEN → SPOKEN (par 9): heaven heaved healed sealed staled staked stoked stokes spokes spoken
+- HEAVEN → STICKY (par 9): heaven heaved healed sealed staled stales stalks stacks sticks sticky
+- HEAVEN → SMELLY (par 9): heaven heaved healed sealed staled stales stalls smalls smells smelly
+- HEAVEN → RELIEF (par 9): heaven heaved heaped helped yelped yelled belled belied relied relief
+- HIDDEN → WALLET (par 9): hidden ridden redden redder wedder welder welded welled walled wallet
+- HUMBLE → MANGLE (par 9): humble rumble rubble bubble burble burgle bungle jungle jangle mangle
+- HUMBLE → SINGLE (par 9): humble rumble rubble bubble burble burgle bungle jungle jingle single
+- HUMBLY → JUNGLE (par 8): humbly humble rumble rubble bubble burble burgle bungle jungle
+- JACKET → ROTTEN (par 7): jacket racket rocket rocked rooked rooted rotted rotten
+- JACKET → VALLEY (par 7): jacket jacked backed balked balled galled galley valley
+- JACKET → LISTEN (par 7): jacket jacked backed basked basted lasted listed listen
+- JACKET → WOODEN (par 7): jacket jacked hacked hocked hooked hooded wooded wooden
+- JACKET → SADDEN (par 8): jacket jacked backed balked balded balder badder sadder sadden
+- JACKET → RELIEF (par 8): jacket jacked backed balked balled belled belied relied relief
+- JACKET → TOILET (par 8): jacket jacked backed balked balled bailed tailed toiled toilet
+- JACKET → SHAKEN (par 8): jacket jacked sacked socked soaked slaked slakes shakes shaken
+- JACKET → SUDDEN (par 9): jacket jacked backed balked balded balder badder sadder sadden sudden
+- JACKET → PLANET (par 9): jacket jacked sacked socked soaked slaked slated plated planed planet
+- JACKET → SPOKEN (par 9): jacket jacked sacked socked soaked staked stoked stokes spokes spoken
+- JACKET → STOLEN (par 9): jacket jacked sacked socked soaked staked stoked stokes stoles stolen
+- JUNGLE → TACKLE (par 5): jungle jingle tingle tinkle tickle tackle
+- LISTEN → WALLET (par 6): listen listed lilted wilted willed walled wallet
+- LISTEN → MARKET (par 7): listen listed misted missed massed masked marked market
+- LISTEN → PACKET (par 7): listen listed lasted basted basked backed packed packet
+- LISTEN → RACKET (par 7): listen listed lasted basted basked backed racked racket
+- LISTEN → TICKET (par 7): listen listed lasted tasted tasked tacked ticked ticket
+- LISTEN → TOILET (par 7): listen listed lilted tilted tilled tolled toiled toilet
+- LISTEN → RELIEF (par 8): listen listed lasted basted bested belted belied relied relief
+- LISTEN → POCKET (par 8): listen listed lasted basted basked backed packed packet pocket
+- LISTEN → ROCKET (par 8): listen listed lasted basted basked backed racked rocked rocket
+- LISTEN → SOCKET (par 8): listen listed lasted basted basked backed sacked socked socket
+- LISTEN → WOODEN (par 8): listen listed lasted hasted hosted hooted hooded wooded wooden
+- LISTEN → VALLEY (par 8): listen listed lilted wilted willed walled galled galley valley
+- MARKET → SICKEN (par 6): market marked barked backed sacked sicked sicken
+- MARKET → VALLEY (par 7): market marked barked balked balled galled galley valley
+- MARKET → WOODEN (par 7): market marked larked larded warded worded wooded wooden
+- MARKET → ROTTEN (par 7): market marked parked parted ported potted rotted rotten
+- MARKET → SADDEN (par 8): market marked barked balked balded balder badder sadder sadden
+- MARKET → RELIEF (par 8): market marked barked balked balled belled belied relied relief
+- MARKET → TOILET (par 8): market marked barked balked balled bailed tailed toiled toilet
+- MARKET → SUDDEN (par 9): market marked barked balked balded balder badder sadder sadden sudden
+- MISERY → SEVERE (par 7): misery misers risers rivers livers levers severs severe
+- MISERY → REVERT (par 9): misery misers risers rivers livers levers severs severe revere revert
+- MUMBLE → SINGLE (par 9): mumble rumble rubble bubble burble burgle bungle jungle jingle single
+- PACKET → ROTTEN (par 7): packet racket rocket rocked rooked rooted rotted rotten
+- PACKET → VALLEY (par 7): packet packed backed balked balled galled galley valley
+- PACKET → WOODEN (par 7): packet packed hacked hocked hooked hooded wooded wooden
+- PACKET → SHAKEN (par 8): packet pocket socket socked soaked slaked slakes shakes shaken
+- PACKET → SADDEN (par 8): packet packed backed balked balded balder badder sadder sadden
+- PACKET → RELIEF (par 8): packet packed backed balked balled belled belied relied relief
+- PACKET → TOILET (par 8): packet packed backed balked balled bailed tailed toiled toilet
+- PACKET → SPOKEN (par 9): packet pocket socket socked soaked staked stoked stokes spokes spoken
+- PACKET → STOLEN (par 9): packet pocket socket socked soaked staked stoked stokes stoles stolen
+- PACKET → SUDDEN (par 9): packet packed backed balked balded balder badder sadder sadden sudden
+- PACKET → TRAVEL (par 9): packet packed pecked peaked beaked braked braved graved gravel travel
+- PLANET → SHAKEN (par 6): planet planes plates slates slakes shakes shaken
+- PLANET → SOCKET (par 7): planet planed plated slated slaked soaked socked socket
+- PLANET → TRAVEL (par 7): planet planed played prayed grayed graved gravel travel
+- PLANET → STOLEN (par 7): planet planes plates slates states stales stoles stolen
+- PLANET → ROCKET (par 8): planet planed plated slated slaked soaked socked rocked rocket
+- PLANET → SICKEN (par 8): planet planed plated slated slaked soaked socked sicked sicken
+- PLANET → SPOKEN (par 8): planet planes plates slates states stakes stokes spokes spoken
+- PLANET → STICKY (par 8): planet planes planks blanks blinks slinks stinks sticks sticky
+- PLANET → TRICKY (par 8): planet planes planks blanks blinks brinks bricks tricks tricky
+- PLANET → RACKET (par 9): planet planed plated slated slaked soaked socked rocked racked racket
+- PLANET → TICKET (par 9): planet planed plated slated slaked soaked socked sicked ticked ticket
+- PLANET → PROVEN (par 9): planet planed played prayed grayed graved graves groves proves proven
+- PLANET → SMELLY (par 9): planet planes plates slates states stales stalls smalls smells smelly
+- POCKET → ROTTEN (par 6): pocket rocket rocked rooked rooted rotted rotten
+- POCKET → WOODEN (par 7): pocket locket locked hocked hooked hooded wooded wooden
+- POCKET → SHAKEN (par 7): pocket socket socked soaked slaked slakes shakes shaken
+- POCKET → WALLET (par 7): pocket packet packed backed balked walked walled wallet
+- POCKET → SPOKEN (par 8): pocket socket socked soaked staked stoked stokes spokes spoken
+- POCKET → STOLEN (par 8): pocket socket socked soaked staked stoked stokes stoles stolen
+- POCKET → VALLEY (par 8): pocket packet packed backed balked balled galled galley valley
+- POCKET → SADDEN (par 9): pocket packet packed backed balked balded balder badder sadder sadden
+- POCKET → RELIEF (par 9): pocket packet packed backed balked balled belled belied relied relief
+- PROVEN → TRICKY (par 8): proven proves groves graves graces traces tracks tricks tricky
+- RACKET → ROTTEN (par 6): racket rocket rocked rooked rooted rotted rotten
+- RACKET → WOODEN (par 7): racket rocket rocked hocked hooked hooded wooded wooden
+- RACKET → VALLEY (par 7): racket racked backed balked balled galled galley valley
+- RACKET → SHAKEN (par 8): racket rocket socket socked soaked slaked slakes shakes shaken
+- RACKET → TOILET (par 8): racket rocket rocked rooked cooked cooled tooled toiled toilet
+- RACKET → SADDEN (par 8): racket racked backed balked balded balder badder sadder sadden
+- RACKET → RELIEF (par 8): racket racked backed balked balled belled belied relied relief
+- RACKET → SPOKEN (par 9): racket rocket socket socked soaked staked stoked stokes spokes spoken
+- RACKET → STOLEN (par 9): racket rocket socket socked soaked staked stoked stokes stoles stolen
+- RACKET → SUDDEN (par 9): racket racked backed balked balded balder badder sadder sadden sudden
+- RELIEF → WALLET (par 6): relief belief belied belled welled walled wallet
+- RELIEF → VALLEY (par 7): relief belief belied belled balled galled galley valley
+- RELIEF → TOILET (par 8): relief belief belied belled balled bailed tailed toiled toilet
+- RELIEF → ROTTEN (par 8): relief belief belied belted pelted petted potted rotted rotten
+- RELIEF → SADDEN (par 9): relief belief belied belled balled balded balder badder sadder sadden
+- RELIEF → TICKET (par 9): relief belief belied belled balled balked talked tacked ticked ticket
+- RELIEF → ROCKET (par 9): relief belief belied belled balled balked backed racked rocked rocket
+- RELIEF → SICKEN (par 9): relief belief belied belled balled balked backed sacked sicked sicken
+- RELIEF → SOCKET (par 9): relief belief belied belled balled balked backed sacked socked socket
+- RELIEF → WOODEN (par 9): relief belief belied belted bolted booted hooted hooded wooded wooden
+- RIDDEN → WALLET (par 8): ridden redden redder wedder welder welded welled walled wallet
+- ROCKET → WOODEN (par 6): rocket rocked hocked hooked hooded wooded wooden
+- ROCKET → SHAKEN (par 7): rocket socket socked soaked slaked slakes shakes shaken
+- ROCKET → WALLET (par 7): rocket racket racked backed balked walked walled wallet
+- ROCKET → SPOKEN (par 8): rocket socket socked soaked staked stoked stokes spokes spoken
+- ROCKET → STOLEN (par 8): rocket socket socked soaked staked stoked stokes stoles stolen
+- ROCKET → VALLEY (par 8): rocket racket racked backed balked balled galled galley valley
+- ROCKET → SADDEN (par 9): rocket racket racked backed balked balded balder badder sadder sadden
+- ROCKET → SUDDEN (par 9): rocket rocked rooked cooked corked corded codded sodded sodden sudden
+- ROTTEN → TOILET (par 6): rotten rotted totted tooted tooled toiled toilet
+- ROTTEN → SOCKET (par 6): rotten rotted rooted rooked rocked socked socket
+- ROTTEN → SICKEN (par 7): rotten rotted rooted rooked rocked socked sicked sicken
+- ROTTEN → WALLET (par 8): rotten rotted jotted jolted jilted wilted willed walled wallet
+- ROTTEN → TICKET (par 8): rotten rotted ratted ranted ranked tanked tacked ticked ticket
+- ROTTEN → SOUGHT (par 8): rotten rotted routed rouged rouges roughs boughs bought sought
+- ROTTEN → VALLEY (par 9): rotten rotted ratted batted baited bailed balled galled galley valley
+- SADDEN → WALLET (par 7): sadden sadder badder balder balded balled walled wallet
+- SADDEN → VALLEY (par 8): sadden sadder badder balder balded balled galled galley valley
+- SADDEN → TOILET (par 9): sadden sodden sodded codded corded corned coined coiled toiled toilet
+- SADDEN → TICKET (par 9): sadden sadder badder balder balded balked talked tacked ticked ticket
+- SADDEN → SOCKET (par 9): sadden sadder badder balder balded balked backed sacked socked socket
+- SHAKEN → STICKY (par 7): shaken shakes stakes stales stalks stacks sticks sticky
+- SHAKEN → SMELLY (par 7): shaken shakes stakes stales stalls smalls smells smelly
+- SHAKEN → TICKET (par 8): shaken shakes slakes slaked soaked socked sicked ticked ticket
+- SICKEN → WALLET (par 7): sicken sicked ticked tacked talked walked walled wallet
+- SICKEN → WOODEN (par 7): sicken sicked socked hocked hooked hooded wooded wooden
+- SICKEN → VALLEY (par 8): sicken sicked sacked backed balked balled galled galley valley
+- SICKEN → TOILET (par 9): sicken sicked licked locked looked cooked cooled tooled toiled toilet
+- SMELLY → STOLEN (par 6): smelly smells smalls stalls stales stoles stolen
+- SMELLY → STICKY (par 7): smelly smells smalls stalls stalks stacks sticks sticky
+- SMELLY → SPOKEN (par 8): smelly smells smalls stalls stales stoles stokes spokes spoken
+- SMELLY → SOCKET (par 9): smelly smells smalls stalls stales stakes staked soaked socked socket
+- SOCKET → WOODEN (par 6): socket socked hocked hooked hooded wooded wooden
+- SOCKET → WALLET (par 7): socket socked sacked backed balked walked walled wallet
+- SOCKET → STOLEN (par 7): socket socked soaked staked stoked stokes stoles stolen
+- SOCKET → VALLEY (par 8): socket socked sacked backed balked balled galled galley valley
+- SOCKET → STICKY (par 9): socket socked soaked staked staled stales stalks stacks sticks sticky
+- SPOKEN → STICKY (par 7): spoken spokes stokes stores storks stocks sticks sticky
+- SPOKEN → TICKET (par 9): spoken spokes stokes stakes staked soaked socked sicked ticked ticket
+- SPOKEN → TOILET (par 9): spoken spokes spikes spites smites smiles smiled soiled toiled toilet
+- STICKY → STOLEN (par 6): sticky stocky stocks storks stores stoles stolen
+- STOLEN → TICKET (par 9): stolen stoles stales stakes staked soaked socked sicked ticked ticket
+- SUDDEN → WALLET (par 8): sudden sadden sadder badder balder balded balled walled wallet
+- SUDDEN → VALLEY (par 9): sudden sadden sadder badder balder balded balled galled galley valley
+- SUDDEN → TOILET (par 9): sudden sodden sodded codded corded corned coined coiled toiled toilet
+- TICKET → WALLET (par 6): ticket ticked tacked talked walked walled wallet
+- TICKET → WOODEN (par 8): ticket ticked licked locked hocked hooked hooded wooded wooden
+- TICKET → VALLEY (par 8): ticket ticked tacked backed balked balled galled galley valley
+- TOILET → VALLEY (par 7): toilet toiled boiled bailed balled galled galley valley
+- TOILET → WOODEN (par 7): toilet toiled tooled tooted hooted hooded wooded wooden
+- TOILET → TRAVEL (par 9): toilet toiled coiled coaled coated crated grated graved gravel travel
+- TRAVEL → TRICKY (par 7): travel gravel graves graces traces tracks tricks tricky
+- TRAVEL → WOODEN (par 9): travel gravel graved graded goaded loaded lorded worded wooded wooden
+- WALLET → WOODEN (par 9): wallet walled palled polled pooled pooped hooped hooded wooded wooden
+
+## 7 letters: 14 pairs
+
+SCOWL tier 35 or lower, at least 4 letters different, par 5 to 9.
+
+- BLACKEN → SKILLET (par 8): blacken slacken slacked stacked stalked stalled stilled skilled skillet
+- BLACKEN → STIFFEN (par 9): blacken slacken slacked stacked stalked stalled stilled stifled stiffed stiffen
+- BLANKET → GLADDEN (par 5): blanket blanker blander bladder gladder gladden
+- BLANKET → FLATTEN (par 7): blanket blanked planked planted planter platter flatter flatten
+- BLANKET → CHASTEN (par 9): blanket blanked clanked clanged changed charged charted charter chaster chasten
+- BLANKET → SKILLET (par 9): blanket blanked blacked slacked stacked stalked stalled stilled skilled skillet
+- FLATTEN → SHORTEN (par 9): flatten flatter platter plotter plotted slotted spotted sported shorted shorten
+- FURLONG → ROUTINE (par 9): furlong furling furring purring parring parting porting pouting routing routine
+- MYSTERY → PATTERN (par 5): mystery mastery masters matters patters pattern
+- SKILLET → STIFFEN (par 5): skillet skilled stilled stifled stiffed stiffen
+- SKILLET → SLACKEN (par 7): skillet skilled stilled stalled stalked stacked slacked slacken
+- SLACKEN → STIFFEN (par 8): slacken slacked stacked stalked stalled stilled stifled stiffed stiffen
+- SNIPPET → TRUMPET (par 9): snippet snipped shipped chipped chapped champed cramped tramped trumped trumpet
+- TROLLEY → TRUMPET (par 8): trolley trolled trilled tripled tripped trapped tramped trumped trumpet
+
+## Scheduled
+
+- 2026-11-22: BLACKEN → SKILLET (7 letters, par 8)
+- 2026-11-23: RIDDEN → CARPET (6 letters, par 9)
+- 2026-11-24: TOILET → BARREL (6 letters, par 8)
+- 2026-11-25: GOTTEN → BASKET (6 letters, par 7)
+- 2026-11-26: CANCEL → GARDEN (6 letters, par 9)
+- 2026-11-27: JUNGLE → GARBLE (6 letters, par 5)
+- 2026-11-28: PLANET → SOCKET (6 letters, par 7)
+- 2026-11-29: PATTERN → MYSTERY (7 letters, par 5)
+- 2026-11-30: TACKLE → BUNDLE (6 letters, par 7)
+- 2026-12-01: RELIEF → WALLET (6 letters, par 6)
+- 2026-12-02: STOLEN → PACKET (6 letters, par 9)
+- 2026-12-03: BLOODY → DREARY (6 letters, par 8)
+- 2026-12-04: HEAVEN → FORGOT (6 letters, par 8)
+- 2026-12-05: BALLOT → JACKET (6 letters, par 6)
+- 2026-12-06: CHASTEN → BLANKET (7 letters, par 9)
+- 2026-12-07: ROTTEN → BUCKET (6 letters, par 8)
+- 2026-12-08: PROVEN → TRICKY (6 letters, par 8)
+- 2026-12-09: BARREL → SICKEN (6 letters, par 6)
+- 2026-12-10: BASKET → VALLEY (6 letters, par 6)
+- 2026-12-11: RACKET → WOODEN (6 letters, par 7)
+- 2026-12-12: ROCKET → HARDEN (6 letters, par 8)
+- 2026-12-13: STIFFEN → SKILLET (7 letters, par 5)
+- 2026-12-14: MARKET → BUDGET (6 letters, par 7)
+- 2026-12-15: SUDDEN → TOILET (6 letters, par 9)
+- 2026-12-16: TICKET → FORGET (6 letters, par 9)
+- 2026-12-17: CARPET → SOCKET (6 letters, par 7)
+- 2026-12-18: BULLET → GARDEN (6 letters, par 9)
+- 2026-12-19: BELIEF → HEAVEN (6 letters, par 8)
+- 2026-12-20: FURLONG → ROUTINE (7 letters, par 9)
+- 2026-12-21: POCKET → SPOKEN (6 letters, par 8)
+- 2026-12-22: PLANET → SMELLY (6 letters, par 9)
+- 2026-12-23: ACCEPT → ASSORT (6 letters, par 5)
+- 2026-12-24: WALLET → LISTEN (6 letters, par 6)
+- 2026-12-25: RELIEF → HASTEN (6 letters, par 7)
+- 2026-12-26: GOTTEN → SOUGHT (6 letters, par 9)
+- 2026-12-27: BLANKET → GLADDEN (7 letters, par 5)
+- 2026-12-28: FORGOT → SADDEN (6 letters, par 8)
+- 2026-12-29: BUCKET → SHAKEN (6 letters, par 9)
+- 2026-12-30: ROCKET → BITTEN (6 letters, par 9)
+- 2026-12-31: PACKET → TOILET (6 letters, par 8)
+- 2027-01-01: BEATEN → TICKET (6 letters, par 8)
+- 2027-01-02: FORGET → WOODEN (6 letters, par 5)
+- 2027-01-03: TROLLEY → TRUMPET (7 letters, par 8)
+- 2027-01-04: ROTTEN → SOCKET (6 letters, par 6)
+- 2027-01-05: JACKET → BARREL (6 letters, par 5)
+- 2027-01-06: POCKET → BALLOT (6 letters, par 7)
+- 2027-01-07: REVEAL → DECENT (6 letters, par 5)
+- 2027-01-08: BULLET → RIDDEN (6 letters, par 9)
+- 2027-01-09: JUNGLE → HUMBLY (6 letters, par 8)
+- 2027-01-10: BLACKEN → STIFFEN (7 letters, par 9)
+- 2027-01-11: CARPET → VALLEY (6 letters, par 9)
+- 2027-01-12: LISTEN → CANCEL (6 letters, par 8)
+- 2027-01-13: TRICKY → DRIVEL (6 letters, par 9)
+- 2027-01-14: SHAKEN → RACKET (6 letters, par 8)
+- 2027-01-15: ROCKET → GOTTEN (6 letters, par 6)
+- 2027-01-16: BALLET → FORGOT (6 letters, par 9)
+- 2027-01-17: SKILLET → SLACKEN (7 letters, par 7)
+- 2027-01-18: HARDEN → BASKET (6 letters, par 7)
+- 2027-01-19: MARKET → WOODEN (6 letters, par 7)
+- 2027-01-20: ROTTEN → BARREL (6 letters, par 7)
+- 2027-01-21: TREATY → BLOODY (6 letters, par 7)
+- 2027-01-22: DRIVEN → BEATEN (6 letters, par 9)
+- 2027-01-23: TICKET → SPOKEN (6 letters, par 9)
+- 2027-01-24: FLATTEN → BLANKET (7 letters, par 7)
+- 2027-01-25: PLANET → STICKY (6 letters, par 8)
+- 2027-01-26: CARPET → SADDEN (6 letters, par 7)
+- 2027-01-27: BUDGET → RELIEF (6 letters, par 7)
+- 2027-01-28: SICKEN → GARDEN (6 letters, par 8)
+- 2027-01-29: BULLET → PACKET (6 letters, par 6)
+- 2027-01-30: LISTEN → BUCKET (6 letters, par 7)
+- 2027-01-31: SNIPPET → TRUMPET (7 letters, par 9)
+- 2027-02-01: ROCKET → HEAVEN (6 letters, par 9)
+- 2027-02-02: HASTEN → RACKET (6 letters, par 6)
+- 2027-02-03: BALLET → RIDDEN (6 letters, par 8)
+- 2027-02-04: TOILET → BASKET (6 letters, par 7)
+- 2027-02-05: ROTTEN → MARKET (6 letters, par 7)
+- 2027-02-06: GARBLE → SINGLE (6 letters, par 7)
+- 2027-02-07: STIFFEN → SLACKEN (7 letters, par 8)
+- 2027-02-08: TRAVEL → ARISEN (6 letters, par 9)
+- 2027-02-09: FORGET → BALLOT (6 letters, par 9)
+- 2027-02-10: DRIVEN → TRICKY (6 letters, par 9)
+- 2027-02-11: SOCKET → SMELLY (6 letters, par 9)
+- 2027-02-12: SHAKEN → PLANET (6 letters, par 6)
+- 2027-02-13: BELIEF → BUDGET (6 letters, par 6)
+- 2027-02-14: SKILLET → BLANKET (7 letters, par 9)
+- 2027-02-15: SADDEN → BEATEN (6 letters, par 9)
+- 2027-02-16: SPOKEN → STICKY (6 letters, par 7)
+- 2027-02-17: TICKET → WALLET (6 letters, par 6)
+- 2027-02-18: CANCEL → VALLEY (6 letters, par 9)
+- 2027-02-19: CARPET → SUDDEN (6 letters, par 7)
+- 2027-02-20: BULLET → SICKEN (6 letters, par 7)
+- 2027-02-21: SHORTEN → FLATTEN (7 letters, par 9)
+- 2027-02-22: ROTTEN → SOUGHT (6 letters, par 8)
+- 2027-02-23: TACKLE → BOGGLE (6 letters, par 8)
+- 2027-02-24: BARREL → HEAVEN (6 letters, par 9)
+- 2027-02-25: LISTEN → PACKET (6 letters, par 7)
+- 2027-02-26: MISERY → REVERT (6 letters, par 9)
+- 2027-02-27: DRIVEN → CLOSET (6 letters, par 7)
+- 2027-02-28: BUDGET → GARDEN (6 letters, par 8)
+- 2027-03-01: TRAVEL → PLANET (6 letters, par 7)
+- 2027-03-02: BELIEF → WOODEN (6 letters, par 8)
+- 2027-03-03: TOILET → BUCKET (6 letters, par 8)
+- 2027-03-04: STOLEN → POCKET (6 letters, par 8)
+- 2027-03-05: CANCEL → HARDEN (6 letters, par 9)
+- 2027-03-06: FORGOT → GOTTEN (6 letters, par 9)
+- 2027-03-07: BITTEN → BALLOT (6 letters, par 8)
+- 2027-03-08: RACKET → VALLEY (6 letters, par 7)
+- 2027-03-09: SICKEN → ROTTEN (6 letters, par 7)
+- 2027-03-10: BOUGHT → ROCKET (6 letters, par 9)
+- 2027-03-11: BUBBLE → TACKLE (6 letters, par 9)
+- 2027-03-12: BASKET → HEAVEN (6 letters, par 9)
+- 2027-03-13: TICKET → RELIEF (6 letters, par 9)
+- 2027-03-14: TRICKY → BLOODY (6 letters, par 8)
+- 2027-03-15: RIDDEN → BARREL (6 letters, par 9)
+- 2027-03-16: BUNDLE → TOGGLE (6 letters, par 7)
+- 2027-03-17: BUDGET → WALLET (6 letters, par 6)
+- 2027-03-18: DIVIDE → SPRUNG (6 letters, par 7)
+- 2027-03-19: SUDDEN → JACKET (6 letters, par 9)
+- 2027-03-20: SOCKET → BALLET (6 letters, par 6)
+- 2027-03-21: GARDEN → PACKET (6 letters, par 7)
+- 2027-03-22: BALLOT → MARKET (6 letters, par 6)
+- 2027-03-23: DIVINE → STRONG (6 letters, par 6)
+- 2027-03-24: BITTEN → TRAVEL (6 letters, par 8)
+- 2027-03-25: ROTTEN → CARPET (6 letters, par 7)
+- 2027-03-26: CANCEL → POCKET (6 letters, par 7)
+- 2027-03-27: SHAKEN → ROCKET (6 letters, par 7)
+- 2027-03-28: SICKEN → FORGET (6 letters, par 9)
+- 2027-03-29: HEAVEN → BUCKET (6 letters, par 9)
+- 2027-03-30: RELIEF → VALLEY (6 letters, par 7)
+- 2027-03-31: FORGOT → BARREL (6 letters, par 8)
+- 2027-04-01: BUBBLE → SINGLE (6 letters, par 6)
+- 2027-04-02: BEATEN → WOODEN (6 letters, par 9)
+- 2027-04-03: HUMBLY → GARBLE (6 letters, par 5)
+- 2027-04-04: STICKY → SMELLY (6 letters, par 7)
+- 2027-04-05: BUDGET → LISTEN (6 letters, par 9)
+- 2027-04-06: TICKET → PLANET (6 letters, par 9)
+- 2027-04-07: PACKET → SADDEN (6 letters, par 8)
+- 2027-04-08: BELIEF → HASTEN (6 letters, par 6)
+- 2027-04-09: DIRECT → SEVERE (6 letters, par 8)
+- 2027-04-10: RACKET → BALLOT (6 letters, par 6)
+- 2027-04-11: JACKET → HARDEN (6 letters, par 7)
+- 2027-04-12: STOLEN → SOCKET (6 letters, par 7)
+- 2027-04-13: DIVIDE → STRONG (6 letters, par 7)
+- 2027-04-14: SICKEN → BALLET (6 letters, par 6)
+- 2027-04-15: BITTEN → TOILET (6 letters, par 8)
+- 2027-04-16: BASKET → RELIEF (6 letters, par 7)
+- 2027-04-17: PROVEN → BEATEN (6 letters, par 8)
+- 2027-04-18: TRICKY → ARISEN (6 letters, par 8)
+- 2027-04-19: RIDDEN → HEAVEN (6 letters, par 7)
+- 2027-04-20: VALLEY → SUDDEN (6 letters, par 9)
+- 2027-04-21: PLANET → SPOKEN (6 letters, par 8)
+- 2027-04-22: GOTTEN → PACKET (6 letters, par 8)
+- 2027-04-23: BUDGET → SADDEN (6 letters, par 6)
+- 2027-04-24: GARDEN → BELIEF (6 letters, par 9)
+- 2027-04-25: SEVERE → MISERY (6 letters, par 7)
+- 2027-04-26: TRAVEL → HASTEN (6 letters, par 9)
+- 2027-04-27: SOCKET → BULLET (6 letters, par 7)
+- 2027-04-28: LISTEN → WOODEN (6 letters, par 8)
+- 2027-04-29: HARDEN → SICKEN (6 letters, par 8)
+- 2027-04-30: BITTEN → WALLET (6 letters, par 8)
+- 2027-05-01: BASKET → CANCEL (6 letters, par 6)
+- 2027-05-02: BEATEN → POCKET (6 letters, par 8)
+- 2027-05-03: BLOODY → STICKY (6 letters, par 8)
+- 2027-05-04: RELIEF → RACKET (6 letters, par 8)
+- 2027-05-05: MARKET → SUDDEN (6 letters, par 9)
+- 2027-05-06: JACKET → SPOKEN (6 letters, par 9)
+- 2027-05-07: TICKET → BALLOT (6 letters, par 7)
+- 2027-05-08: FORGET → PACKET (6 letters, par 8)
+- 2027-05-09: ROCKET → VALLEY (6 letters, par 8)
+- 2027-05-10: BALLET → GARDEN (6 letters, par 8)
+- 2027-05-11: HEAVEN → SADDEN (6 letters, par 8)
+- 2027-05-12: BULLET → ROTTEN (6 letters, par 8)
+- 2027-05-13: SPRANG → DIVIDE (6 letters, par 7)
+- 2027-05-14: TRAVEL → CLOSET (6 letters, par 7)
+- 2027-05-15: WALLET → SOCKET (6 letters, par 7)
+- 2027-05-16: GOTTEN → TOILET (6 letters, par 7)
+- 2027-05-17: BEATEN → TRICKY (6 letters, par 9)
+- 2027-05-18: WOODEN → HASTEN (6 letters, par 6)
+- 2027-05-19: SPRUNG → DIVINE (6 letters, par 6)
+- 2027-05-20: BUNDLE → HUMBLY (6 letters, par 8)
+- 2027-05-21: BUCKET → BARREL (6 letters, par 5)

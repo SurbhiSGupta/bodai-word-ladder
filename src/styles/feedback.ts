@@ -2,7 +2,8 @@
 
 export type Haptic = 'tap' | 'error' | 'win';
 export type Sound =
-  { tone: number[]; length: number; volume: number; wave?: OscillatorType } | { sample: string };
+  | { tone: number[]; length: number; volume: number; wave?: OscillatorType }
+  | { samples: string[]; volume?: number };
 export type Feedback = { sound: Sound | null; haptic: Haptic | null; note: string };
 
 /** What the player hears and feels for each moment in the game. */
@@ -32,13 +33,11 @@ export const FEEDBACK = {
   },
   'not-a-word': {
     sound: {
-      tone: [220],
-      length: 0.14,
-      volume: 0.05,
-      wave: 'triangle',
+      samples: ['frisky-bark'],
+      volume: 0.45,
     },
     haptic: 'error',
-    note: 'Rung shakes, one bone eaten. Low and short, never harsh.',
+    note: "Rung shakes, one bone eaten: a quiet bark as it drops into Frisky's mouth.",
   },
   'keep-it-friendly': {
     sound: null,
@@ -65,17 +64,17 @@ export const FEEDBACK = {
   },
   solved: {
     sound: {
-      sample: 'laugh',
+      samples: ['laugh'],
     },
     haptic: 'win',
-    note: "One family laugh, shuffled so the same one doesn't repeat soon, like Boduku.",
+    note: "One laugh, from the family's twelve and three recorded ones, shuffled so the same one doesn't repeat soon, like Boduku.",
   },
   'under-par': {
     sound: {
-      sample: 'frisky-bark',
+      samples: ['frisky-bark', 'laugh'],
     },
     haptic: 'win',
-    note: 'Frisky barks after the laugh.',
+    note: "Frisky barks, then a laugh, like Boduku's happiest moments.",
   },
   'sound-on': {
     sound: {

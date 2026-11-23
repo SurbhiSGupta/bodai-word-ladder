@@ -37,7 +37,7 @@ export function HelpScreen({ onBack, onTour }: { onBack: () => void; onTour: () 
       </Button>
 
       <Section title="The rules">
-        <p>Climb from the top word to the bottom word, changing one letter at a time.</p>
+        <p>Climb from the bottom word up to the top word, changing one letter at a time.</p>
         <p>Every step has to be a real word, and you can’t use a word twice.</p>
         <p>
           <strong>Par</strong> is the fewest steps it can be done in. Matching it is lovely; beating
@@ -72,8 +72,23 @@ export function HelpScreen({ onBack, onTour }: { onBack: () => void; onTour: () 
       <Section title="Today’s puzzle">
         <p>A new puzzle every day, the same one for everyone.</p>
         <p>
+          Fridays are <strong>Opposites day</strong>: the two words mean opposite things, like FIRE
+          and COLD.
+        </p>
+        <p>
           Solve it on the day to keep your streak going. Missed one? Play it from the calendar any
           time; it counts for your stats, just not your streak.
+        </p>
+      </Section>
+
+      <Section title="Challenge of the day">
+        <p>
+          A long one: six letters, and seven on Sundays. Long words hardly ever connect, so these
+          ladders are rare.
+        </p>
+        <p>
+          It asks once you’ve solved today’s puzzle, and waits on Home. It never touches your
+          streak.
         </p>
       </Section>
 
