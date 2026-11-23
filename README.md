@@ -17,7 +17,7 @@ npm run dev
 npm run storybook
 ```
 
-Every component, with a toolbar to switch Light/Dark and the five palettes. It's also published at [/storybook](https://wordladder.bodaijewels.com/storybook/).
+Every component, with a toolbar to switch Light/Dark and the eight palettes. It's also published at [/storybook](https://wordladder.bodaijewels.com/storybook/).
 
 **Colors have one master copy: `tokens/tokens.json`.**
 

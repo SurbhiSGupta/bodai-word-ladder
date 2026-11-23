@@ -4,7 +4,7 @@ export type PalettePickerProps = { value: Palette; onChange: (palette: Palette) 
 
 const title = (name: string) => name[0]!.toUpperCase() + name.slice(1);
 
-/** Boduku's five color families, as swatches. */
+/** The color families, as swatches: Boduku's five plus Coral, Sky and Sand. */
 export function PalettePicker({ value, onChange }: PalettePickerProps) {
   return (
     <div role="radiogroup" aria-label="Colors" className="flex flex-wrap gap-3">

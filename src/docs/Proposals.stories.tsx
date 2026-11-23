@@ -8,6 +8,8 @@ import { ClimbCompare } from './ClimbProposals.tsx';
 import { ChallengeCompare } from './ChallengeProposals.tsx';
 import { OppositesCompare } from './OppositesProposals.tsx';
 import { ShareCompare } from './ShareProposals.tsx';
+import { ThemeCompare } from './ThemeProposals.tsx';
+import { OutfitCompare } from './OutfitProposals.tsx';
 
 /**
  * Side-by-side color proposals, kept as a record of what was compared and chosen. Each column overrides a few light-mode tokens,
@@ -104,4 +106,24 @@ export const Opposites: StoryObj = {
 export const Share: StoryObj = {
   name: 'Share: little ladder or just the result (ladder chosen)',
   render: () => <ShareCompare />,
+};
+
+/** Phase 5: new color themes, light. Pick any, or none. */
+export const ThemesLight: StoryObj = {
+  name: 'New themes: light (all three chosen)',
+  render: () => <ThemeCompare mode="light" />,
+  globals: { theme: 'light' },
+};
+
+/** The same themes in dark mode. */
+export const ThemesDark: StoryObj = {
+  name: 'New themes: dark',
+  render: () => <ThemeCompare mode="dark" />,
+  globals: { theme: 'dark' },
+};
+
+/** Phase 5: outfits for her and Frisky. Pick the ones to keep. */
+export const Outfits: StoryObj = {
+  name: 'Outfits: which to keep (all kept)',
+  render: () => <OutfitCompare />,
 };

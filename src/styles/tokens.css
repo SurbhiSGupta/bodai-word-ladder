@@ -217,6 +217,90 @@
   --highlight-faint: #1d4a4f;
 }
 
+:root[data-palette='coral'] {
+  --accent: #ff8f70;
+  --highlight: #ffddd4;
+  --highlight-strong: #ffc7b8;
+  --highlight-ink: #10303b;
+  --highlight-faint: #fff0ec;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light'])[data-palette='coral'] {
+    color-scheme: dark;
+    --accent: #ff8f70;
+    --highlight: #4a2018;
+    --highlight-strong: #5c2a1f;
+    --highlight-ink: #ffd6ca;
+    --highlight-faint: #4f2a22;
+  }
+}
+
+:root[data-theme='dark'][data-palette='coral'] {
+  color-scheme: dark;
+  --accent: #ff8f70;
+  --highlight: #4a2018;
+  --highlight-strong: #5c2a1f;
+  --highlight-ink: #ffd6ca;
+  --highlight-faint: #4f2a22;
+}
+
+:root[data-palette='sky'] {
+  --accent: #8ec5ff;
+  --highlight: #ddeeff;
+  --highlight-strong: #c6e2ff;
+  --highlight-ink: #10303b;
+  --highlight-faint: #f0f7ff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light'])[data-palette='sky'] {
+    color-scheme: dark;
+    --accent: #8ec5ff;
+    --highlight: #16304d;
+    --highlight-strong: #1d3d61;
+    --highlight-ink: #d2e7ff;
+    --highlight-faint: #213a55;
+  }
+}
+
+:root[data-theme='dark'][data-palette='sky'] {
+  color-scheme: dark;
+  --accent: #8ec5ff;
+  --highlight: #16304d;
+  --highlight-strong: #1d3d61;
+  --highlight-ink: #d2e7ff;
+  --highlight-faint: #213a55;
+}
+
+:root[data-palette='sand'] {
+  --accent: #e9c98f;
+  --highlight: #f8efdd;
+  --highlight-strong: #f4e4c7;
+  --highlight-ink: #10303b;
+  --highlight-faint: #fcf8f0;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light'])[data-palette='sand'] {
+    color-scheme: dark;
+    --accent: #e9c98f;
+    --highlight: #42351a;
+    --highlight-strong: #534322;
+    --highlight-ink: #f5e4c2;
+    --highlight-faint: #483c25;
+  }
+}
+
+:root[data-theme='dark'][data-palette='sand'] {
+  color-scheme: dark;
+  --accent: #e9c98f;
+  --highlight: #42351a;
+  --highlight-strong: #534322;
+  --highlight-ink: #f5e4c2;
+  --highlight-faint: #483c25;
+}
+
 /* Expose every token to Tailwind, so `bg-surface`, `text-ink`, `rounded-md` work. */
 @theme inline {
   --color-bg: var(--bg);

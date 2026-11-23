@@ -3,6 +3,7 @@
  * non-React code, like the sound player, can read it too. Components use useSettings().
  */
 
+import type { FriskyOutfit, HerOutfit } from '../components/Buddies.tsx';
 import { useSyncExternalStore } from 'react';
 import { DEFAULT_PALETTE, PALETTES, type Palette } from '../styles/palettes.ts';
 
@@ -32,6 +33,9 @@ export type Settings = {
   autoEnter: boolean;
   /** Hints show which letter to change, or a crossword-style clue for the next word. */
   hintStyle: 'letter' | 'clue';
+  /** Outfits: free for everyone. */
+  herOutfit: HerOutfit;
+  friskyOutfit: FriskyOutfit;
 };
 
 export const DEFAULTS: Settings = {
@@ -51,6 +55,8 @@ export const DEFAULTS: Settings = {
   showBones: true,
   autoEnter: false,
   hintStyle: 'letter',
+  herOutfit: 'none',
+  friskyOutfit: 'none',
 };
 
 /** One tap to a whole feel. Only game rules change; look and sound stay as they are. */

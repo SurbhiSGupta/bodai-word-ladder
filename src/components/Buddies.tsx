@@ -1,4 +1,7 @@
-import type { ReactNode } from 'react';
+import { useContext, type ReactNode } from 'react';
+import { OutfitContext, type FriskyOutfit, type HerOutfit } from './outfits.ts';
+
+export type { FriskyOutfit, HerOutfit } from './outfits.ts';
 
 /**
  * Her and Frisky, drawn exactly as in Bodai Sudoku: one pen, round ends, no fills on her,
@@ -114,7 +117,64 @@ const FACES: Record<Face, ReactNode> = {
   ),
 };
 
-function Her({ face }: { face: Face }) {
+/**
+ * Outfits: small extras drawn in the same pen, free for everyone. Hers are lines only,
+ * like the rest of her; Frisky's are filled in his collar red.
+ */
+
+const HER_OUTFITS: Record<HerOutfit, ReactNode> = {
+  none: null,
+  beanie: (
+    <>
+      <path d="M38 24q22-26 44 0" />
+      <path d="M37 25.5q23-5 46 0" />
+      <path style={{ strokeWidth: 1.6 }} d="M50 16v6M60 13v8M70 16v6" />
+      <circle cx="60" cy="7" r="3.2" />
+    </>
+  ),
+  'sun-hat': (
+    <>
+      <path d="M26 23q34 9 68 0" />
+      <path d="M43 21q1-15 17-15t17 15" />
+      <path style={{ strokeWidth: 1.8 }} d="M43.5 17.5q16.5 4 33 0" />
+    </>
+  ),
+  scarf: (
+    <>
+      <path d="M49 58q11 7 22 0" />
+      <path d="M49.5 61.5q10.5 6 21 0" />
+      <path d="M65 63l3 13M69 62l5 12" />
+    </>
+  ),
+  bow: (
+    <>
+      <path d="M77 15l-7-5.5v11z" />
+      <path d="M77 15l7-5.5v11z" />
+      <circle style={{ fill: 'var(--ink)', stroke: 'none' }} cx="77" cy="15" r="1.8" />
+    </>
+  ),
+};
+
+const RED = { fill: 'var(--collar)', strokeWidth: 1.6 };
+
+const FRISKY_OUTFITS: Record<FriskyOutfit, ReactNode> = {
+  none: null,
+  bandana: <path style={RED} d="M36 112.5l10 3.5l-7.5 7z" />,
+  'bow-tie': (
+    <>
+      <path style={RED} d="M41 116l-5.5-3.5v7z" />
+      <path style={RED} d="M41 116l5.5-3.5v7z" />
+    </>
+  ),
+  'party-hat': (
+    <>
+      <path style={RED} d="M38.5 100.5l4.5-14l6 13z" />
+      <circle style={{ fill: 'var(--fur)', strokeWidth: 1.4 }} cx="43" cy="86" r="2.4" />
+    </>
+  ),
+};
+
+function Her({ face, outfit = 'none' }: { face: Face; outfit?: HerOutfit }) {
   return (
     <g style={PEN}>
       <path d="M60 14c13-1 23 9 22 22c0 13-10 22-23 21c-12 0-21-10-20-22c1-12 9-21 21-21" />
@@ -139,11 +199,12 @@ function Her({ face }: { face: Face }) {
       <path d="M60 74Q70 84 77 94" />
       <path d="M53 108Q51.5 125 50 142" />
       <path d="M67 108Q68.5 125 70 142" />
+      {HER_OUTFITS[outfit]}
     </g>
   );
 }
 
-function Frisky({ hop = 0 }: { hop?: number }) {
+function Frisky({ hop = 0, outfit = 'none' }: { hop?: number; outfit?: FriskyOutfit }) {
   return (
     <g
       key={hop}
@@ -163,6 +224,7 @@ function Frisky({ hop = 0 }: { hop?: number }) {
       <circle style={dot} cx="46" cy="106" r="1.4" />
       <path style={{ fill: 'var(--tongue)', strokeWidth: 1.4 }} d="M50.5 115.5q1.2 4.5 3.2 0" />
       <path style={{ stroke: 'var(--collar)', strokeWidth: 2.4 }} d="M37 113.5q3 2.5 7 1.5" />
+      {FRISKY_OUTFITS[outfit]}
     </g>
   );
 }
@@ -177,6 +239,9 @@ export type BuddiesProps = {
   label?: string;
   /** Change this number to make Frisky do a little hop. */
   hop?: number;
+  /** What she's wearing. Left out, it follows OutfitContext (the player's choice). */
+  outfit?: HerOutfit;
+  friskyOutfit?: FriskyOutfit;
 };
 
 const VIEW_BOXES = { both: '-6 4 100 142', her: '28 4 64 142', frisky: '-6 96 66 50' };
@@ -187,7 +252,10 @@ export function Buddies({
   height = 160,
   label,
   hop = 0,
+  outfit,
+  friskyOutfit,
 }: BuddiesProps) {
+  const worn = useContext(OutfitContext);
   const [, , w, h] = VIEW_BOXES[show].split(' ').map(Number);
   return (
     <svg
@@ -197,9 +265,11 @@ export function Buddies({
       role={label ? 'img' : undefined}
       aria-label={label}
       aria-hidden={label ? undefined : true}
+      // Hats can reach just past the frame; let them, rather than clipping a pom-pom.
+      overflow="visible"
     >
-      {show !== 'her' && <Frisky hop={hop} />}
-      {show !== 'frisky' && <Her face={face} />}
+      {show !== 'her' && <Frisky hop={hop} outfit={friskyOutfit ?? worn.frisky} />}
+      {show !== 'frisky' && <Her face={face} outfit={outfit ?? worn.her} />}
     </svg>
   );
 }

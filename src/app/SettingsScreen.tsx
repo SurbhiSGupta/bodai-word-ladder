@@ -4,6 +4,7 @@
  */
 
 import { useState, type ReactNode } from 'react';
+import { OutfitPicker } from '../components/OutfitPicker.tsx';
 import { PalettePicker } from '../components/PalettePicker.tsx';
 import { Segmented } from '../components/Segmented.tsx';
 import { ThemeSwitch } from '../components/ThemeSwitch.tsx';
@@ -240,6 +241,18 @@ export function SettingsScreen({ onBack }: { onBack: () => void }) {
         <div className="flex flex-col gap-2 py-3">
           <span className="text-body-strong">Colors</span>
           <PalettePicker value={settings.palette} onChange={(palette) => set({ palette })} />
+        </div>
+        <div className="flex flex-col gap-2 py-3">
+          <span className="text-body-strong">Outfits</span>
+          <OutfitPicker
+            her={settings.herOutfit}
+            frisky={settings.friskyOutfit}
+            onHer={(herOutfit) => set({ herOutfit })}
+            onFrisky={(friskyOutfit) => set({ friskyOutfit })}
+          />
+          <p className="rounded-md bg-highlight-faint px-3 py-2 text-small">
+            Outfits are free for everyone. If they made you smile, you can 💛 Support Bodai.
+          </p>
         </div>
       </Group>
 

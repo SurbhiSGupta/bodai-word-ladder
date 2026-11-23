@@ -5,6 +5,7 @@
 
 import { useEffect, useState } from 'react';
 import { Buddies } from '../components/Buddies.tsx';
+import { OutfitContext } from '../components/outfits.ts';
 import { dateKey } from '../game/daily.ts';
 import type { Puzzle } from '../game/ladder.ts';
 import { CalendarScreen } from './CalendarScreen.tsx';
@@ -59,7 +60,7 @@ function Loading() {
   );
 }
 
-export default function App() {
+function Screens() {
   const [screen, setScreen] = useState<Screen>({ name: 'home' });
   const [practiceLength, setPracticeLength] = useState<WordLength>(savedLength);
   const [words, setWords] = useState<Partial<Record<WordLength, WordData>>>({});
@@ -216,5 +217,15 @@ export default function App() {
       {screen.name === 'help' && <HelpScreen onBack={home} onTour={() => setTourOpen(true)} />}
       <Tour open={tourOpen} onClose={() => setTourOpen(false)} />
     </main>
+  );
+}
+
+/** Dresses her and Frisky everywhere, from the outfits picked in Settings. */
+export default function App() {
+  const { herOutfit, friskyOutfit } = useSettings();
+  return (
+    <OutfitContext.Provider value={{ her: herOutfit, frisky: friskyOutfit }}>
+      <Screens />
+    </OutfitContext.Provider>
   );
 }
